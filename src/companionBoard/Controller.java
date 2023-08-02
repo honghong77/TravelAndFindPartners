@@ -20,12 +20,16 @@ public class Controller extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String location = req.getParameter("radiobtn");
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
-		String date = req.getParameter("date.value");
+		String startDate = req.getParameter("startdate");
+		String endDate = req.getParameter("enddate");
+		System.out.println(location);
 		System.out.println(title);
 		System.out.println(content);
-		System.out.println(date);
+		System.out.println(startDate);
+		System.out.println(endDate);
 		
 		try {
 			dao.insertData(title, content);
