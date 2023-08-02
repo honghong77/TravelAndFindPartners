@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
+<style>
 header {
 	display: flex;
 	justify-content: space-between;
@@ -86,26 +87,27 @@ footer {
 	text-align: center;
 	background-color: #f2f2f2;
 }
+
 .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        display: none;  /* 초기에는 숨김 */
-    }
-    
-    .modal-content {
-        background: white;
-        padding: 20px;
-        border-radius: 20px;
-        width: 50%;  /* 적절한 크기로 조정해야 함 */
-    }
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+	display: none; /* 초기에는 숨김 */
+}
+
+.modal-content {
+	background: white;
+	padding: 20px;
+	border-radius: 20px;
+	width: 50%; /* 적절한 크기로 조정해야 함 */
+}
 </style>
 </head>
 
@@ -123,51 +125,49 @@ footer {
 
 
 <body>
-    <header>
-        <div class="left">
-            <img src="https://tripsoda.com/images/common/logo.svg" alt="A description of the image">
-            <button id="home">홈</button>
-            <button id="companion">동행</button>
-            <a href="schedule.jsp"><button id="schedule">일정</button></a>
-        </div>
-        <div class="right" id="right-side">
-        <button id="write">작성하기</button>
-        <button id="login">로그인</button>
-        <button id="signup">회원가입</button>
-    </div>
-    </header>
-    <!-- HTML 수정: 모달 div 추가 -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-          
-        </div>
-    </div>
-    <div id="search-area">
-        <input type="text" id="search-input" placeholder="여행 계획 검색...">
-        <button id="search-button">검색</button>
-    </div>
-    <main id="main-content">
- 
-    </main>
-    <div class="pagination">
-        <!-- Pagination은 JavaScript에 의해 채워질 것입니다 -->
-    </div>
-    <footer>
-        This is a company description. We plan great travels!
-    </footer>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-   <script>
+	<header>
+		<div class="left">
+			<img src="https://tripsoda.com/images/common/logo.svg"
+				alt="A description of the image">
+			<button id="home">홈</button>
+			<button id="companion">동행</button>
+			<a href="schedule.jsp"><button id="schedule">일정</button></a>
+		</div>
+		<div class="right" id="right-side">
+			<button id="write">작성하기</button>
+			<button id="login">로그인</button>
+			<button id="signup">회원가입</button>
+		</div>
+	</header>
+	<!-- HTML 수정: 모달 div 추가 -->
+	<div id="modal" class="modal">
+		<div class="modal-content">
+		
+		</div>
+	</div>
+	<div id="search-area">
+		<input type="text" id="search-input" placeholder="여행 계획 검색...">
+		<button id="search-button">검색</button>
+	</div>
+	<main id="main-content"></main>
+	<div class="pagination">
+		<!-- Pagination은 JavaScript에 의해 채워질 것입니다 -->
+	</div>
+	<footer> This is a company description. We plan great travels!
+	</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
 const travelPlans = [
     "Travel Plan 1", "Travel Plan 2", "Travel Plan 3", "Travel Plan 4",
     "Travel Plan 5", "Travel Plan 6", "Travel Plan 7", "Travel Plan 8",
@@ -260,7 +260,7 @@ document.getElementById('write').addEventListener('click', function() {
         button2.addEventListener('click', function() {
             document.getElementById('modal').style.display = 'flex';
         });
-    }ㄷㄹ
+    }
 
     window.onclick = function(event) {
         const modal = document.getElementById('modal');
@@ -280,7 +280,7 @@ document.getElementById('write').addEventListener('click', function() {
         div1.style.display = 'flex';
         div1.style.fontSize = '14px';
         div1.
-        div2.style.lineHeight = '16.1px';
+        div1.style.lineHeight = '16.1px';
         modalContent.appendChild(div2);
 style.justifyContent = 'center';
         div1.style.lineHeight = '16.1px';
