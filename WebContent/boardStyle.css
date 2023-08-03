@@ -1,16 +1,52 @@
 @charset "UTF-8";
-.btn{
-	opacity:0;}
+	.location{
+		padding-top: 20px;
+    	padding-bottom: 20px;
+    	font-size: 20px;
+    	justify-content: center;
+  		align-items: center;
+	}
 	
-.btn>label{
-	padding: 5px 10px; border:1px solid #ccc; border-radius:3px
-}
+	.btn{
+		opacity:0;
+	}
+		
+	.btn>label{
+		padding: 5px 10px; border:1px solid #ccc; border-radius:3px
+	}
+	
+	input[type=radio]:checked + label 
+	{
+		background: #ccc;
+		color: white;
+	}
 
-input[type=radio]:checked + label 
-{
-	background: #ccc;
-	color: white;
-}
+ 	img {
+      width: 200px;
+      height: 200px;
+    }
+    
+    .back{
+    	display: flex;
+  		justify-content: center;
+  		align-items: center;
+    	background-image: url('trip.jpg');
+		background-position:50% 50%;
+		background-size: cover;
+		font-size: 14px;
+		line-height: 16.1px;
+		margin: 142.39px 0px 0px;
+		width: 1000px;
+    	height: 300px;
+    }
+    
+    .title {
+    	text-align: center;
+		padding : 150px 0;
+		font-size: 2.0em;
+    }
+    
+    
 
 
 

@@ -19,15 +19,21 @@
 내용
 취소 / 작성완료 --%>
 
-<% LocalDate today = LocalDate.now();
+<% LocalDate today = LocalDate.now();%>
 
-	LocalDate thisDay = today.plusDays(13);%>
+
+
+
+<section class="back">
+	<div class="title" id="title">
+	동행 찾기
+	</div>
+</section>
 
 <div id="main">
-	<form action="" method="post" name="myForm">
+	<form action="" method="post" name="form" enctype="multipart/form-data" onSubmit="return checkform();">
 	
-	<div id="location">
-		<div>
+	<div class="location" id="location">
 			<input type="radio" class="btn" name="radiobtn" id="radiobtn1" value="서울"><label for="radiobtn1">서울</label>
 			<input type="radio" class="btn" name="radiobtn" id="radiobtn2" value="부산"><label for="radiobtn2">부산</label>
 			<input type="radio" class="btn" name="radiobtn" id="radiobtn3" value="대구"><label for="radiobtn3">대구</label>
@@ -45,8 +51,9 @@
 			<input type="radio" class="btn" name="radiobtn" id="radiobtn15" value="경북"><label for="radiobtn15">경북</label>
 			<input type="radio" class="btn" name="radiobtn" id="radiobtn16" value="경남"><label for="radiobtn16">경남</label>
 			<input type="radio" class="btn" name="radiobtn" id="radiobtn17" value="제주"><label for="radiobtn17">제주</label>
-		</div>
+	</div>
 		
+	
 		<div id="모집인원">
 			<label>인원</label>
 		  <input type="range" name="number" min="1" max="10" step="1" value="1" oninput="document.getElementById('value1').innerHTML=this.value;">
@@ -56,28 +63,51 @@
 		<div id="날짜선택">
 		<label for="date">출발 날짜를 선택하세요:
 		  <input type="date"
+		  		 id="startdate"
 		         name="startdate"
-		         max="2023-12-31"
+		         max="2024-12-31"
 		         min=<%= today %>
 		         value=<%= today %>></label>
-		         
-		  <script>
-		  	let thisDate = document.getElementId("startdate");
-		  </script>
-		
+		        
 		  <label for="date">도착 날짜를 선택하세요:
 		  <input type="date"
+		  		 id="enddate"
 		         name="enddate"
-		         max="2023-12-31"
+		         max="2024-12-31"
 		         min=<%= today %>
 		         value=<%= today %>></label>
 		</div>
 		
-		<div id="board_point">
+		<div>
+			<input type="file" id="image" name="image" accept="image/*" onchange="setThumbnail(event);"/>
+    		<div id="image_container"></div>
+
+		</div>
+		
+		<div id="concept">
+			<script>
+				const checkboxes = document.getElmentsByName("check");
+			</script>
+		
+			<input type="checkbox" class="check" name="check" id="checkBox1" value="무계획" onclick="checkThree(this)"><label for="checkBox1">무계획</label>
+			<input type="checkbox" class="check" name="check" id="checkBox2" value="바다"><label for="checkBox2">바다</label>
+			<input type="checkbox" class="check" name="check" id="checkBox3" value="등산"><label for="checkBox3">등산</label>
+			<input type="checkbox" class="check" name="check" id="checkBox4" value="맛집/카페 탐방"><label for="checkBox4">맛집/카페 탐방</label>
+			<input type="checkbox" class="check" name="check" id="checkBox5" value="핫플레이스 탐방"><label for="checkBox5">핫플레이스 탐방</label>
+			<input type="checkbox" class="check" name="check" id="checkBox6" value="쇼핑"><label for="checkBox6">쇼핑</label>
+			<input type="checkbox" class="check" name="check" id="checkBox7" value="드라이브"><label for="checkBox7">드라이브</label>
+			<input type="checkbox" class="check" name="check" id="checkBox8" value="전시회/공연 관람"><label for="checkBox8">전시회/공연 관람</label>
+			<input type="checkbox" class="check" name="check" id="checkBox9" value="스포츠 경기 직관"><label for="checkBox9">스포츠 경기 직관</label>
+			<input type="checkbox" class="check" name="check" id="checkBox10" value="글램핑"><label for="checkBox10">글램핑</label>
+			<input type="checkbox" class="check" name="check" id="checkBox11" value="서핑"><label for="checkBox11">서핑</label>
+		</div>
+		
+		
+		
 			<dl>
 				<dt>제목</dt>
 				<dd>
-				<textarea rows="12" cols="63" name="title" class="boxTA"></textarea>
+				<textarea rows="12" cols="63" id="title" name="title" class="boxTA" placeholder="ex) 12월 3박4일 제주 바다 보러갈 동행 3명 구해요" maxlength="100"></textarea>
 				</dd>
 			</dl>
 		</div>
@@ -86,7 +116,7 @@
 			<dl>
 				<dt>내용</dt>
 				<dd>
-				<textarea rows="12" cols="63" name="content" class="boxTA"></textarea>
+				<textarea rows="12" cols="63" id="content" name="content" class="boxTA"></textarea>
 				</dd>
 			</dl>
 		</div>
@@ -102,34 +132,41 @@
  </body>
  
  <script>
- 	const dateControl = document.querySelector('input[type="date"]')
- 	dateControl.value = '2017-06-01'
- 	
-	function sendIt(){
+	function setThumbnail(event) {
+		var reader = new FileReader();
+	
+	    reader.onload = function(event) {
+	    var img = document.createElement("img");
+	    img.setAttribute("src", event.target.result);
+	       
+	    var imageContainer = document.querySelector("div#image_container");
+	     
+	    while (imageContainer.firstChild) {
+	    	imageContainer.removeChild(imageContainer.firstChild);
+	    }
+	
+	    imageContainer.appendChild(img);
+	    };
+	
+	    reader.readAsDataURL(event.target.files[0]);
+	}
+	
+	function checkform() {
 		
-		var f = document.main;
 		
-		str = f.subject.value;
-		str = str.trim();
-		if(!str){
-			alert("\n제목을 입력하세요.");
-			f.subject.focus();
-			return;
+		if(form.title.value.length == 0){ 
+			alert("제목을 입력해주세요");
+			return false;
 		}
 		
-		f.subject.value = str;
-		
-		
-		str = f.content.value;
-		str = str.trim();
-		if(!str){
-			alert("\n내용을 입력하세요.");
-			f.content.focus();
-			return;
+		if(form.content.value.length == 0){ 
+			alert("제목을 입력해주세요");
+			return false;
 		}
-		f.content.value = str;	
 		
 	}
-</script>
-  
+	
+	
+</script> 
+
 </html>
