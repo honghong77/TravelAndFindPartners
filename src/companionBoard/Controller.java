@@ -26,14 +26,33 @@ public class Controller extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String location = req.getParameter("radiobtn");
+		String location = req.getParameter("radiobtn"); // null
 		Integer personnel = Integer.valueOf(req.getParameter("number"));
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
 		String startDate = req.getParameter("startdate");
 		String endDate = req.getParameter("enddate");
-		Part part = req.getPart("image");
-		InputStream image = part.getInputStream();
+		Part part = req.getPart("image"); 
+		InputStream image = part.getInputStream(); // 빈칸
+		
+		String[] concepts = req.getParameterValues("check");
+		String concept1 = "";
+		String concept2 = "";
+		String concept3 = "";
+		
+		switch (concepts.length) {
+		case 3: concept3 = concepts[2];
+		case 2: concept2 = concepts[1];
+		case 1: concept1 = concepts[0];
+		
+		}
+		
+		
+//		if (concepts.length == 1) {
+//			concept1 = concepts[0];
+//		} else if (concepts.length == 2) {
+//			concept2 = concepts[]
+//		}
 		
 
 		System.out.println(location);
@@ -43,9 +62,15 @@ public class Controller extends HttpServlet {
 		System.out.println(startDate);
 		System.out.println(endDate);
 		System.out.println(part.getSubmittedFileName());
+		System.out.println(concept1);
+		System.out.println(concept2);
+		System.out.println(concept3);
 		
 		try {
-			dao.insertData(startDate, endDate, location, image, title, content, personnel);
+			
+				dao.insertData(startDate, endDate, location, image, title, content, personnel);
+			
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

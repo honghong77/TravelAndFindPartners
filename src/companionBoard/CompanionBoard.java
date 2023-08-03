@@ -1,6 +1,7 @@
 package companionBoard;
 
 import java.awt.Image;
+import java.io.InputStream;
 
 public class CompanionBoard {
 	private int no;
@@ -8,7 +9,7 @@ public class CompanionBoard {
 	private String start;
 	private String end;
 	private String location;
-	private Image image;
+	private InputStream image;
 	private String title;
 	private String content;
 	private int personnel;
@@ -16,10 +17,8 @@ public class CompanionBoard {
 	private String concept2;
 	private String concept3;
 	
-	public CompanionBoard(int no, String id, String start, String end, String location, Image image, String title,
+	public CompanionBoard(String id, String start, String end, String location, InputStream image, String title,
 			String detail, int personnel, String concept1, String concept2, String concept3) {
-		super();
-		this.no = no;
 		this.id = id;
 		this.start = start;
 		this.end = end;
@@ -73,11 +72,11 @@ public class CompanionBoard {
 		this.location = location;
 	}
 
-	public Image getImage() {
+	public InputStream getImage() {
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public void setImage(InputStream image) {
 		this.image = image;
 	}
 

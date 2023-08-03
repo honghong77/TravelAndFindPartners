@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="boardStyle.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
 <%-- 여행지 선택
 모집인원
@@ -19,7 +20,7 @@
 내용
 취소 / 작성완료 --%>
 
-<% LocalDate today = LocalDate.now();%>
+<%-- LocalDate today = LocalDate.now();--%>
 
 
 
@@ -33,7 +34,7 @@
 <div id="main">
 	<form action="" method="post" name="form" enctype="multipart/form-data" onSubmit="return checkform();">
 	
-	<div class="location" id="location">
+	<div class="location" id="locations">
 			<input type="radio" class="btn" name="radiobtn" id="radiobtn1" value="서울"><label for="radiobtn1">서울</label>
 			<input type="radio" class="btn" name="radiobtn" id="radiobtn2" value="부산"><label for="radiobtn2">부산</label>
 			<input type="radio" class="btn" name="radiobtn" id="radiobtn3" value="대구"><label for="radiobtn3">대구</label>
@@ -57,7 +58,7 @@
 		<div id="모집인원">
 			<label>인원</label>
 		  <input type="range" name="number" min="1" max="10" step="1" value="1" oninput="document.getElementById('value1').innerHTML=this.value;">
-        	<span id="value1"></span>
+        	<span id="value1">1</span>
 		</div>
 		
 		<div id="날짜선택">
@@ -66,17 +67,46 @@
 		  		 id="startdate"
 		         name="startdate"
 		         max="2024-12-31"
-		         min=<%= today %>
-		         value=<%= today %>></label>
+		         min=""
+		         value=""></label>
 		        
 		  <label for="date">도착 날짜를 선택하세요:
 		  <input type="date"
 		  		 id="enddate"
 		         name="enddate"
 		         max="2024-12-31"
-		         min=<%= today %>
-		         value=<%= today %>></label>
+		         min=""
+		         value=""></label>
 		</div>
+		
+		<script>
+		// 시작 날짜 변경
+		let today = new Date();
+		let day = today.getDate();
+	    let month = today.getMonth() + 1; // 1월이 0부터 시작하여 1을 더해준다.
+	    let year = today.getFullYear();
+	    if (day < 10) day = '0' + day;
+	    if (month < 10) month = '0' + month;
+	    today = year + '-' + month + '-' + day;
+
+		document.getElementById("startdate").setAttribute("value", today);
+		document.getElementById("startdate").setAttribute("min", today);
+		document.getElementById("enddate").setAttribute("value", today);
+		document.getElementById("enddate").setAttribute("min", today);
+		
+		
+		function changeReturn() {
+			  // 가는 날 선택에 따라 오는 날 초기 날짜 변경
+			let start = document.getElementById("startdate").value;
+			document.getElementById("enddate").setAttribute("value", start);
+			document.getElementById("enddate").setAttribute("min", start);
+			}
+		
+			document.getElementById("startdate").onchange = () => {
+			  changeReturn();
+			}
+			
+		</script>
 		
 		<div>
 			<input type="file" id="image" name="image" accept="image/*" onchange="setThumbnail(event);"/>
@@ -85,25 +115,21 @@
 		</div>
 		
 		<div id="concept">
-			<script>
-				const checkboxes = document.getElmentsByName("check");
-			</script>
-		
-			<input type="checkbox" class="check" name="check" id="checkBox1" value="무계획" onclick="checkThree(this)"><label for="checkBox1">무계획</label>
-			<input type="checkbox" class="check" name="check" id="checkBox2" value="바다"><label for="checkBox2">바다</label>
-			<input type="checkbox" class="check" name="check" id="checkBox3" value="등산"><label for="checkBox3">등산</label>
-			<input type="checkbox" class="check" name="check" id="checkBox4" value="맛집/카페 탐방"><label for="checkBox4">맛집/카페 탐방</label>
-			<input type="checkbox" class="check" name="check" id="checkBox5" value="핫플레이스 탐방"><label for="checkBox5">핫플레이스 탐방</label>
-			<input type="checkbox" class="check" name="check" id="checkBox6" value="쇼핑"><label for="checkBox6">쇼핑</label>
-			<input type="checkbox" class="check" name="check" id="checkBox7" value="드라이브"><label for="checkBox7">드라이브</label>
-			<input type="checkbox" class="check" name="check" id="checkBox8" value="전시회/공연 관람"><label for="checkBox8">전시회/공연 관람</label>
-			<input type="checkbox" class="check" name="check" id="checkBox9" value="스포츠 경기 직관"><label for="checkBox9">스포츠 경기 직관</label>
-			<input type="checkbox" class="check" name="check" id="checkBox10" value="글램핑"><label for="checkBox10">글램핑</label>
-			<input type="checkbox" class="check" name="check" id="checkBox11" value="서핑"><label for="checkBox11">서핑</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox1" value="무계획" onClick="getCheckedCount(this)"><label for="checkBox1">무계획</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox2" value="바다" onClick="getCheckedCount(this)"><label for="checkBox2">바다</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox3" value="등산" onClick="getCheckedCount(this)"><label for="checkBox3">등산</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox4" value="맛집/카페 탐방" onClick="getCheckedCount(this)"><label for="checkBox4">맛집/카페 탐방</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox5" value="핫플레이스 탐방" onClick="getCheckedCount(this)"><label for="checkBox5">핫플레이스 탐방</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox6" value="쇼핑" onclick="getCheckedCount(this)"><label for="checkBox6">쇼핑</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox7" value="드라이브" onClick="getCheckedCount(this)"><label for="checkBox7">드라이브</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox8" value="전시회/공연 관람" onClick="getCheckedCount(this)"><label for="checkBox8">전시회/공연 관람</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox9" value="스포츠 경기 직관" onClick="getCheckedCount(this)"><label for="checkBox9">스포츠 경기 직관</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox10" value="글램핑" onClick="getCheckedCount(this)"><label for="checkBox10">글램핑</label>
+			<input type="checkbox" class="checkboxes" name="check" id="checkBox11" value="서핑" onClick="getCheckedCount(this)"><label for="checkBox11">서핑</label>
 		</div>
 		
 		
-		
+		<div>
 			<dl>
 				<dt>제목</dt>
 				<dd>
@@ -112,7 +138,7 @@
 			</dl>
 		</div>
 		
-		<div id="board_point">
+		<div>
 			<dl>
 				<dt>내용</dt>
 				<dd>
@@ -131,7 +157,49 @@
 	</div>
  </body>
  
- <script>
+ <script>	
+ 	// 유효성 검사
+ 	function checkform() {
+ 		// 날짜 비교
+ 		let startdate = new Date(document.getElementById("startdate").value);
+ 		let enddate = new Date(document.getElementById("enddate").value);
+        if (startdate > enddate) {
+            alert("날짜를 확인해주세요");
+            return false;
+        }
+ 		
+ 		
+		if( !form.radiobtn.value ) {
+			alert("지역을 선택해주세요");
+			return false;
+		}
+		
+	 	let checkboxes = document.getElementsByName("check");
+     	let checkCount = 0;
+
+     	checkboxes.forEach((checkbox) => {
+        	 if (checkbox.checked) {
+            	 checkCount++;
+        	 }
+     	});
+     
+     if (checkCount == 0) {
+     	alert("여행 테마를 1개 이상 선택해주세요");
+         return false;
+     }
+		
+		if(form.title.value.length == 0){ 
+			alert("제목을 입력해주세요");
+			return false;
+		}
+		
+		if(form.content.value.length == 0){ 
+			alert("내용을 입력해주세요");
+			return false;
+		}
+	}
+ 	
+ 	// 사진
 	function setThumbnail(event) {
 		var reader = new FileReader();
 	
@@ -151,22 +219,23 @@
 	    reader.readAsDataURL(event.target.files[0]);
 	}
 	
-	function checkform() {
-		
-		
-		if(form.title.value.length == 0){ 
-			alert("제목을 입력해주세요");
-			return false;
-		}
-		
-		if(form.content.value.length == 0){ 
-			alert("제목을 입력해주세요");
-			return false;
-		}
-		
-	}
-	
-	
+ 	// 체크박스 3개까지
+	function getCheckedCount(obj) {
+        let checkboxes = document.getElementsByName("check");
+        let checkCount = 0;
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                checkCount++;
+            }
+        });
+        
+        if (checkCount > 3) {
+        	alert("3개까지 선택할 수 있습니다")
+            obj.checked = false;
+            return false;
+        }
+    }
 </script> 
 
 </html>
