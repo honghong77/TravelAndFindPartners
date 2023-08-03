@@ -17,7 +17,7 @@ public class ScheduleServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
-        req.getRequestDispatcher("/WEB-INF/view/schedule/schedule2.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/view/schedule/schedule.jsp").forward(req, resp);
     }
 
     @Override
