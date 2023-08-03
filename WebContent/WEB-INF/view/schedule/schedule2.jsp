@@ -66,53 +66,39 @@
 
       map.setCenter(location);
       marker.setPosition(location);
-
-      updateData(location);
+	
+      fetchData();
     }
   }
 
-  async function updateData(location) {
-	    const response = await fetch(`http://apis.data.go.kr/B551011/KorService/locationBasedList?serviceKey=${OPEN_KEY}&_type=json&MobileOS=WIN&numOfRows=100&MobileApp=test&mapX=${location.lng}&mapY=${location.lat}&radius=10000`);
 
-	    const text = await response.text();
-
-	    console.log(text); 
-	    const json = await response.json();
-
-	    // 수정된 부분
-	    // json 객체의 실제 구조에 따라 item 변수를 정의합니다.
-	    const items = json.response?.body?.items?.item; 
-
-	    if (items) {
-	        // 수정된 부분
-	        // 여러개의 item들을 순회하며 각각의 정보를 화면에 출력합니다.
-	        for (let item of items) {
-	            const title = document.createElement('h2');
-	            title.textContent = item.title;
-
-	            const addr1 = document.createElement('p');
-	            addr1.textContent = item.addr1;
-
-	            const resultSection = document.getElementById('result-section');
-	            resultSection.appendChild(title);
-	            resultSection.appendChild(addr1);
-	        }
-	    } else {
-	        console.log("Items does not exist");
-	    }
-	}
   
   async function fetchData() {
 	    try {
+	    	
+	    	let places = document.getElementById("places");
+	    	places = places.value.split(",");
+	    	
 	        const SERVICE_KEY = "ppXvYpsy1tlJDUysjG0%2FrhjFKnX7MRe2efWvkt5rP1Tmmpv4Tbn6UFpPp8SNviAcrWYhkI%2B%2BKtLhGDOW5cmh4Q%3D%3D";
-	        const URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=${SERVICE_KEY}&contentTypeId=12&mapX=126.981611&mapY=37.568477&radius=1000&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTest&_type=json`;
+	        const URL = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=" + SERVICE_KEY + "&contentTypeId=12&mapX="+places[1]+"&mapY="+places[0]+"&radius=10000&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTest&_type=json";
 
 	        let response = await fetch(URL);
+	        console.log(response);
 	        let data = await response.json();
 
+	        
 	        if (response.ok) {
 	            console.log(data);
 	            // 추후 데이터 처리 로직을 이 위치에 추가합니다.
+	            
+	            
+	            const item = data.response.body.items.item;
+	            console.log(item);
+	            for (var i = 0; i < item.length; i++) {
+	            	let div = document.createElement("div");
+	            	div.textContent = item[i].addr1;
+	            	document.getElementById("result-section").append(div);
+				}
 	        } else {
 	            throw new Error("API request error");
 	        }
