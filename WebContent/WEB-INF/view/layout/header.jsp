@@ -35,6 +35,12 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbBV-mR71MB1Oc8kwqjn0bcIG7BEFDGuE&callback=initMap&v=weekly"
+	defer></script>
 
 </head>
 <body>
@@ -145,30 +151,41 @@
 </body>
 
 <script>
-	document
-			.querySelector(".btn.btn-primary")
-			.addEventListener(
-					"click",
-					function(event) {
-						const destination = document
-								.getElementById("destination").value;
-						const startDate = document.getElementById("startDate").value;
-						const endDate = document.getElementById("endDate").value;
+document.querySelector(".btn.btn-primary").addEventListener("click", function(event) {
+    const destination = document.getElementById("destination").value;
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
 
-						// Check if destination, startDate or endDate is empty
-						if (destination === "여행지를 선택해주세요" || startDate === ""
-								|| endDate === "") {
-							alert("모든 필드를 입력해주세요.");
-							event.preventDefault();
-							return;
-						}
+    // Check if destination, startDate or endDate is empty
+    if (destination === "여행지를 선택해주세요" || startDate === "" || endDate === "") {
+        alert("모든 필드를 입력해주세요.");
+        event.preventDefault();
+        return;
+    }
 
-						if (startDate > endDate) {
-							alert("여행 시작 날짜는 종료 날짜보다 빠를 수 없습니다.");
-							event.preventDefault();
-							return;
-						}
-					});
+    if (startDate > endDate) {
+        alert("여행 시작 날짜는 종료 날짜보다 빠를 수 없습니다.");
+        event.preventDefault();
+        return;
+    }
+
+    // Send the dates to the server
+    fetch('/your-server-endpoint', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ destination, startDate, endDate }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+});
+
 </script>
 
 

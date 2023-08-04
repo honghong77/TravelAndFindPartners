@@ -141,9 +141,7 @@ footer {
 	</header>
 	<!-- HTML 수정: 모달 div 추가 -->
 	<div id="modal" class="modal">
-		<div class="modal-content">
-		
-		</div>
+		<div class="modal-content"></div>
 	</div>
 	<div id="search-area">
 		<input type="text" id="search-input" placeholder="여행 계획 검색...">
