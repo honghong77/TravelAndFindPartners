@@ -18,14 +18,14 @@ public class CompanionBoard {
 	private String concept3;
 	
 	public CompanionBoard(String id, String start, String end, String location, InputStream image, String title,
-			String detail, int personnel, String concept1, String concept2, String concept3) {
+			String content, int personnel, String concept1, String concept2, String concept3) {
 		this.id = id;
 		this.start = start;
 		this.end = end;
 		this.location = location;
 		this.image = image;
 		this.title = title;
-		this.content = detail;
+		this.content = content;
 		this.personnel = personnel;
 		this.concept1 = concept1;
 		this.concept2 = concept2;
@@ -88,12 +88,12 @@ public class CompanionBoard {
 		this.title = title;
 	}
 
-	public String getDetail() {
+	public String getContent() {
 		return content;
 	}
 
-	public void setDetail(String detail) {
-		this.content = detail;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public int getPersonnel() {

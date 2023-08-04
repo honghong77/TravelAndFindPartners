@@ -12,8 +12,9 @@ import dbutil.DBUtil;
 
 public class CompanionBoardDAO {
 	
-	public int insertData(String start, String end, String location, InputStream image, String title, String content, int personnel) throws SQLException {
-		String sql = "INSERT INTO companionboard(start, end, location, image, title, content, personnel) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	public int insertData(CompanionBoard companionBoard) throws SQLException {
+		String sql = "INSERT INTO companionboard(id, start, end, location, image, title, content, personnel, concept1, concept2, concept3) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
@@ -21,13 +22,17 @@ public class CompanionBoardDAO {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			
-			stmt.setString(1, start);
-			stmt.setString(2, end);
-			stmt.setString(3, location);
-			stmt.setBinaryStream(4, image);
-			stmt.setString(5, title);
-			stmt.setString(6, content);
-			stmt.setInt(7, personnel);
+			stmt.setString(1, companionBoard.getId());
+			stmt.setString(2, companionBoard.getStart());
+			stmt.setString(3, companionBoard.getEnd());
+			stmt.setString(4, companionBoard.getLocation());
+			stmt.setBinaryStream(5, companionBoard.getImage());
+			stmt.setString(6, companionBoard.getTitle());
+			stmt.setString(7, companionBoard.getContent());
+			stmt.setInt(8, companionBoard.getPersonnel());
+			stmt.setString(9, companionBoard.getConcept1());
+			stmt.setString(10, companionBoard.getConcept2());
+			stmt.setString(11, companionBoard.getConcept3());
 			
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
