@@ -18,7 +18,7 @@ public class DBUtil {
 		try {
 			Properties prop = new Properties();
 			ClassLoader classLoader = DBUtil.class.getClassLoader();
-			prop.load(classLoader.getResourceAsStream("/dbutil/world.properties"));
+			prop.load(classLoader.getResourceAsStream("/dbutil/trip.properties"));
 
 			BasicDataSource basic = new BasicDataSource();
 			basic.setUrl(prop.getProperty("jdbcURL"));

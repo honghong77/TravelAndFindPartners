@@ -153,15 +153,15 @@ window.onload = initMap;
 
   
 	async function fetchData(lat, lng) {
-	    try {
-	        const SERVICE_KEY = "ppXvYpsy1tlJDUysjG0%2FrhjFKnX7MRe2efWvkt5rP1Tmmpv4Tbn6UFpPp8SNviAcrWYhkI%2B%2BKtLhGDOW5cmh4Q%3D%3D";
-	        const URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=${SERVICE_KEY}&contentTypeId=12&mapX=${lng}&mapY=${lat}&radius=5000&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTest&_type=json`;
+    try {
+        const SERVICE_KEY = "ppXvYpsy1tlJDUysjG0%2FrhjFKnX7MRe2efWvkt5rP1Tmmpv4Tbn6UFpPp8SNviAcrWYhkI%2B%2BKtLhGDOW5cmh4Q%3D%3D";
+        const URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=${SERVICE_KEY}&contentTypeId=12&mapX=${lng}&mapY=${lat}&radius=5000&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTest&_type=json`;
 
-	        let response = await fetch(URL);
-	        console.log(response);
-	        let data = await response.json();
+        let response = await fetch(URL);
+        console.log(response);
+        let data = await response.json();
 
-	        if (response.ok) {
+        if (response.ok) {
 	            console.log(data);
 
 	            const item = data.response.body.items.item;
@@ -227,13 +227,13 @@ window.onload = initMap;
 
 	                resultSection.append(parentDiv);
 	            }
-	        } else {
-	            throw new Error("API request error");
-	        }
-	    } catch (error) {
-	        console.error("Failed to fetch data: ", error);
-	    }
-	}
+	       } else {
+            throw new Error("API request error");
+        }
+    } catch (error) {
+        console.error("Failed to fetch data: ", error);
+    }
+}
 
 
 
