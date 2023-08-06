@@ -1,6 +1,5 @@
 package companionBoard;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import dbutil.DBUtil;
 
 public class CompanionBoardDAO {
 	
-	public int insertData(CompanionBoard companionBoard) throws SQLException {
+	public int insertData(Companion companionBoard) throws SQLException {
 		String sql = "INSERT INTO companionboard(id, start, end, location, image, title, content, personnel, concept1, concept2, concept3) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
@@ -26,7 +25,7 @@ public class CompanionBoardDAO {
 			stmt.setString(2, companionBoard.getStart());
 			stmt.setString(3, companionBoard.getEnd());
 			stmt.setString(4, companionBoard.getLocation());
-			stmt.setBinaryStream(5, companionBoard.getImage());
+			stmt.setBytes(5, companionBoard.getImage());
 			stmt.setString(6, companionBoard.getTitle());
 			stmt.setString(7, companionBoard.getContent());
 			stmt.setInt(8, companionBoard.getPersonnel());

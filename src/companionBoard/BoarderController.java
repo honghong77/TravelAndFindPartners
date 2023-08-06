@@ -1,5 +1,6 @@
 package companionBoard;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, location = "d:\\logs")
 @WebServlet("/write")
-public class Controller extends HttpServlet {
+public class BoarderController extends HttpServlet {
 	private final static CompanionBoardDAO dao = new CompanionBoardDAO();
 
 	@Override
@@ -38,8 +39,22 @@ public class Controller extends HttpServlet {
 		String location = req.getParameter("radiobtn"); // null
 
 		Part part = req.getPart("image");
-		InputStream image = part.getInputStream(); // 빈칸
-
+		InputStream input = part.getInputStream(); // 빈칸
+		
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        
+        byte[] buffer = new byte[1024];
+        int len;
+ 
+        // 입력 스트림에서 바이트를 읽고 버퍼에 저장
+        while ((len = input.read(buffer)) != -1)
+        {
+            // 버퍼에서 출력 스트림으로 바이트 쓰기
+            os.write(buffer, 0, len);
+        }
+ 
+        byte[] image = os.toByteArray();
+		
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
 		Integer personnel = Integer.valueOf(req.getParameter("number"));
@@ -65,7 +80,7 @@ public class Controller extends HttpServlet {
 		System.out.println(content);
 		System.out.println(start);
 		System.out.println(end);
-		System.out.println(image.read());
+		System.out.println(image);
 		System.out.println(concept1);
 		System.out.println(concept2);
 		System.out.println(concept3);
@@ -73,10 +88,10 @@ public class Controller extends HttpServlet {
 		try {
 			if ((id != null && !id.trim().isEmpty()) && (start != null && !start.trim().isEmpty())
 					&& (end != null && !end.trim().isEmpty()) && (location != null && !location.trim().isEmpty())
-					&& (title != null && !title.trim().isEmpty()) && (content != null && !content.trim().isEmpty()) && (image.read() != -1)
+					&& (title != null && !title.trim().isEmpty()) && (content != null && !content.trim().isEmpty()) && (image != null && image.length != 0)
 					&& (concept1 != null || !concept1.trim().isEmpty() || concept2 != null || !concept2.trim().isEmpty()
 							|| concept3 != null || !concept3.trim().isEmpty())) {
-				CompanionBoard cb = new CompanionBoard(id, start, end, location, image, title, content, personnel,
+				Companion cb = new Companion(id, start, end, location, image, title, content, personnel,
 						concept1, concept2, concept3);
 				dao.insertData(cb);
 			} else {
@@ -84,6 +99,6 @@ public class Controller extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 }
