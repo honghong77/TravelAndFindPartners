@@ -44,6 +44,7 @@ public class CompanionListDAO {
 
 	            // Convert the BLOB data to a Base64-encoded string
 	            String image = Base64.getEncoder().encodeToString(imageBytes);
+
 				
 				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3);
 				list.add(c);

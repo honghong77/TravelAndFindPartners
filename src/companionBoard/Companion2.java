@@ -126,4 +126,13 @@ public class Companion2 {
 	public void setConcept3(String concept3) {
 		this.concept3 = concept3;
 	}
+
+	@Override
+	public String toString() {
+		return "Companion2 [no=" + no + ", id=" + id + ", start=" + start + ", end=" + end + ", location=" + location
+				+ ", image=" + image + ", title=" + title + ", content=" + content + ", personnel=" + personnel
+				+ ", concept1=" + concept1 + ", concept2=" + concept2 + ", concept3=" + concept3 + "]";
+	}
+	
+	
 }

@@ -3,6 +3,7 @@
 <%@page import="companionBoard.CompanionListDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page isELIgnored="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
 </head>
 <body>
 <%
+
 	int startPage = (Integer) request.getAttribute("startPage");
 	int endPage = (Integer) request.getAttribute("endPage");
 	int totalPages = (Integer) request.getAttribute("totalPages");
@@ -62,21 +64,25 @@
 </div>
 
 
+
 <div class="card-container">
 
 </div>
 
+
+
+<div class="paging">
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
       <% 
       System.out.println(startPage);
       if (startPage == 1) {%>
       <li class="page-item disabled"><a class="page-link" href="#"
-          tabindex="-1" aria-disabled="true">Previous</a></li>
+          tabindex="-1" aria-disabled="true">이전</a></li>
       <% } else {%>
       <li class="page-item"><a class="page-link"
           href="accompany?page=<%=startPage - 1%>" tabindex="-1"
-          aria-disabled="true">Previous</a></li>
+          aria-disabled="true">이전</a></li>
       <% }%>
       <% for (int i = startPage; i <= endPage; i++) {%>
       <li class="page-item">
@@ -87,14 +93,17 @@
           // (즉 마지막 페이지 블럭일 때)
           if (totalPages == endPage) {
       %>
-      <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+      <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
       <% } else {%>
   	  <li class="page-item">
-      	<a class="page-link" href="accompany?page=<%=endPage + 1%>">Next</a>
+      	<a class="page-link" href="accompany?page=<%=endPage + 1%>">다음</a>
       </li>
       <% }%>
   </ul>
 </nav>
+</div>
+
+
 
 </body>
 
@@ -107,6 +116,7 @@ const cardContainer = document.querySelector('.card-container');
 
 
 // 반복문을 사용하여 원하는 갯수만큼 카드를 생성하여 페이지에 추가
+
 for (let i = 0; i < numberOfCards && i < companionList.length; i++) {
   const cardTemplate = document.querySelector('.card-template');
   const newCard = cardTemplate.cloneNode(true); // 템플릿 복사
@@ -122,45 +132,48 @@ for (let i = 0; i < numberOfCards && i < companionList.length; i++) {
   
   newCard.querySelector('.link').href = 'http://localhost:8080/TravelAndFindPartners/view?no=' + companion.no;
   
-  
-  
   // newCard.querySelector('.icon-view_count').innerText = companion.start;
   // newCard.querySelector('.icon-comments_count').innerText = companion.end;
   
+const header = newCard.querySelector('.card-header')
 
-// Function to convert Base64 to URL and set it as background image
-  function setBase64AsBackground(jsonData) {
-      // Get the Base64 image string from the JSON object
-      const base64Image = jsonData.image;
+//Function to convert Base64 to URL and set it as background image
+function setBase64AsBackground(jsonData) {
+	
+    // Get the Base64 image string from the JSON object
+    const base64Image = jsonData.image;
 		console.log(base64Image);
 		
-      // Convert Base64 to Blob
-      const byteCharacters = atob(base64Image);
-      const byteArrays = [];
-      for (let i = 0; i < byteCharacters.length; i++) {
-          byteArrays.push(byteCharacters.charCodeAt(i));
-      }
-      const blob = new Blob([new Uint8Array(byteArrays)], { type: 'image/png' });
+    // Convert Base64 to Blob
+    const byteCharacters = atob(base64Image);
+    const byteArrays = [];
+    for (let i = 0; i < byteCharacters.length; i++) {
+        byteArrays.push(byteCharacters.charCodeAt(i));
+    }
+    console.log(byteArrays);
+    
+    const blob = new Blob([new Uint8Array(byteArrays)], { type: 'image/png' });
+    console.log(blob);
 
-      // Create URL from the Blob
-      const imageUrl = URL.createObjectURL(blob);
+    // Create URL from the Blob
+    const imageUrl = URL.createObjectURL(blob);
+    console.log(imageUrl);
 
-      // Set the background image
-      imageContainer.style.backgroundImage = `url(${imageUrl})`;
+    header.style.backgroundImage = `url(${imageUrl})`;
+    
+    // URL.revokeObjectURL(imageUrl);
+	}
 
-      // Clean up the URL after use
-      URL.revokeObjectURL(imageUrl);
-  }
 
-  // Call the function with the JSON object
-  setBase64AsBackground(companion);
-  
-  
+setBase64AsBackground(companion);
+	
+newCard.style.display = 'block'; // 보이도록 설정
+cardContainer.appendChild(newCard);
 
-  newCard.style.display = 'block'; // 보이도록 설정
-  cardContainer.appendChild(newCard);
-// 페이지에 추가
+
 }
+
+	
 </script>
 
 </html>

@@ -18,40 +18,43 @@ public class ListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String tempPage = req.getParameter("page");
-		int cPage = 1;
+		int currendPage = 1;
 		int totalData = dao.getCount();
-		System.out.println(totalData);
+		System.out.println("데이터 몇개? " + totalData);
 		int totalPages = totalData % 9 == 0 ? totalData / 9 : (totalData / 9) + 1;
 		List<Companion2> list = null;
 		 
 		// cPage(현재 페이지 정하기)
 		if (tempPage == null || tempPage.length() == 0) {
-		    cPage = 1;
+			currendPage = 1;
 		}
 		try {
-		    cPage = Integer.parseInt(tempPage);
+			currendPage = Integer.parseInt(tempPage);
 		} catch (NumberFormatException e) {
-		    cPage = 1;
+			currendPage = 1;
 		}
 		
 		if (totalPages == 0) {
 		    totalPages = 1;
 		}
 		
-		if (cPage > totalPages) {
-		    cPage = 1;
+		if (currendPage > totalPages) {
+			currendPage = 1;
 		}
 		
-		int start = (cPage - 1) * 9;
+		int start = (currendPage - 1) * 9;
+		
 		try {
 			list = dao.getList(start);
-			System.out.println(list.toString());
+			System.out.println("리스트 사이즈" + list.size());
+			System.out.println("리스트" + list.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		// 페이지 처음과 끝을 지정하는 부분
-		int currentBlock = cPage % 5 == 0 ? cPage / 5 : (cPage / 5) + 1;
+
+		int currentBlock = currendPage % 5 == 0 ? currendPage / 5 : (currendPage / 5) + 1;
 		int startPage = (currentBlock - 1) * 5 + 1;
 		int endPage = startPage + (5 - 1);
 		
@@ -64,14 +67,15 @@ public class ListController extends HttpServlet {
 		
 		//리스트를 json형태로
 		String json = jackson.convertListToJson(list);
-		System.out.println(json);
+		System.out.println("json : " + json);
 		
+		
+		req.setAttribute("cPage", currendPage);
 		req.setAttribute("startPage", startPage);
 		req.setAttribute("endPage", endPage);
 		req.setAttribute("totalPages", totalPages);
 		req.setAttribute("json", json);
 		
-			
 		req.getRequestDispatcher("companionList.jsp").forward(req, resp);
 	}
 

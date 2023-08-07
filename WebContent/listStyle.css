@@ -23,10 +23,7 @@ blockquote, q {
 	quotes: none;
 }
 
-blockquote : before, blockquote : after, q : before, q : after {
-	content: '';
-	content: none;
-}
+
 
 table {
 	border-collapse: collapse;
@@ -170,6 +167,11 @@ h1 {
 
 
 
+.paging {
+	display: flex;
+    justify-content: center;
+}
+
 
 ul {
     text-align: center;
@@ -195,10 +197,4 @@ ul li a {
 	text-decoration-line:none;
 }
 
-ul li.on {
-    background: #eda712;
-}
 
-ul li.on a {
-    color: #fff;
-}
