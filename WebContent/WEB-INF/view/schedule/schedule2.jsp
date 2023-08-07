@@ -11,9 +11,24 @@
 		<div class="col-md-6">
 
 			<div class="input-group mb-3">
+
+				<%
+					String destination = request.getParameter("destination");
+				if (destination != null && !destination.equals("")) {
+				%>
+				<input type="text" id="search" class="form-control"
+					placeholder="<%=destination %>" aria-label="장소 검색"
+					aria-describedby="button-addon2" value="<%=destination%>">
+				<%
+					} else {
+				%>
 				<input type="text" id="search" class="form-control"
 					placeholder="장소 검색" aria-label="장소 검색"
 					aria-describedby="button-addon2">
+				<%
+					}
+				%>
+
 				<div class="input-group-append">
 					<button class="btn btn-outline-secondary" type="button"
 						id="searchButton">검색</button>
@@ -21,9 +36,17 @@
 			</div>
 
 			<div style="display: flex; justify-content: center;">
+			
+						<a class="btn btn-primary" href="#" role="button"
+					style="margin: 10px; width: 100px;" data-bs-toggle="modal"
+					data-bs-target="#memoModal">메모 추가</a>
+					
 				<a class="btn btn-primary" href="#" role="button"
 					style="margin: 10px; width: 100px;" onclick="showSelects()">장소
-					추가</a> <a class="btn btn-primary" href="#" role="button"
+					추가</a> 
+					
+					
+					<a class="btn btn-primary" href="#" role="button"
 					style="margin: 10px; width: 100px;" data-bs-toggle="modal"
 					data-bs-target="#memoModal">메모 추가</a>
 
@@ -80,16 +103,17 @@
 				style="display: none; margin: 10px">
 				<option value="">시/군/구 선택</option>
 			</select>
-			<div id="recomand" class="p-2 text-bg-primary"
-				style="display: none;">추천장소 (선택하신 지역 근처 관광지를 추천합니다)</div>
+			<div id="recomand" class="p-2 text-bg-primary" style="display: none;">추천장소
+				(선택하신 지역 근처 관광지를 추천합니다)</div>
 			<div id="result-section" class="list-group"></div>
 			<button onclick="saveResults()">결과 저장하기</button>
-			<div id="selected-result" style="height: 100px;overflow-y: scroll;width: 300px;"></div>
+			<div id="selected-result"
+				style="height: 100px; overflow-y: scroll; width: 300px;"></div>
 
-			
-			
-			
- 			</div>
+
+
+
+		</div>
 	</div>
 </div>
 
@@ -105,24 +129,23 @@
 </script>
 
 <script>
-function showSelects() {
-    let provincesDiv = document.getElementById("provinces");
-    let citiesDiv = document.getElementById("cities");
-    let recomandDiv = document.getElementById("recomand");
-    let resultSectionDiv = document.getElementById("result-section");
+	function showSelects() {
+		let provincesDiv = document.getElementById("provinces");
+		let citiesDiv = document.getElementById("cities");
+		let recomandDiv = document.getElementById("recomand");
+		let resultSectionDiv = document.getElementById("result-section");
 
-    if (provincesDiv.style.display === "none") {
-        provincesDiv.style.display = "block";
-        citiesDiv.style.display = "block";
-        recomandDiv.style.display = "block";
-    } else {
-        provincesDiv.style.display = "none";
-        citiesDiv.style.display = "none";
-        recomandDiv.style.display = "none";
-        resultSectionDiv.style.display = "none";
-    }
-}
-
+		if (provincesDiv.style.display === "none") {
+			provincesDiv.style.display = "block";
+			citiesDiv.style.display = "block";
+			recomandDiv.style.display = "block";
+		} else {
+			provincesDiv.style.display = "none";
+			citiesDiv.style.display = "none";
+			recomandDiv.style.display = "none";
+			resultSectionDiv.style.display = "none";
+		}
+	}
 </script>
 
 
@@ -136,18 +159,18 @@ function showSelects() {
 </script>
 
 <script>
-function saveResults() {
-	  var resultElements = document.getElementById('selected-result').children;
-	  var resultsArray = [];
+	function saveResults() {
+		var resultElements = document.getElementById('selected-result').children;
+		var resultsArray = [];
 
-	  for (var i = 0; i < resultElements.length; i++) {
-	      resultsArray.push(resultElements[i].innerText);
-	  }
+		for (var i = 0; i < resultElements.length; i++) {
+			resultsArray.push(resultElements[i].innerText);
+		}
 
-	  console.log(resultsArray);
-	  // 여기서 원하는 곳에 결과를 저장할 수 있습니다.
-	  // 예를 들어, localStorage에 저장하는 경우:
-	  // localStorage.setItem('results', JSON.stringify(resultsArray));
+		console.log(resultsArray);
+		// 여기서 원하는 곳에 결과를 저장할 수 있습니다.
+		// 예를 들어, localStorage에 저장하는 경우:
+		// localStorage.setItem('results', JSON.stringify(resultsArray));
 	}
 </script>
 

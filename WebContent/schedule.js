@@ -1,13 +1,23 @@
+document.addEventListener("DOMContentLoaded", function() {
+    var searchInput = document.getElementById('searchInput');
+
+    // 엔터키 입력 이벤트
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === "Enter") {
+            performSearch(searchInput.value);
+        }
+    });
+});
+
+function performSearch(query) {
+    if (query) {
+        // 여기에 검색 로직을 추가하십시오.
+        console.log("검색어:", query); // 현재는 콘솔에 검색어를 출력합니다.
+    }
+}
 
 
-/*
-	window.initMap = function () {
-  const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 37.5400456, lng: 126.9921017 },
-    zoom: 10,
-  });
-};
-*/
+
 
 
 
@@ -46,7 +56,7 @@
 		var locationList = ["서울", "부산", "인천", "대구", "광주", "대전", "울산", "세종", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주"];
 		var locationButton = $('.btn-primary[type="submit"]');
 		
-		locationButton.click(function(e) {
+		/*locationButton.click(function(e) {
 			e.preventDefault();
 			$('#location-list-div').show();
 			$('.container *').prop('disabled', true);
@@ -59,5 +69,5 @@
 				$('#location-list').empty();
 				$('.container *').prop('disabled', false);
 			});
-		});
+		});*/
 	});

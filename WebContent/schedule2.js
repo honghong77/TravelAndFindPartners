@@ -65,7 +65,7 @@ window.onload = initMap;
   function updateMarker() {
 	  const selectedCity = document.getElementById('cities').value;
 	  const selectedProvince = document.getElementById('provinces').value;
-	  const fullAddress = `${selectedProvince} ${selectedCity}`;
+	  const fullAddress = `${selectedProvince} ${selectedCity}`;;
 
 	  const geocoder = new google.maps.Geocoder();
 	  geocoder.geocode({ 'address': fullAddress }, function(results, status) {
@@ -112,14 +112,14 @@ window.onload = initMap;
 	  const citiesSelect = document.getElementById('cities');
 	  citiesSelect.innerHTML = '<option value="">시/군/구 선택</option>';
 	  cities.forEach(city => {
-	    citiesSelect.innerHTML += `<option value="${city}">${city}</option>`;
+	    citiesSelect.innerHTML += `<option value="${city}">${city}</option>`;;
 	  });
 	}
 
 	document.getElementById('cities').addEventListener('change', function() {
 	  const selectedCity = this.value;
 	  const selectedProvince = document.getElementById('provinces').value;
-	  const fullAddress = `${selectedProvince} ${selectedCity}`;
+	  const fullAddress = `${selectedProvince} ${selectedCity}`;;
 
 	  const geocoder = new google.maps.Geocoder();
 	  geocoder.geocode({ 'address': fullAddress }, function(results, status) {
@@ -151,11 +151,11 @@ window.onload = initMap;
 
 }
 
-  
-	async function fetchData(lat, lng) {
+  async function fetchData(lat, lng) {
     try {
         const SERVICE_KEY = "ppXvYpsy1tlJDUysjG0%2FrhjFKnX7MRe2efWvkt5rP1Tmmpv4Tbn6UFpPp8SNviAcrWYhkI%2B%2BKtLhGDOW5cmh4Q%3D%3D";
-        const URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=${SERVICE_KEY}&contentTypeId=12&mapX=${lng}&mapY=${lat}&radius=5000&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTest&_type=json`;
+       const URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=${SERVICE_KEY}&contentTypeId=12&mapX=${lng}&mapY=${lat}&radius=5000&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTest&_type=json`;
+
 
         let response = await fetch(URL);
         console.log(response);
@@ -234,7 +234,7 @@ window.onload = initMap;
         console.error("Failed to fetch data: ", error);
     }
 }
-
+	
 
 
 

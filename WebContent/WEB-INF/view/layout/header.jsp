@@ -41,11 +41,6 @@
 
 </head>
 <body>
-	<script>
-		// id만 적을 수 있다(개인정보는 적으면 안됨)
-		// 자바스크립트로 변형이 불가능
-		// 자바스크립트로 유효성 검사를 완벽하게 할 수 있는 방법은 없다
-	</script>
 
 	<!-- 네브바 시작 -->
 	<nav class="navbar navbar-expand-lg bg-light">
@@ -97,48 +92,49 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form>
+					<form action="/TravelAndFindPartners/schedule3" method="POST">
 						<div class="mb-3">
-							<label for="destination" class="form-label">여행지</label> <select
+							<label for="destination" class="form-label" id="destination">여행지</label> <select
 								class="form-select" id="destination">
 								<option selected>여행지를 선택해주세요</option>
-								<option value="seoul">서울특별시</option>
-								<option value="busan">부산광역시</option>
-								<option value="incheon">인천광역시</option>
-								<option value="daegu">대구광역시</option>
-								<option value="gwangju">광주광역시</option>
-								<option value="daejeon">대전광역시</option>
-								<option value="ulsan">울산광역시</option>
-								<option value="sejong">세종특별자치시</option>
-								<option value="gyeonggi">경기도</option>
-								<option value="gangwon">강원도</option>
-								<option value="chungbuk">충청북도</option>
-								<option value="chungnam">충청남도</option>
-								<option value="jeonbuk">전라북도</option>
-								<option value="jeonnam">전라남도</option>
-								<option value="gyeongbuk">경상북도</option>
-								<option value="gyeongnam">경상남도</option>
-								<option value="jeju">제주특별자치도</option>
+								<option value="서울">서울특별시</option>
+								<option value="부산">부산광역시</option>
+								<option value="인천">인천광역시</option>
+								<option value="대구">대구광역시</option>
+								<option value="광주">광주광역시</option>
+								<option value="대전">대전광역시</option>
+								<option value="울산">울산광역시</option>
+								<option value="세종">세종특별자치시</option>
+								<option value="경기">경기도</option>
+								<option value="강원">강원도</option>
+								<option value="충북">충청북도</option>
+								<option value="충남">충청남도</option>
+								<option value="전북">전라북도</option>
+								<option value="전남">전라남도</option>
+								<option value="경북">경상북도</option>
+								<option value="경남">경상남도</option>
+								<option value="제주">제주특별자치도</option>
 							</select>
 						</div>
 						<div class="mb-3">
 							<label for="startDate" class="form-label">여행 시작 날짜</label> <input
-								type="date" class="form-control" id="startDate">
+								type="date" class="form-control" id="startDate" name="startDate">
 						</div>
 						<div class="mb-3">
 							<label for="endDate" class="form-label">여행 종료 날짜</label> <input
-								type="date" class="form-control" id="endDate">
+								type="date" class="form-control" id="endDate" name="endDate">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"data-bs-dismiss="modal">닫기</button>
+						<input type="submit" class="btn btn-primary" value="다음">
 						</div>
 					</form>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">닫기</button>
-					<a href="${pageContext.request.contextPath}/schedule2"
-						type="button" class="btn btn-primary">다음</a>
+				
+				
+				
 
 
-				</div>
 			</div>
 		</div>
 	</div>
@@ -147,43 +143,18 @@
 
 </body>
 
-<script>
-document.querySelector(".btn.btn-primary").addEventListener("click", function(event) {
-    const destination = document.getElementById("destination").value;
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
-
-    // Check if destination, startDate or endDate is empty
-    if (destination === "여행지를 선택해주세요" || startDate === "" || endDate === "") {
-        alert("모든 필드를 입력해주세요.");
-        event.preventDefault();
-        return;
-    }
-
-    if (startDate > endDate) {
-        alert("여행 시작 날짜는 종료 날짜보다 빠를 수 없습니다.");
-        event.preventDefault();
-        return;
-    }
-
-    // Send the dates to the server
-    fetch('/your-server-endpoint', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ destination, startDate, endDate }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-});
-
-</script>
 
 
+
+
+    <!-- Set destination, startDate, endDate in the request -->
+    <%
+        String destination = request.getParameter("destination");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        request.setAttribute("destination", destination);
+        request.setAttribute("startDate", startDate);
+        request.setAttribute("endDate", endDate);
+    %>
 </html>
+
