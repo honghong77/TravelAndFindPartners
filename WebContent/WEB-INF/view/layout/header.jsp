@@ -38,6 +38,7 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://kit.fontawesome.com/d0a7af3fd0.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -95,7 +96,7 @@
 					<form action="/TravelAndFindPartners/schedule3" method="POST">
 						<div class="mb-3">
 							<label for="destination" class="form-label" id="destination">여행지</label> <select
-								class="form-select" id="destination">
+								class="form-select" id="destination" name="destination">
 								<option selected>여행지를 선택해주세요</option>
 								<option value="서울">서울특별시</option>
 								<option value="부산">부산광역시</option>
