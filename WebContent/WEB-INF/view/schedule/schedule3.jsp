@@ -1,17 +1,17 @@
-<%@page import="java.util.Calendar"%>
-<%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>				
+<%@page import="java.util.Date"%>					
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- 저장된 헤더를 추가합니다 --%>
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+							<%-- 저장된 헤더를 추가합니다 --%>
+							<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>내 이름은 윤성용</title>
-
-<script defer src="schedule3.js"></script>
+							<%-- 저장된 헤더를 추가합니다 --%>
+							<script defer src="schedule/schedule3.js"></script>
 <script defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbBV-mR71MB1Oc8kwqjn0bcIG7BEFDGuE&callback=initMap">
 	
