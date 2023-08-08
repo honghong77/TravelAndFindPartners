@@ -12,15 +12,17 @@
 <title>내 이름은 윤성용</title>
 							<%-- 저장된 헤더를 추가합니다 --%>
 							<script defer src="schedule/schedule3.js"></script>
-<script defer
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbBV-mR71MB1Oc8kwqjn0bcIG7BEFDGuE&callback=initMap">
-	
-</script>
+							
+							<%-- 구글맵 API 키를 가져옵니다 --%>							
+							<script defer
+								src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbBV-mR71MB1Oc8kwqjn0bcIG7BEFDGuE&callback=initMap">
+							</script>
 
 </head>
 <body>
 
-<div class="row">
+<div class="row" style="margin-left: 100px;
+    margin-right: 100px";>
 	<div class="col-xl-6 ml-6">
 		<div id="map" class="p-4" style="height: 600px; width: 100%; margin-right: 100px;"></div>
 	</div>

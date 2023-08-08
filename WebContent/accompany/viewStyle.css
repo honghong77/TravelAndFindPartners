@@ -1,0 +1,19 @@
+@charset "UTF-8";
+html {
+	display: flex;
+    justify-content: center; 
+}
+
+#image{
+	width:1200px;
+	height:400px;
+}
+
+#title {
+	margin-top: 50px;
+    font-size: 50px;
+}
+
+#content {
+	margin-top: 30px;
+}
