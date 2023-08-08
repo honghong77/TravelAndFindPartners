@@ -1,3 +1,4 @@
+<%@page import="companionBoard.Companion2"%>
 <%@page import="companionBoard.Companion"%>
 <%@page import="java.util.List"%>
 <%@page import="companionBoard.CompanionListDAO"%>
@@ -11,22 +12,34 @@
 <link href="listStyle.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
 </head>
+
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+
 <body>
 <%
 
 	int startPage = (Integer) request.getAttribute("startPage");
 	int endPage = (Integer) request.getAttribute("endPage");
 	int totalPages = (Integer) request.getAttribute("totalPages");
-	List<Companion> list = (List<Companion>) request.getAttribute("list");
+	List<Companion2> list = (List<Companion2>) request.getAttribute("list");
 %>
-
-
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
-
-
-
-
 <span id="listSize" style="display: none;"> <%= list.size() %> </span>
+
+
+<form class="row g-3" method="post">
+  <div class="col-auto">
+    <label for="inputPassword2" class="visually-hidden">검색</label>
+    <input type="text" class="form-control" id="search" name="search" placeholder="어디로 떠나볼까요?">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">검색</button>
+  </div>
+</form>
+
+
+<button type="button" class="btn btn-outline-primary" id="new">최신순</button>
+<button type="button" class="btn btn-outline-primary" id="like">성향맞춤</button>
+
 
 <div  class="card-template" style="display: none;">
 <a class="link" href=""> <!-- 클릭 시 링크 설정 -->
