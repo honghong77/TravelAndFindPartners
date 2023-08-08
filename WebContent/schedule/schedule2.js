@@ -1,4 +1,4 @@
- let map;
+let map;
 let marker;
 
 const OPEN_KEY = 'ppXvYpsy1tlJDUysjG0/rhjFKnX7MRe2efWvkt5rP1Tmmpv4Tbn6UFpPp8SNviAcrWYhkI++KtLhGDOW5cmh4Q==';
@@ -12,6 +12,35 @@ function initMap() {
   marker = new google.maps.Marker({
     position: {lat: 37.5665, lng: 126.9780},
     map: map
+  });
+
+  const geocoder = new google.maps.Geocoder();
+
+  map.addListener('click', function(event) {
+    const location = event.latLng;
+
+    if (marker) {
+      marker.setMap(null);
+    }
+
+    marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+
+    map.panTo(location);
+
+    geocoder.geocode({ 'location': location }, function(results, status) {
+      if (status === 'OK') {
+        if (results[0]) {
+          document.getElementById('addressInput').value = results[0].formatted_address;
+        } else {
+          console.log('No results found');
+        }
+      } else {
+        console.log('Geocoder failed due to: ' + status);
+      }
+    });
   });
 
   document.getElementById('confirmButton').addEventListener('click', function() {
@@ -41,26 +70,40 @@ function initMap() {
 		});
 });
 }
-
-
 window.onload = initMap;
 
-  
-  function searchLocation() {
-	    const searchQuery = document.getElementById('search').value;
-	    const geocoder = new google.maps.Geocoder();
+ function searchLocation() {
+	 console.log("Search function called");
+  const searchQuery = document.getElementById('search').value.trim();
+  console.log("Search query is:", searchQuery);
 
-				   geocoder.geocode({ 'address': searchQuery }, function(results, status) {
-			if (status == 'OK') {
-			map.setCenter(results[0].geometry.location);
-			marker.setPosition(results[0].geometry.location);
-			} else {
-			alert('Geocode was not successful for the following reason: ' + status);
-			}
-		});
+  if (searchQuery.length > 0) {
+    const geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ 'address': searchQuery }, function(results, status) {
+      if (status === 'OK') {
+        const location = results[0].geometry.location;
+        map.setCenter(location);
+        
+        if (marker) {
+          marker.setMap(null);
+        }
+
+        marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+      } else {
+        alert('오류 내용을 확인하세요: ' + status);
+      }
+    });
+  } else {
+    alert('검색어를 입력하세요.');
+  }
 }
-  
-  document.getElementById('searchButton').addEventListener('click', searchLocation);
+
+document.getElementById('searchButton').addEventListener('click', searchLocation);
+
 
   function updateMarker() {
 	  const selectedCity = document.getElementById('cities').value;
@@ -81,9 +124,9 @@ window.onload = initMap;
 	    }
 	  });
 	}
-
-  
-  const provincesData = {
+	
+	
+	 const provincesData = {
 		    '서울': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
 		    '부산': ['강서구', '금정구', '남구', '동구', '동래구', '부산진구', '북구', '사상구', '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구'],
 		    '대구': ['남구', '달서구', '동구', '북구', '서구', '수성구', '중구'],
@@ -102,8 +145,8 @@ window.onload = initMap;
 		    '경남': ['거제시', '거창군', '고성군', '김해시', '남해군', '밀양시', '사천시', '산청군', '양산시', '의령군', '진주시', '창녕군', '창원시', '통영시', '하동군', '함안군', '함양군', '합천군'],
 		    '제주': ['서귀포시', '제주시']
 		};
-
-
+		
+		
   function updateCities() {
 	  const selectedProvince = document.getElementById('provinces').value;
 	  const cities = provincesData[selectedProvince];
@@ -151,10 +194,12 @@ window.onload = initMap;
 
 }
 
-  async function fetchData(lat, lng) {
+
+
+ async function fetchData(lat, lng) {
     try {
         const SERVICE_KEY = "ppXvYpsy1tlJDUysjG0%2FrhjFKnX7MRe2efWvkt5rP1Tmmpv4Tbn6UFpPp8SNviAcrWYhkI%2B%2BKtLhGDOW5cmh4Q%3D%3D";
-       const URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=${SERVICE_KEY}&contentTypeId=12&mapX=${lng}&mapY=${lat}&radius=5000&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTest&_type=json`;
+       	const URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=${SERVICE_KEY}&contentTypeId=12&mapX=${lng}&mapY=${lat}&radius=5000&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTest&_type=json`;
 
 
         let response = await fetch(URL);
@@ -195,11 +240,21 @@ window.onload = initMap;
 	                // Add image
 	                if (item[i].firstimage) {
 	                    let imageDiv = document.createElement("div");
-	                    let image = document.createElement("img");
-	                    image.src = item[i].firstimage;
-	                    image.style.width = '100px'; // or any other size
-	                    imageDiv.appendChild(image);
-	                    parentDiv.appendChild(imageDiv);
+    
+						    if (item[i].firstimage && item[i].firstimage.trim() !== "") {
+						        let image = document.createElement("img");
+						        image.src = item[i].firstimage;
+						        image.style.width = '100px'; // or any other size
+						        imageDiv.appendChild(image);
+						    } else {
+						        let image = document.createElement("img");
+											//대체 이미지 현재 안 뜸(오류)
+						        image.src = "https://tripsoda.com/images/common/logo.svg"; // 대체 이미지 URL
+						        image.style.width = '100px'; // or any other size
+						        imageDiv.appendChild(image);
+						    }
+						
+						    parentDiv.appendChild(imageDiv);
 	                }
 
 	                let confirmButton = document.createElement("button");
@@ -234,9 +289,20 @@ window.onload = initMap;
         console.error("Failed to fetch data: ", error);
     }
 }
+
+
+function saveSelectedResults() {
+  // 선택한 결과를 가져옵니다.
+  const selectedResults = document.getElementById("selected-result").textContent;
+
+  // 선택한 결과를 로컬 스토리지에 저장합니다.
+  localStorage.setItem('selectedResults', selectedResults);
+
+  // 브라우저의 뒤로 가기 기능을 호출합니다.
+  window.history.back();
+}
+
+
+
+
 	
-
-
-
-
-  window.onload = initMap;

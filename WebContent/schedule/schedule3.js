@@ -38,3 +38,15 @@ window.initMap = function () {
   map.fitBounds(bounds);
 };
 
+
+window.onload = function() {
+  // 로컬 스토리지에서 선택한 결과를 가져옵니다.
+  const selectedResults = localStorage.getItem('selectedResults');
+
+  // 선택한 결과가 있으면 해당 요소에 설정합니다.
+  if (selectedResults) {
+    document.getElementById("memoText").textContent = selectedResults;
+  }
+}
+
+

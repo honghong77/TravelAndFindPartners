@@ -163,7 +163,7 @@
 							<%-- 저장된 푸터를 추가합니다 --%>
 								<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 							<%-- 저장된 "schedule.js"을 불러옵니다 --%>
-								<script src="schedule.js"></script>
+								<script src="schedule/schedule.js"></script>
 
 
 							<%-- 일정게시판의 각각의 카드에 구글맵을 띄우는 기능입니다 --%>
