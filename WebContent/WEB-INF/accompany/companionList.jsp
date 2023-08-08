@@ -22,24 +22,41 @@
 	int endPage = (Integer) request.getAttribute("endPage");
 	int totalPages = (Integer) request.getAttribute("totalPages");
 	List<Companion2> list = (List<Companion2>) request.getAttribute("list");
+	System.out.println("리스트 :" + list);
+	
+	String search = request.getParameter("search");
+	if (search == null) {
+		search = "";
+	}
+	String filter = request.getParameter("filter");
+	if (filter == null) {
+		filter = "";
+	}
+	System.out.println("폼 :" + search);
+	System.out.println("폼 :" + filter);
+	
 %>
 <span id="listSize" style="display: none;"> <%= list.size() %> </span>
 
 
-<form class="row g-3" method="post">
+<form class="row g-3">
   <div class="col-auto">
     <label for="inputPassword2" class="visually-hidden">검색</label>
-    <input type="text" class="form-control" id="search" name="search" placeholder="어디로 떠나볼까요?">
+    <input type="text" class="form-control" id="search" name="search" value="<%= search %>" placeholder="어디로 떠나볼까요?">
   </div>
   <div class="col-auto">
     <button type="submit" class="btn btn-primary mb-3">검색</button>
   </div>
+  
+  <div>
+  	<button type="submit" class="btn btn-outline-primary" id="new" name="filter" value="newest">최신순</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="filter" value="like">성향맞춤</button>
+  </div>
 </form>
 
-
-<button type="button" class="btn btn-outline-primary" id="new">최신순</button>
-<button type="button" class="btn btn-outline-primary" id="like">성향맞춤</button>
-
+<form class="filter">
+	
+</form>
 
 <div  class="card-template" style="display: none;">
 <a class="link" href=""> <!-- 클릭 시 링크 설정 -->

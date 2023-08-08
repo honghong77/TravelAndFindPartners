@@ -18,12 +18,27 @@ public class ListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String tempPage = req.getParameter("page");
-		int currendPage = 1;
-		int totalData = dao.getCount();
-		System.out.println("데이터 몇개? " + totalData);
-		int totalPages = totalData % 9 == 0 ? totalData / 9 : (totalData / 9) + 1;
+		String search = req.getParameter("search");
+		String filter = req.getParameter("filter");
+		int totalData = 0;
 		List<Companion2> list = null;
-		 
+		
+		System.out.println("파라미터 : " + tempPage);
+		System.out.println("파라미터 : " + search);
+		System.out.println("파라미터 : " + filter);
+		
+		if (filter == null || filter.trim().equals("") || filter.equals("newest")) {
+			if (search == null || search.trim().equals("")) {
+				totalData = dao.getCount();
+			} else {
+				totalData = dao.getSearchCount(search);
+			}
+		}
+		System.out.println("totalData : " + totalData);
+		
+		int currendPage = 1;
+		int totalPages = totalData % 9 == 0 ? totalData / 9 : (totalData / 9) + 1;
+		
 		// cPage(현재 페이지 정하기)
 		if (tempPage == null || tempPage.length() == 0) {
 			currendPage = 1;
@@ -42,33 +57,38 @@ public class ListController extends HttpServlet {
 			currendPage = 1;
 		}
 		
-		int start = (currendPage - 1) * 9;
-		
-		try {
-			list = dao.getList(start);
-			System.out.println("리스트 사이즈" + list.size());
-			System.out.println("리스트" + list.toString());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
 		// 페이지 처음과 끝을 지정하는 부분
 
 		int currentBlock = currendPage % 5 == 0 ? currendPage / 5 : (currendPage / 5) + 1;
 		int startPage = (currentBlock - 1) * 5 + 1;
 		int endPage = startPage + (5 - 1);
-		
+				
 		// 마지막 페이지 묶음에서 총 페이지수를 넘어가면 끝 페이지를 마지막 페이지 숫자로 지정
 		if (endPage > totalPages) {
-		    endPage = totalPages;
+			endPage = totalPages;
 		}
 		
+		int start = (currendPage - 1) * 9;
+		
+		try {
+			if (filter == null || filter.trim().equals("") || filter.equals("newest")) {
+				if (search == null || search.trim().equals("")) {
+					list = dao.getList(start);
+				} else {
+					list = dao.getSearchList(start, search);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(list);
+
 		req.setAttribute("list", list);
 		
 		//리스트를 json형태로
+	
 		String json = jackson.convertListToJson(list);
-		System.out.println("json : " + json);
-		
 		
 		req.setAttribute("cPage", currendPage);
 		req.setAttribute("startPage", startPage);
@@ -81,72 +101,6 @@ public class ListController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String search = req.getParameter("search");
-		System.out.println(search);
-		
-		if (search != null) {
-			String tempPage = req.getParameter("page");
-			int currendPage = 1;
-			int totalData = dao.getCount();
-			System.out.println("데이터 몇개? " + totalData);
-			int totalPages = totalData % 9 == 0 ? totalData / 9 : (totalData / 9) + 1;
-			List<Companion2> list = null;
-			 
-			// cPage(현재 페이지 정하기)
-			if (tempPage == null || tempPage.length() == 0) {
-				currendPage = 1;
-			}
-			try {
-				currendPage = Integer.parseInt(tempPage);
-			} catch (NumberFormatException e) {
-				currendPage = 1;
-			}
-			
-			if (totalPages == 0) {
-			    totalPages = 1;
-			}
-			
-			if (currendPage > totalPages) {
-				currendPage = 1;
-			}
-			
-			int start = (currendPage - 1) * 9;
-			
-			try {
-				list = dao.getNewestList(start, search);
-				System.out.println("리스트 사이즈" + list.size());
-				System.out.println("리스트" + list.toString());
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-			// 페이지 처음과 끝을 지정하는 부분
-
-			int currentBlock = currendPage % 5 == 0 ? currendPage / 5 : (currendPage / 5) + 1;
-			int startPage = (currentBlock - 1) * 5 + 1;
-			int endPage = startPage + (5 - 1);
-			
-			// 마지막 페이지 묶음에서 총 페이지수를 넘어가면 끝 페이지를 마지막 페이지 숫자로 지정
-			if (endPage > totalPages) {
-			    endPage = totalPages;
-			}
-			
-			req.setAttribute("list", list);
-			
-			//리스트를 json형태로
-			String json = jackson.convertListToJson(list);
-			System.out.println("json : " + json);
-			
-			
-			req.setAttribute("cPage", currendPage);
-			req.setAttribute("startPage", startPage);
-			req.setAttribute("endPage", endPage);
-			req.setAttribute("totalPages", totalPages);
-			req.setAttribute("json", json);
-			
-			req.getRequestDispatcher("/WEB-INF/accompany/companionList.jsp").forward(req, resp);
-		}
-		
 		
 	}
 	

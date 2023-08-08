@@ -13,6 +13,7 @@ import java.util.List;
 import dbutil.DBUtil;
 
 public class CompanionListDAO {
+	// 최신순
 	public List<Companion2> getList(int offset) throws SQLException {
 		String sql = "SELECT * FROM companionboard ORDER BY no DESC LIMIT 9 OFFSET " + offset;
 		List<Companion2> list = new ArrayList<Companion2>();
@@ -58,8 +59,35 @@ public class CompanionListDAO {
 		return list;
 	}
 	
-	public List<Companion2> getNewestList(int offset, String search) throws SQLException {
-		String sql = "SELECT * FROM companionboard WHERE location = ? or title = ? or content = ? ORDER BY no DESC LIMIT 9 OFFSET " + offset;
+	public int getCount() {
+		String sql = "SELECT COUNT(*) FROM companionboard";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+			DBUtil.close(rs);
+		}
+		return -1;
+	}
+	
+	
+	// 최신순 + 검색
+	public List<Companion2> getSearchList(int offset, String search) throws SQLException {
+		String sql = "SELECT * FROM companionboard Where location = ? or title LIKE ? or content LIKE ? ORDER BY no DESC LIMIT 9 OFFSET " + offset;
 		List<Companion2> list = new ArrayList<Companion2>();
 		
 		Connection conn = null;
@@ -70,8 +98,8 @@ public class CompanionListDAO {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, search);
-			stmt.setString(2, search);
-			stmt.setString(3, search);
+			stmt.setString(2, "%" + search + "%");
+			stmt.setString(3, "%" + search + "%");
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -106,12 +134,8 @@ public class CompanionListDAO {
 		return list;
 	}
 	
-	// 검색
-	
-	
-	
-	public int getCount() {
-		String sql = "SELECT COUNT(*) FROM companionboard";
+	public int getSearchCount(String search) {
+		String sql = "SELECT COUNT(*) FROM companionboard Where location = ? or title LIKE ? or content LIKE ?";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -120,6 +144,10 @@ public class CompanionListDAO {
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, search);
+			stmt.setString(2, "%" + search + "%");
+			stmt.setString(3, "%" + search + "%");
+			
 			rs = stmt.executeQuery();
 			
 			if (rs.next()) {
