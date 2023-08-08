@@ -46,7 +46,7 @@
 	<!-- 네브바 시작 -->
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">트립소다</a>
+			<a class="navbar-brand" href="http://localhost:8080/TravelAndFindPartners/home">트립소다</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -60,7 +60,7 @@
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"> 작성하기 </a>
 						<ul id="dropdown-menu" class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">동행 모집하기</a></li>
+							<li><a class="dropdown-item" href="write">동행 모집하기</a></li>
 							<li><a class="dropdown-item" data-bs-toggle="modal"
 								data-bs-target="#scheduleModal">여행일정 만들기</a></li>
 						</ul></li>
@@ -73,13 +73,28 @@
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">홈</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">동행</a></li>
+						aria-current="page" href="home">홈</a></li>
+					<li class="nav-item"><a class="nav-link" href="companion">동행</a></li>
 					<li class="nav-item"><a class="nav-link" href="hello">일정</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+	
+	<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" href="login/loginform.jsp">로그인</a></li>
+					<li class="nav-item"><a class="nav-link" href="sign/signUp.jsp">회원가입</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	
+	
+	
 	<br>
 
 	<!-- 여행일정 만들기 모달 -->

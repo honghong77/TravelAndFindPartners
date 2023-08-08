@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<link href="accompany/boardStyle.css" rel="stylesheet" type="text/css">
+<link href="boardStyle.css" rel="stylesheet" type="text/css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
@@ -24,16 +24,12 @@
 
 </head>
 
-<body>
-<%-- 여행지 선택
-모집인원
-날짜선택
-사진선택
-제목
-내용
-취소 / 작성완료 --%>
 
-<%-- LocalDate today = LocalDate.now();--%>
+
+
+<body>
+
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
 <div class="p-5 text-center bg-body-tertiary" style="background-image: url(trip.jpg);">
     <div class="container py-5">
@@ -166,6 +162,9 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 		</div>
 		</form>
 	</div>
+	
+<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+
 	
  </body>
  

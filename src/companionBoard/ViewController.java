@@ -36,7 +36,7 @@ public class ViewController extends HttpServlet{
 		req.setAttribute("json", json);
 		
 		
-		req.getRequestDispatcher("accompany/viewForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/accompany/viewForm.jsp").forward(req, resp);
 	}
 
 	@Override

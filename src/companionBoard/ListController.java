@@ -76,7 +76,7 @@ public class ListController extends HttpServlet {
 		req.setAttribute("totalPages", totalPages);
 		req.setAttribute("json", json);
 		
-		req.getRequestDispatcher("accompany/companionList.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/accompany/companionList.jsp").forward(req, resp);
 	}
 
 	@Override

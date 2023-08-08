@@ -1,0 +1,131 @@
+:root {
+    --accent: rgb(0, 206, 124);
+    --border-width: 6px;
+    --border-radius: 55px;
+    --font-size: 30px;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: white;
+    font-family: sans-serif;
+}
+
+body .sign{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: white;
+    font-family: sans-serif;
+}
+
+
+
+#frm_mem table{
+    padding: 12px;
+    box-sizing: inherit;
+    width: 100%;
+    background: rgb(248, 248, 248);
+    border: 1px solid rgb(233, 233, 233);
+    border-radius: 4px;
+    width: 400px;
+}
+
+#frm_mem table td {
+    margin-bottom: 12px;
+    box-sizing: inherit;
+    position: relative;
+    width: 100%;
+}
+
+#frm_mem table input {
+    display: inline-block;
+    width: 100%;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 16px 20px;
+    background: rgb(255, 255, 255);
+    border: 1px solid var(--color-whiteGray);
+    border-radius: 4px;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+#frm_mem table div {
+    margin-bottom: 12px;
+    box-sizing: inherit;
+    position: relative;
+    width: 100%;
+}
+
+#frm_mem table label {
+    display: inline-block;
+    box-sizing: inherit;
+    position: relative;
+    width: 45%;
+    text-align: center;
+    background-color: #cccccc;
+    padding: 16px 0px;
+    border-radius: 5px;
+}
+
+#frm_mem table input[name="gender"]{
+    display: none;
+}
+
+#frm_mem table .gender {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn_ok{
+    display: inline-block;
+    box-sizing: inherit;
+    position: relative;
+    margin-top: 30px;
+    width: 45%;
+    text-align: center;
+    background-color: var(--accent);
+    padding: 16px 0px;
+    width: 400px;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.sign h2{
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.strong_text{
+    color: var(--accent);
+}
+
+/* #nicknameCheckResult {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.duplicate-message {
+    color: red;
+}
+
+.available-message {
+    color: green;
+}
+
+.invalid-input {
+    border: 2px solid red; 또는 원하는 스타일을 지정
+} */
+
+
+
+
+

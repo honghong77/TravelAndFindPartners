@@ -1,6 +1,8 @@
 package dbutil;
 
 import java.io.IOException;
+
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,25 +15,26 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 public class DBUtil {
 	private static DataSource ds;
-
+	
 	static {
 		try {
 			Properties prop = new Properties();
 			ClassLoader classLoader = DBUtil.class.getClassLoader();
-			prop.load(classLoader.getResourceAsStream("/dbutil/trip.properties"));
-
+			prop.load(classLoader.getResourceAsStream("dbutil/trip.properties"));
+			
 			BasicDataSource basic = new BasicDataSource();
 			basic.setUrl(prop.getProperty("jdbcURL"));
 			basic.setDriverClassName(prop.getProperty("jdbcDriverName"));
 			basic.setUsername(prop.getProperty("jdbcUserName"));
 			basic.setPassword(prop.getProperty("jdbcPassword"));
-
+			
 			ds = basic;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
-
+	
 	public static Connection getConnection() throws SQLException {
 		return ds.getConnection();
 	}
@@ -65,6 +68,9 @@ public class DBUtil {
 	}
 	
 }
+
+
+
 
 
 

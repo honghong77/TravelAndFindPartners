@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="accompany/viewStyle.css" rel="stylesheet" type="text/css">
+<link href="viewStyle.css" rel="stylesheet" type="text/css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
@@ -13,10 +13,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
-<% Object json = request.getAttribute("json"); %>
 
-
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <body>
+<% Object json = request.getAttribute("json"); %>
 
 
 <div>
@@ -24,7 +24,6 @@
 </div>
 	
 <div class="main">
-
 	<div id="title">제목</div>
 	
 	<div id="id">작성자</div>
@@ -38,14 +37,11 @@
 	<p><span id="concept" style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em;">테스트트트트트트트트트</span></p>
 	
 	
-	<div id="content">내용</div>
-	
-	
-	
-	
-	
-	
-	<div id="disqus_thread"></div>
+	<div id="content">내용</div>	
+</div>
+
+
+<div id="disqus_thread"></div>
 <script>
     /**
     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
@@ -64,16 +60,14 @@
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	
-	
-	
-	
-	
-	
-  	
-  	
-</div>
+
+
+
+
+
+
 </body>
+<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 
 <script>
 const companionList = <%= request.getAttribute("json") %>;

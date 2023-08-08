@@ -51,7 +51,7 @@ function performSearch(query) {
 			});
 
 
-<!-- Here is the newly added script for location list -->
+
 	$(document).ready(function() {
 		var locationList = ["서울", "부산", "인천", "대구", "광주", "대전", "울산", "세종", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주"];
 		var locationButton = $('.btn-primary[type="submit"]');

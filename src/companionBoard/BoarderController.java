@@ -24,7 +24,7 @@ public class BoarderController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 로그인 했을 때만 접근 할 수 있게 수정
-		req.getRequestDispatcher("accompany/companionBoardForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/accompany/companionBoardForm.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class BoarderController extends HttpServlet {
 						concept1, concept2, concept3);
 				dao.insertData(cb);
 			} else {
-				req.getRequestDispatcher("accompany/companionBoardForm.jsp").forward(req, resp);
+				req.getRequestDispatcher("/WEB-INF/accompany/companionBoardForm.jsp").forward(req, resp);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
