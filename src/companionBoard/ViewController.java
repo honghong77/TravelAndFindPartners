@@ -36,7 +36,7 @@ public class ViewController extends HttpServlet{
 		req.setAttribute("json", json);
 		
 		
-		req.getRequestDispatcher("viewForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("accompany/viewForm.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -44,5 +44,4 @@ public class ViewController extends HttpServlet{
 		// TODO Auto-generated method stub
 		super.doPost(req, resp);
 	}
-	
 }

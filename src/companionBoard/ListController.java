@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/accompany")
+@WebServlet("/companion")
 public class ListController extends HttpServlet {
 	private final static CompanionListDAO dao = new CompanionListDAO();
 	private final static Jackson jackson = new Jackson();
@@ -76,7 +76,7 @@ public class ListController extends HttpServlet {
 		req.setAttribute("totalPages", totalPages);
 		req.setAttribute("json", json);
 		
-		req.getRequestDispatcher("companionList.jsp").forward(req, resp);
+		req.getRequestDispatcher("accompany/companionList.jsp").forward(req, resp);
 	}
 
 	@Override
