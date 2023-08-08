@@ -21,7 +21,7 @@
 <body>
 
 <div class="row">
-	<div class="col-xl-6">
+	<div class="col-xl-6 ml-6">
 		<div id="map" class="p-4" style="height: 600px; width: 100%; margin-right: 100px;"></div>
 	</div>
 	<div class="col-md-6">
@@ -34,11 +34,12 @@
 	<i class="fa-solid fa-location-dot fa-beat fa-xl mr-4" style="color: #005eff; margin-right: 40px;"></i>${requestScope.destination}
 	
 	<c:forEach var="item" items="${resultList}" varStatus="status">
-    <div style="margin-top: 30px;">
-		day${status.count} ${item}
-		
-    </div>
-</c:forEach>
+    	<div style="margin-top: 30px;">
+			day${status.count} ${item}<br>
+			<button type="button" class="btn btn-primary btn-lg">Large button</button>
+			<button type="button" class="btn btn-secondary btn-lg">Large button</button>
+   		</div>
+	</c:forEach>
 
 
 
