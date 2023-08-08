@@ -45,12 +45,12 @@
       </div>
       <i class="fa-solid fa-location-dot fa-beat fa-xl mr-4" style="color: #005eff; margin-right: 40px;"></i>${requestScope.destination}
       <c:forEach var="item" items="${resultList}" varStatus="status">
-        <div style="display: flex; justify-content: center; align-items: center; height: 10vh;">
+        <div  id="day${status.count}" class="dayItem" style="display: flex; justify-content: center; align-items: center; height: 10vh;">
           <div style="margin-top: 30px;">
             <div style="margin-bottom: 10px;">
               <i class="fa-solid fa-plane fa-beat fa-xl" style="color: #1e00ff;"></i>
               day${status.count} ${item}<br>
-              <a href="/TravelAndFindPartners/schedule2">
+              <a href="${pageContext.request.contextPath}/schedule2?id=day${status.count}">
                 <button type="button" class="btn btn-primary btn-lg" style="margin-right: 30px;">장소 추가</button>
               </a>
               <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#memoModal">메모 추가</button>
@@ -102,3 +102,6 @@
 
 </html>
 
+<script>
+sessionStorage.clear();
+</script>

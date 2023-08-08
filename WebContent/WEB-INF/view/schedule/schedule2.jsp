@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page isELIgnored="true"%>
 <%@ include file="../layout/header.jsp"%>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbBV-mR71MB1Oc8kwqjn0bcIG7BEFDGuE&callback=initMap" async defer></script>
@@ -8,7 +7,7 @@
 
 <div class="container">
 	<div class="row">
-	
+		
 		<div class="col-md-6">
 			<div id="map" style="width: 100%; height: 1400px;"></div>
 		</div>
@@ -93,7 +92,7 @@
 			    <div id="selected-result" style="height: 100px; overflow-y: scroll; width: 100%;"></div>
 			  </div>
 			  <div class="col-md-4">
-			    <button class="btn btn-primary" onclick="saveSelectedResults()" type="submit" style="width: 100%;">결정 완료</button>
+			    <button class="btn btn-primary" onclick="saveSelectedResults('${dayId}')" type="submit" style="width: 100%;">결정 완료</button>
 
 			  </div>
 			</div>
@@ -146,6 +145,7 @@
 		// 여기서 원하는 곳에 결과를 저장할 수 있습니다.
 		// 예를 들어, localStorage에 저장하는 경우:
 		// localStorage.setItem('results', JSON.stringify(resultsArray));
+		
 	}
 </script>
 

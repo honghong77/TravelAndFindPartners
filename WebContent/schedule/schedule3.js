@@ -40,13 +40,31 @@ window.initMap = function () {
 
 
 window.onload = function() {
-  // 로컬 스토리지에서 선택한 결과를 가져옵니다.
-  const selectedResults = localStorage.getItem('selectedResults');
+	
+  document.querySelectorAll(".dayItem").forEach(function(item){
+	    // 로컬 스토리지에서 선택한 결과를 가져옵니다.
+		  const selectedResults = sessionStorage.getItem(item.id);
+		
+		  // 선택한 결과가 있으면 해당 요소에 설정합니다.
+		  if (selectedResults) {
+		    document.querySelector("#" +item.id + " div div #memoContent p").textContent = selectedResults;
+		  }
+	})
+	
 
-  // 선택한 결과가 있으면 해당 요소에 설정합니다.
-  if (selectedResults) {
-    document.getElementById("memoText").textContent = selectedResults;
-  }
 }
 
 
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  // "장소와 일정 추가" 부분에 저장된 주소를 표시합니다.
+  var memoContent = document.getElementById('memoContent');
+  var selectedAddress = sessionStorage.getItem('selectedAddress');
+
+  // 저장된 주소가 있으면 표시합니다.
+  if (selectedAddress) {
+    var paragraph = document.createElement('p');
+    paragraph.innerText = selectedAddress;
+    memoContent.appendChild(paragraph);
+  }
+});

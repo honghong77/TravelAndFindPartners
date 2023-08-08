@@ -43,7 +43,19 @@ function initMap() {
     });
   });
 
-  document.getElementById('confirmButton').addEventListener('click', function() {
+  
+document.getElementById('confirmButton').addEventListener('click', function() {
+  const location = map.getCenter();
+
+  // 선택한 주소를 가져옵니다.
+  const selectedAddress = document.getElementById('addressInput').value.trim();
+
+  // 선택한 주소를 세션 스토리지에 저장합니다.
+  sessionStorage.setItem('selectedAddress', selectedAddress);
+
+  // 이후의 기존 코드...
+});
+
     const location = map.getCenter();
 
 		  // Add a marker to the map
@@ -68,7 +80,6 @@ function initMap() {
 		    route.setDirections(response);
 		  }
 		});
-});
 }
 window.onload = initMap;
 
@@ -291,15 +302,17 @@ document.getElementById('searchButton').addEventListener('click', searchLocation
 }
 
 
-function saveSelectedResults() {
+function saveSelectedResults(dayId) {
   // 선택한 결과를 가져옵니다.
-  const selectedResults = document.getElementById("selected-result").textContent;
+ const selectedResults = document.getElementById("selected-result").textContent;
+ const result = {selectedResults : selectedResults};
+ console.log(selectedResults);
 
   // 선택한 결과를 로컬 스토리지에 저장합니다.
-  localStorage.setItem('selectedResults', selectedResults);
+  sessionStorage.setItem(dayId, selectedResults);
 
   // 브라우저의 뒤로 가기 기능을 호출합니다.
-  window.history.back();
+window.history.back();
 }
 
 

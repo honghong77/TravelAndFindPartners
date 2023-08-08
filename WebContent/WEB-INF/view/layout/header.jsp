@@ -45,14 +45,16 @@
 
 	<!-- 네브바 시작 -->
 	<nav class="navbar navbar-expand-lg bg-light">
-		<div class="container-fluid">
+		<div class="container" >
 			<a class="navbar-brand" href="#">트립소다</a>
+			<div>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false"
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
+			</div>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown"
 				style="justify-content: flex-end;">
 				<ul class="navbar-nav">
@@ -69,7 +71,7 @@
 		</div>
 	</nav>
 	<nav class="navbar navbar-expand-lg bg-light">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link active"
