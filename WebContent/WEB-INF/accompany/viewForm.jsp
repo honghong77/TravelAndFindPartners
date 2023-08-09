@@ -22,7 +22,7 @@
 	List<Companion2> companionList = (List<Companion2>) request.getAttribute("list");
 	Companion2 companion = companionList.get(0);
 	int no = companion.getNo();
-	System.out.println(no);
+	String id = companion.getId();
 	
 	request.setAttribute("json", request.getAttribute("json"));
 %>
@@ -34,6 +34,7 @@
 <form action="update" method="POST" id="update">
 <div class="main">
 	<div id="title" name="title">제목</div>
+	<input type="hidden" id="id" name="id" value="<%= id %>">
 	
 	<div id="id" name="id">작성자</div>
 	

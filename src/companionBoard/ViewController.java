@@ -42,7 +42,6 @@ public class ViewController extends HttpServlet{
 		System.out.println(idCheck);
 		
 		String json = jackson.convertListToJson(list);
-		System.out.println("json : " + json);
 		
 		req.setAttribute("json", json);
 		req.setAttribute("idCheck", idCheck);

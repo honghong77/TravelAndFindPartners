@@ -1,3 +1,5 @@
+<%@page import="companionBoard.Companion2"%>
+<%@page import="java.util.List"%>
 <%@page import="java.time.LocalDate"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
@@ -23,10 +25,13 @@
 	crossorigin="anonymous"></script>
 
 </head>
-
-<body>
-
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<body>
+<%
+	List<Companion2> list = (List<Companion2>) request.getAttribute("list");
+	Companion2 c = list.get(0);
+%>
+
 
 <div class="p-5 text-center bg-body-tertiary" style="background-image: url(images/trip.jpg);">
     <div class="container py-5">
@@ -36,7 +41,7 @@
 </div>
 
 <div id="main">
-	<form action="" method="post" name="form" enctype="multipart/form-data" onSubmit="return checkform();">
+	<form action="" name="form" enctype="multipart/form-data" onSubmit="return checkform();">
 	<div class="choice">
 	<div class="location" id="locations">
 			<input type="radio" class="rb" name="radiobtn" id="radiobtn1" value="서울"><label for="radiobtn1">서울</label>
@@ -132,7 +137,9 @@
 		<div class="mb-3">
   			<label for="formFile" class="form-label">배경사진을 선택해주세요</label>
   			<input class="form-control" type="file" id="image" name="image" accept="image/*" onchange="setThumbnail(event);"/>
-  			<div id="image_container"></div>
+  			<div id="image_container">
+  				<img id="selectedImage" alt="...">
+  			</div>
 		</div>
 		
 		<div class="mb-3">
@@ -154,6 +161,11 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 		
 		
 		<div id="board_button">
+			<input type="hidden" id="no" name="no" value="<%= c.getNo() %>">
+			<input type="hidden" id="id" name="id" value="<%= c.getId() %>">
+			<input type="hidden" id="id" name="id" value="<%= c.getId() %>">
+			<input type="hidden" id="id" name="id" value="<%= c.getId() %>">
+			
 			<input class="btn btn-primary" type="submit" value="저장하기" id="btn1">
 			<button type="button" class="btn btn-light" id="btn2" onclick="location.href='companionBoardForm.jsp';">수정취소</button>
 		</div>
@@ -165,19 +177,147 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 	
  </body>
  
- <script>	
+ <script>
+ const companionList = <%= request.getAttribute("json") %>;
+ const companion = companionList[0];
+ const frame = document.getElementById("image");
+
+   const base64Image = companion.image;
+ 		console.log(base64Image);
+ 		
+   document.getElementById("selectedImage").src = 'data:image/png;base64,' + companion.image;
+   
+   const loca = companion.location;
+   console.log(loca);
+   
+   switch(loca) {
+  	case '서울':  
+		document.getElementById("radiobtn1").checked = true;
+    	break;
+  	case '부산':  
+	  	document.getElementById("radiobtn2").checked = true;
+    	break;
+	case '대구':  
+	  	document.getElementById("radiobtn3").checked = true;
+    	break;
+	case '인천':  
+	  	document.getElementById("radiobtn4").checked = true;
+    	break;
+	case '광주':  
+	  	document.getElementById("radiobtn5").checked = true;
+    	break;
+	case '대전':  
+	  	document.getElementById("radiobtn6").checked = true;
+    	break;
+	case '울산':  
+	  	document.getElementById("radiobtn7").checked = true;
+    	break;
+	case '세종':  
+	  	document.getElementById("radiobtn8").checked = true;
+    	break;
+	case '경기':  
+	  	document.getElementById("radiobtn9").checked = true;
+    	break;
+	case '강원':  
+	  	document.getElementById("radiobtn10").checked = true;
+    	break;
+	case '충북':  
+	  	document.getElementById("radiobtn11").checked = true;
+    	break;
+	case '충남':  
+	  	document.getElementById("radiobtn12").checked = true;
+    	break;
+	case '전북':  
+	  	document.getElementById("radiobtn13").checked = true;
+    	break;
+	case '전남':  
+	  	document.getElementById("radiobtn14").checked = true;
+    	break;
+	case '경북':  
+	  	document.getElementById("radiobtn15").checked = true;
+    	break;
+	case '경남':  
+	  	document.getElementById("radiobtn16").checked = true;
+    	break;
+	case '제주':  
+	  	document.getElementById("radiobtn17").checked = true;
+    	break;
+	}
+   
+   	document.getElementById("number").value = companion.personnel;
+   	document.getElementById("value1").innerText = companion.personnel;
+   	document.getElementById("startdate").value = companion.start;
+	document.getElementById("enddate").value = companion.end;
+	
+	[companion.concept1, companion.concept2, companion.concept3].forEach ( 
+		    function(concept) {
+		        switch(concept) {
+		  	case '무계획':  
+				document.getElementById("checkBox1").checked = true;
+		    	break;
+		  	case '바다':  
+			  	document.getElementById("checkBox2").checked = true;
+		    	break;
+			case '등산':  
+			  	document.getElementById("checkBox3").checked = true;
+		    	break;
+			case '맛집/카페 탐방':  
+			  	document.getElementById("checkBox4").checked = true;
+		    	break;
+			case '핫플레이스 탐방':  
+			  	document.getElementById("checkBox5").checked = true;
+		    	break;
+			case '쇼핑':  
+			  	document.getElementById("checkBox6").checked = true;
+		    	break;
+			case '드라이브':  
+			  	document.getElementById("checkBox7").checked = true;
+		    	break;
+			case '전시회/공연 관람':  
+			  	document.getElementById("checkBox8").checked = true;
+		    	break;
+			case '스포츠 경기 직관':  
+			  	document.getElementById("checkBox9").checked = true;
+		    	break;
+			case '글램핑':  
+			  	document.getElementById("checkBox10").checked = true;
+		    	break;
+			case '서핑':  
+			  	document.getElementById("checkBox11").checked = true;
+		    	break;
+			}
+		})
+		
+	document.getElementById("title").innerHTML = companion.title;
+	document.getElementById("content").innerHTML = companion.content;
+   
+
+   
+	var imageElement = document.getElementById("selectedImage"); // 이미지 요소 선택
+	var imageUrl = imageElement.src; // 이미지 요소의 src 속성 값 가져오기
+
+	if (imageUrl) {
+	    console.log("이미지가 있는 상태입니다.");
+	} else {
+	    console.log("이미지가 없는 상태입니다.");
+	}
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
  	// 유효성 검사
  	function checkform() {
- 		var fileCheck = document.getElementById("image").value;
-
- 		if(!fileCheck){
-
- 		alert("파일을 첨부해 주세요");
-
- 		return false;
-
- 		}
+		var fileCheck = document.getElementById("selectedImage").src;
  		
+ 		if(!fileCheck){
+ 		alert("파일을 첨부해 주세요");
+ 		return false;
+ 		}
  		
  		let startdate = new Date(document.getElementById("startdate").value);
  		let enddate = new Date(document.getElementById("enddate").value);
