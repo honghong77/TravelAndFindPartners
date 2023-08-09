@@ -54,7 +54,7 @@ public class TendencyServlet extends HttpServlet {
                
         TendencyDAO.insertTendency(userTendency);
         
-        resp.getWriter().write("성향이 성공적으로 저장되었습니다!");
+        
         resp.sendRedirect("./profile/profile.jsp");
 	}
 	

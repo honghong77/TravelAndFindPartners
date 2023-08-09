@@ -14,7 +14,7 @@
         <p><h1>관심사와 취향을 선택해주세요</h1></p>     
         <p><h3>내 관심사에 딱 맞는 동행과 여행을 추천해 드려요</h3></p>
         
-        <form action="/0801/profile" class="toggle" id="ct_frm" method="post">
+        <form action="/TravelAndFindPartners/tendency" class="toggle" id="ct_frm" method="post">
             <p><h1>나는 어떤 여행을 좋아하나요?</h1></p>
             <input type="checkbox" class="btn-check" id="btn-check" name="tripTendency" value="1" autocomplete="off">
             <label class="btn btn-primary" for="btn-check">&#128279; 무계획</label>

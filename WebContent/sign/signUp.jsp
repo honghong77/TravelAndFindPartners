@@ -12,7 +12,7 @@
 	<section class="sign">
         <h2>회원가입</h2>
         <div style="text-align: left;width: 100%;">입력사항<span class="strong_text">(필수)</span></div>
-        <form id="frm_mem" method="post" action="/0801/sign">
+        <form id="frm_mem" method="post" action="/TravelAndFindPartners/sign">
             <table>
                 <tr>
                     <!-- <td><span>id</span></td> -->

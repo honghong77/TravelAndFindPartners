@@ -10,7 +10,7 @@
 </head>
 <body>
 	<section class="login-form">
-		<form action="/0801/login" method="post">
+		<form action="/TravelAndFindPartners/login" method="post">
 			<h1>로그인</h1>
 			<div class="int-area">
 				<input type="email" name="id" id="id" autocomplete="off" required>
