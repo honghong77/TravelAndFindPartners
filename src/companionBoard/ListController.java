@@ -19,19 +19,30 @@ public class ListController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String tempPage = req.getParameter("page");
 		String search = req.getParameter("search");
-		String filter = req.getParameter("filter");
+		String concept = req.getParameter("concept");
 		int totalData = 0;
 		List<Companion2> list = null;
 		
 		System.out.println("파라미터 : " + tempPage);
 		System.out.println("파라미터 : " + search);
-		System.out.println("파라미터 : " + filter);
+		System.out.println("파라미터 : " + concept);
 		
-		if (filter == null || filter.trim().equals("") || filter.equals("newest")) {
-			if (search == null || search.trim().equals("")) {
+		if (search == null || search.trim().equals("")) {
+			if (concept == null || concept.trim().equals("")) {
 				totalData = dao.getCount();
+				System.out.println("1111");
+				
 			} else {
+				totalData = dao.getConceptCount(concept);
+				System.out.println("2222");
+			}
+		} else {
+			if (concept == null || concept.trim().equals("")) {
 				totalData = dao.getSearchCount(search);
+				System.out.println("3333");
+			} else {
+				totalData = dao.getSearchConceptCount(concept, search);
+				System.out.println("4444");
 			}
 		}
 		System.out.println("totalData : " + totalData);
@@ -71,18 +82,24 @@ public class ListController extends HttpServlet {
 		int start = (currendPage - 1) * 9;
 		
 		try {
-			if (filter == null || filter.trim().equals("") || filter.equals("newest")) {
-				if (search == null || search.trim().equals("")) {
+			if (search == null || search.trim().equals("")) {
+				if (concept == null || concept.trim().equals("")) {
 					list = dao.getList(start);
 				} else {
+					list = dao.getConceptList(start, concept);
+				}
+			} else {
+				if (concept == null || concept.trim().equals("")) {
 					list = dao.getSearchList(start, search);
+				} else {
+					list = dao.getSearchConceptList(start, concept, search);
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println(list);
+		// System.out.println(list);
 
 		req.setAttribute("list", list);
 		

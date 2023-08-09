@@ -24,9 +24,6 @@
 
 </head>
 
-
-
-
 <body>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
@@ -157,8 +154,8 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 		
 		
 		<div id="board_button">
-			<input class="btn btn-primary" type="submit" value="등록하기" id="btn1">
-			<button type="button" class="btn btn-light" id="btn2" onclick="location.href='companionBoardForm.jsp';">작성취소</button>
+			<input class="btn btn-primary" type="submit" value="저장하기" id="btn1">
+			<button type="button" class="btn btn-light" id="btn2" onclick="location.href='companionBoardForm.jsp';">수정취소</button>
 		</div>
 		</form>
 	</div>

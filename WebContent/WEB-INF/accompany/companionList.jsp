@@ -22,22 +22,21 @@
 	int endPage = (Integer) request.getAttribute("endPage");
 	int totalPages = (Integer) request.getAttribute("totalPages");
 	List<Companion2> list = (List<Companion2>) request.getAttribute("list");
-	System.out.println("리스트 :" + list);
+	//System.out.println("리스트 :" + list);
 	
 	String search = request.getParameter("search");
 	if (search == null) {
 		search = "";
 	}
-	String filter = request.getParameter("filter");
-	if (filter == null) {
-		filter = "";
+	String concept = request.getParameter("concept");
+	if (concept == null) {
+		concept = "";
 	}
 	System.out.println("폼 :" + search);
-	System.out.println("폼 :" + filter);
+	System.out.println("폼 :" + concept);
 	
 %>
 <span id="listSize" style="display: none;"> <%= list.size() %> </span>
-
 
 <form class="row g-3">
   <div class="col-auto">
@@ -48,13 +47,21 @@
     <button type="submit" class="btn btn-primary mb-3">검색</button>
   </div>
   
+  <div style="display: flex; justify-content: space-between;">
   <div>
-  	<button type="submit" class="btn btn-outline-primary" id="new" name="filter" value="newest">최신순</button>
-	<button type="submit" class="btn btn-outline-primary" id="like" name="filter" value="like">성향맞춤</button>
+  	<button type="submit" class="btn btn-outline-primary" id="new" name="concept" value="무계획">무계획</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="바다">바다</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="등산">등산</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="맛집/카페 탐방">맛집/카페 탐방</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="핫플레이스 탐방">핫플레이스 탐방</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="쇼핑">쇼핑</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="드라이브">드라이브</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="전시회/공연 관람">전시회/공연 관람</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="스포츠 경기 직관">스포츠 경기 직관</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="글램핑">글램핑</button>
+	<button type="submit" class="btn btn-outline-primary" id="like" name="concept" value="서핑">서핑</button>
   </div>
-</form>
-
-<form class="filter">
+  </div>
 	
 </form>
 
@@ -114,12 +121,12 @@
           tabindex="-1" aria-disabled="true">이전</a></li>
       <% } else {%>
       <li class="page-item"><a class="page-link"
-          href="companion?page=<%=startPage - 1%>" tabindex="-1"
+          href="companion?page=<%=startPage - 1%>&search=<%=search %>&concept=<%= concept %>" tabindex="-1"
           aria-disabled="true">이전</a></li>
       <% }%>
       <% for (int i = startPage; i <= endPage; i++) {%>
       <li class="page-item">
-      <a class="page-link" href="companion?page=<%=i %>"><%=i%></a></li>
+      <a class="page-link" href="companion?page=<%=i %>&search=<%=search %>&concept=<%= concept %>"><%=i%></a></li>
       <% }%>
       <%
           // 마지막 페이지 숫자와 startPage에서 pageLength 더해준 값이 일치할 때
@@ -129,7 +136,7 @@
       <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
       <% } else {%>
   	  <li class="page-item">
-      	<a class="page-link" href="companion?page=<%=endPage + 1%>">다음</a>
+      	<a class="page-link" href="companion?page=<%=endPage + 1%>&search=<%=search %>&concept=<%= concept %>">다음</a>
       </li>
       <% }%>
   </ul>

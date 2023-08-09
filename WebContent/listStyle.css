@@ -155,13 +155,13 @@ h1 {
 }
 
 .card-container {
-	display : grid ;
-  	grid-template-rows : 1fr  1fr  1fr ;
-  	grid-template-columns : 1fr  1fr  1fr ;
-  	grid-gap : 2vw ;
-  	margin-left : 100px;
-  	margin-right : 100px
-  }
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1vw;
+    margin-left: 300px;
+    margin-right: 300px;
+}
 
 .paging {
 	display: flex;

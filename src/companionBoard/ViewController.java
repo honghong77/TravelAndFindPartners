@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/view")
 public class ViewController extends HttpServlet{
@@ -28,12 +29,23 @@ public class ViewController extends HttpServlet{
 			e.printStackTrace();
 		}
 		
+		req.setAttribute("list", list);
+		
+//		HttpSession session = req.getSession(false); 
+//		String id = (String) session.getAttribute("id");
+		String id = "id";
+		
+		boolean idCheck = false;
+		if (id.equals(list.get(0).getId())) {
+			idCheck = true;
+		}
+		System.out.println(idCheck);
 		
 		String json = jackson.convertListToJson(list);
 		System.out.println("json : " + json);
 		
-		
 		req.setAttribute("json", json);
+		req.setAttribute("idCheck", idCheck);
 		
 		
 		req.getRequestDispatcher("/WEB-INF/accompany/viewForm.jsp").forward(req, resp);

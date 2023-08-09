@@ -1,3 +1,5 @@
+<%@page import="companionBoard.Companion2"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,32 +15,79 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <body>
-<% Object json = request.getAttribute("json"); %>
-
+<%
+	List<Companion2> companionList = (List<Companion2>) request.getAttribute("list");
+	Companion2 companion = companionList.get(0);
+	int no = companion.getNo();
+	System.out.println(no);
+	
+	request.setAttribute("json", request.getAttribute("json"));
+%>
 
 <div>
 <img src="trip.jpg" class="rounded mx-auto d-block" id="image" alt="...">
 </div>
-	
+
+<form action="update" method="POST" id="update">
 <div class="main">
-	<div id="title">제목</div>
+	<div id="title" name="title">제목</div>
 	
-	<div id="id">작성자</div>
+	<div id="id" name="id">작성자</div>
 	
 	<div>
-		<div id="location">지역</div>
-		<div id="personnel">인원</div>
+		<div id="location" name="location">지역</div>
+		<div id="personnel" name="personnel">인원</div>
 		<div id="date">날짜</div>
 	</div>
 	
 	<p><span id="concept" style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em;">테스트트트트트트트트트</span></p>
 	
-	
 	<div id="content">내용</div>	
+	
+
+	<div id="view_button">
+		<input type="hidden" id="no" name="no" value="<%= no %>">
+		<input class="btn btn-primary" type="submit" value="수정하기" id="update">
+		<button type="button" class="btn btn-light" id="delete">삭제하기</button>
+	</div>
 </div>
+</form>	
+
+<div class="modal" id="myModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">확인</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>삭제하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <form action="delete" method="POST">
+        <input type="hidden" id="no" name="no" value="<%= no %>">
+        <button type="submit" class="btn btn-primary">삭제</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $("#delete").click(function(){
+        $("#myModal").modal("show"); // 모달을 보이도록 변경
+    });
+});
+</script>
+
+
+
+
 
 
 <div id="disqus_thread"></div>
@@ -60,10 +109,6 @@
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
-
-
 
 
 </body>
@@ -124,9 +169,13 @@ document.getElementById("date").innerText = companion.start + " ~ " + companion.
 document.getElementById("location").innerText = companion.location;
 document.getElementById("personnel").innerText = companion.personnel;
 
+const idCheck = <%= request.getAttribute("idCheck")%>
+
+if (idCheck === false) {
+	 $("#delete").hide()
+	 $("#update").hide()
+}
 
 
-
- 
 </script>
 </html>

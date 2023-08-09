@@ -91,5 +91,53 @@ public class CompanionBoardDAO {
 		return list;
 	}
 	
+	public int delete(int number) throws SQLException {
+		String sql = "DELETE FROM companionboard WHERE no = ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, number);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return -1;
+	}
 	
+	public int update(Companion companionBoard, int no) throws SQLException {
+		String sql = "UPDATE companionboard SET start = ?, end = ?, location = ? , image = ?, title = ?, content = ?, personnel = ?, concept1 = ?, concept2 = ?, concept3 = ? WHERE no = " + no;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, companionBoard.getStart());
+			stmt.setString(2, companionBoard.getEnd());
+			stmt.setString(3, companionBoard.getLocation());
+			stmt.setBytes(4, companionBoard.getImage());
+			stmt.setString(5, companionBoard.getTitle());
+			stmt.setString(6, companionBoard.getContent());
+			stmt.setInt(7, companionBoard.getPersonnel());
+			stmt.setString(8, companionBoard.getConcept1());
+			stmt.setString(9, companionBoard.getConcept2());
+			stmt.setString(10, companionBoard.getConcept3());
+			
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return -1;
+	}
 }
