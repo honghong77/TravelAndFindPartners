@@ -83,40 +83,7 @@ document.getElementById('confirmButton').addEventListener('click', function() {
 }
 window.onload = initMap;
 
- function searchLocation() {
-	 console.log("Search function called");
-  const searchQuery = document.getElementById('search').value.trim();
-  console.log("Search query is:", searchQuery);
-
-  if (searchQuery.length > 0) {
-    const geocoder = new google.maps.Geocoder();
-
-    geocoder.geocode({ 'address': searchQuery }, function(results, status) {
-      if (status === 'OK') {
-        const location = results[0].geometry.location;
-        map.setCenter(location);
-        
-        if (marker) {
-          marker.setMap(null);
-        }
-
-        marker = new google.maps.Marker({
-          position: location,
-          map: map
-        });
-      } else {
-        alert('오류 내용을 확인하세요: ' + status);
-      }
-    });
-  } else {
-    alert('검색어를 입력하세요.');
-  }
-}
-
-document.getElementById('searchButton').addEventListener('click', searchLocation);
-
-
-  function updateMarker() {
+function updateMarker() {
 	  const selectedCity = document.getElementById('cities').value;
 	  const selectedProvince = document.getElementById('provinces').value;
 	  const fullAddress = `${selectedProvince} ${selectedCity}`;;
@@ -158,6 +125,8 @@ document.getElementById('searchButton').addEventListener('click', searchLocation
 		};
 		
 		
+		
+		
   function updateCities() {
 	  const selectedProvince = document.getElementById('provinces').value;
 	  const cities = provincesData[selectedProvince];
@@ -166,14 +135,14 @@ document.getElementById('searchButton').addEventListener('click', searchLocation
 	  const citiesSelect = document.getElementById('cities');
 	  citiesSelect.innerHTML = '<option value="">시/군/구 선택</option>';
 	  cities.forEach(city => {
-	    citiesSelect.innerHTML += `<option value="${city}">${city}</option>`;;
+	    citiesSelect.innerHTML += `<option value="${city}">${city}</option>`;
 	  });
 	}
 
 	document.getElementById('cities').addEventListener('change', function() {
 	  const selectedCity = this.value;
 	  const selectedProvince = document.getElementById('provinces').value;
-	  const fullAddress = `${selectedProvince} ${selectedCity}`;;
+	  const fullAddress = `${selectedProvince} ${selectedCity}`;
 
 	  const geocoder = new google.maps.Geocoder();
 	  geocoder.geocode({ 'address': fullAddress }, function(results, status) {
@@ -207,7 +176,8 @@ document.getElementById('searchButton').addEventListener('click', searchLocation
 
 
 
- async function fetchData(lat, lng) {
+async function fetchData(lat, lng) {
+	console.log("함수 실행")
     try {
         const SERVICE_KEY = "ppXvYpsy1tlJDUysjG0%2FrhjFKnX7MRe2efWvkt5rP1Tmmpv4Tbn6UFpPp8SNviAcrWYhkI%2B%2BKtLhGDOW5cmh4Q%3D%3D";
        	const URL = `http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?ServiceKey=${SERVICE_KEY}&contentTypeId=12&mapX=${lng}&mapY=${lat}&radius=5000&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTest&_type=json`;
@@ -237,14 +207,28 @@ document.getElementById('searchButton').addEventListener('click', searchLocation
 	                let infoDiv = document.createElement("div");
 
 	                let titleDiv = document.createElement("div");
-	                let titleStrong = document.createElement("strong");
-	                titleStrong.textContent = item[i].title;
-	                titleDiv.appendChild(titleStrong);
-	                infoDiv.appendChild(titleDiv);
+	               let titleStrong = document.createElement("strong");
+				    titleStrong.textContent = item[i].title;
+				    titleStrong.style.cursor = "pointer"; // 마우스 커서를 포인터로 변경
 
-	                let addrDiv = document.createElement("div");
-	                addrDiv.textContent = item[i].addr1;
-	                infoDiv.appendChild(addrDiv);
+					 let addrDiv = document.createElement("div");
+					    addrDiv.textContent = item[i].addr1; // 주소를 가져와서 표시합니다.
+				
+				    // titleStrong에 클릭 이벤트 리스너 추가
+				    titleStrong.addEventListener('click', (function(mapX, mapY) {
+				        return function() {
+				            const location = {
+				                lat: parseFloat(mapY),
+				                lng: parseFloat(mapX)
+				            };
+				            map.setCenter(location);
+				            marker.setPosition(location);
+				        };
+				    })(item[i].mapx, item[i].mapy));
+				
+				    titleDiv.appendChild(titleStrong);
+				    infoDiv.appendChild(titleDiv); // 제목을 infoDiv에 추가
+    				infoDiv.appendChild(addrDiv);  // 주소를 infoDiv에 추가, 제목 바로 아래에 위치
 
 	                parentDiv.appendChild(infoDiv);
 
@@ -303,6 +287,7 @@ document.getElementById('searchButton').addEventListener('click', searchLocation
 
 
 function saveSelectedResults(dayId) {
+	console.log("함수실행")
   // 선택한 결과를 가져옵니다.
  const selectedResults = document.getElementById("selected-result").textContent;
  const result = {selectedResults : selectedResults};

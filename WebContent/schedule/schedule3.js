@@ -42,7 +42,7 @@ window.initMap = function () {
 window.onload = function() {
 	
   document.querySelectorAll(".dayItem").forEach(function(item){
-	    // 로컬 스토리지에서 선택한 결과를 가져옵니다.
+	    // 세션 스토리지에서 선택한 결과를 가져옵니다.
 		  const selectedResults = sessionStorage.getItem(item.id);
 		
 		  // 선택한 결과가 있으면 해당 요소에 설정합니다.

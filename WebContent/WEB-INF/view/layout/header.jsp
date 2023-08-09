@@ -16,15 +16,10 @@
 <title>Blog</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-	crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -97,8 +92,8 @@
 				<div class="modal-body">
 					<form action="/TravelAndFindPartners/schedule3" method="POST">
 						<div class="mb-3">
-							<label for="destination" class="form-label" id="destination">여행지</label> <select
-								class="form-select" id="destination" name="destination">
+							<label for="destinationSelect" class="form-label">여행지</label>
+							<select class="form-select" id="destinationSelect" name="destination" onchange="setCoordinates()">
 								<option selected>여행지를 선택해주세요</option>
 								<option value="서울">서울특별시</option>
 								<option value="부산">부산광역시</option>
@@ -124,15 +119,20 @@
 								type="date" class="form-control" id="startDate" name="startDate">
 						</div>
 						<div class="mb-3">
+						
 							<label for="endDate" class="form-label">여행 종료 날짜</label> <input
 								type="date" class="form-control" id="endDate" name="endDate">
 						</div>
+						<input type="hidden" name="latitude" id="latitude" value="0">
+				<input type="hidden" name="longitude" id="longitude" value="0">
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"data-bs-dismiss="modal">닫기</button>
 						<input type="submit" class="btn btn-primary" value="다음">
 						</div>
 					</form>
 				</div>
+	
+				
 				
 				
 				
@@ -145,19 +145,67 @@
 
 
 </body>
+									<!-- 여행지를 선택했을 때 위도와 경도를 정의하는 구간입니다 -->
+									<script>
+									    // 여행지의 위도와 경도를 정의
+									    var coordinates = {
+										    "서울": { lat: 37.5665, lng: 126.9780 },
+										    "부산": { lat: 35.1796, lng: 129.0756 },
+										    "인천": { lat: 37.4563, lng: 126.7052 },
+										    "대구": { lat: 35.8714, lng: 128.6014 },
+										    "광주": { lat: 35.1601, lng: 126.8526 },
+										    "대전": { lat: 36.3504, lng: 127.3845 },
+										    "울산": { lat: 35.5384, lng: 129.3114 },
+										    "세종": { lat: 36.4801, lng: 127.2890 },
+										    "경기": { lat: 37.4138, lng: 127.5183 },
+										    "강원": { lat: 37.8228, lng: 128.1555 },
+										    "충북": { lat: 36.8000, lng: 127.7000 },
+										    "충남": { lat: 36.5184, lng: 126.8000 },
+										    "전북": { lat: 35.7175, lng: 127.1530 },
+										    "전남": { lat: 34.8161, lng: 126.4629 },
+										    "경북": { lat: 36.4919, lng: 128.8889 },
+										    "경남": { lat: 35.4606, lng: 128.2132 },
+										    "제주": { lat: 33.4996, lng: 126.5312 }
+										};
+									
+									    var selectedLat = 0; // 선택된 위도
+									    var selectedLng = 0; // 선택된 경도
+									
+									    // 여행지가 선택되면 위도와 경도를 설정
+									    
+										function setCoordinates() {
+										    console.log("함수 실행")
+										    var destination = document.getElementById("destinationSelect").value; // ID 값이 "destinationSelect"
+										    if (coordinates[destination]) {
+										        selectedLat = coordinates[destination].lat;
+										        selectedLng = coordinates[destination].lng;
+										
+										        // 숨겨진 입력 필드에 위도와 경도 값을 설정
+										        document.getElementById("latitude").value = selectedLat;
+										        document.getElementById("longitude").value = selectedLng;
+										    }
+										}
+
+									</script>
 
 
 
 
 
-    <!-- Set destination, startDate, endDate in the request -->
-    <%
-        String destination = request.getParameter("destination");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        request.setAttribute("destination", destination);
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("endDate", endDate);
-    %>
+								    <!-- 목적지, 여행시작시간, 여행종료시간, 위도, 경도의 정보를 파라미터로 넘겨주는 구간입니다-->
+								    <%
+								        String destination = request.getParameter("destination");
+								        String startDate = request.getParameter("startDate");
+								        String endDate = request.getParameter("endDate");
+								        String latitude = request.getParameter("latitude");
+								        String longitude = request.getParameter("longitude");
+								        request.setAttribute("destination", destination);
+								        request.setAttribute("startDate", startDate);
+								        request.setAttribute("endDate", endDate);
+								        request.setAttribute("latitude", latitude); // 위도 저장
+								        request.setAttribute("longitude", longitude); // 경도 저장
+								    %>
+								    
+								    
 </html>
 

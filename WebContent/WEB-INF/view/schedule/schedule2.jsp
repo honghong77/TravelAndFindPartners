@@ -28,8 +28,59 @@
 			</div>
 			
 			<div class="input-group mb-5">
-			    <input class="btn btn-primary" type="submit" value="추가하기" id="addButton" style="margin-left: auto; display: block;">
+			    <input class="btn btn-primary" type="button" value="추가하기" id="addButton" onclick="addButton" style="margin-left: auto; display: block;">
+			    <input type="hidden" name="latitude" id="hiddenLatitude" value="">
+			    <input type="hidden" name="longitude" id="hiddenLongitude" value="">
 			</div>
+			
+											<!-- 추가하기 버튼을 눌렀을 때 장소 적는 칸에 아무것도 안 적혀 있을 때 경고문을 띄우는 기능입니다 -->
+											<!-- 필드에 값이 있다면 주소, 장소이름, 현재 마커의 위도와 경도를 히든 필드에 나타내고 selected-result에 넘기는 기능입니다-->
+											<script>
+											 document.getElementById('addButton').addEventListener('click', function() {
+												    const placeName = document.getElementById('hi').value.trim();
+												    if (placeName.length === 0) {
+												      alert('장소를 입력하세요');
+												    } else {
+												      // 장소가 입력되었으므로 setHiddenValues 함수를 호출합니다.
+												      setHiddenValues();
+												      
+												    }
+												  });
+											function setHiddenValues() {
+												  // 마커의 위도와 경도를 가져옵니다.
+												  console.log("Getting marker's latitude and longitude...");
+												  var markerLat = marker.getPosition().lat(); // 마커의 위도
+												  var markerLng = marker.getPosition().lng(); // 마커의 경도
+
+												  // 가져온 위도와 경도를 콘솔에 출력합니다.
+												  console.log("Marker's Latitude: " + markerLat);
+												  console.log("Marker's Longitude: " + markerLng);
+
+												  // 히든 필드에 값을 설정합니다.
+												  document.getElementById("hiddenLatitude").value = markerLat;
+												  document.getElementById("hiddenLongitude").value = markerLng;
+
+												  // 장소 이름과 주소를 가져옵니다.
+												  var placeName = document.getElementById('hi').value;
+												  var address = document.getElementById('addressInput').value;
+
+												  // 선택된 결과를 div에 추가합니다.
+												  var selectedResultDiv = document.getElementById('selected-result');
+												  var contentToAdd = placeName +
+								                   '<input type="hidden" name="address" value="' + address + '">' +
+								                   '<input type="hidden" name="latitude" value="' + markerLat + '">' +
+								                   '<input type="hidden" name="longitude" value="' + markerLng + '"><br>';
+
+
+												  selectedResultDiv.innerHTML += contentToAdd;
+
+												  console.log("히든 필드의 address 값: " + address);
+												  console.log("히든 필드의 latitude 값: " + markerLat);
+												  console.log("히든 필드의 longitude 값: " + markerLng);
+												}
+
+											</script>
+
 
 
 
@@ -39,16 +90,110 @@
 				검색하여 직접 장소를 정하기
 			</div>
 			
-			<div class="input-group mb-5">
+			<div class="input-group mb-2">
 				<input type="text" id="search" class="form-control"placeholder="구체적인 장소를 검색하세요!" aria-label="장소 검색"aria-describedby="button-addon2">
 				<div class="input-group-append">
 					<button class="btn btn-outline-secondary" type="button"id="searchButton">검색</button>
 				</div>
 			</div>
+			
+									<div class="input-group mb-5">
+						  <input class="btn btn-primary" type="button" value="추가하기" id="addButton2" onclick="setHiddenValues2()" style="margin-left: auto; display: block;" disabled>
+						  <input type="hidden" name="latitude2" id="hiddenLatitude2" value="">
+						  <input type="hidden" name="longitude2" id="hiddenLongitude2" value="">
+						</div>
+						
+						
+							<!-- 검색 버튼을 클릭했을 때 지도에서 위치를 찾는 기능입니다-->
+						<script>
+						document.getElementById('searchButton').addEventListener('click', searchLocation);
+
+						  function searchLocation() {
+						    console.log("Search function called");
+						    const searchQuery = document.getElementById('search').value.trim();
+						    console.log("Search query is:", searchQuery);
+						
+						    if (searchQuery.length > 0) {
+						      const geocoder = new google.maps.Geocoder();
+						
+						      geocoder.geocode({ 'address': searchQuery }, function(results, status) {
+						        if (status === 'OK') {
+						          const location = results[0].geometry.location;
+						          map.setCenter(location);
+						          
+						          if (marker) {
+						            marker.setMap(null);
+						          }
+						
+						          marker = new google.maps.Marker({
+						            position: location,
+						            map: map
+						          });
+						
+						          // 검색이 성공하면 "추가하기" 버튼 활성화
+						          document.getElementById('addButton2').disabled = false;
+						        } else {
+						          alert('오류 내용을 확인하세요: ' + status);
+						          // 오류 발생 시 "추가하기" 버튼 비활성화
+						          document.getElementById('addButton2').disabled = true;
+						        }
+						      });
+						    } else {
+						      alert('검색어를 입력하세요.');
+						      // 검색어가 없을 시 "추가하기" 버튼 비활성화
+						      document.getElementById('addButton2').disabled = true;
+						    }
+						  }
+						</script>
+			
+		
+			
+											<!-- 추가하기 버튼을 클릭했을 때 주소, 장소이름, 현재 마커의 위도와 경도를 히든 필드에 나타내고 selected-result에 넘기는 기능입니다-->
+											<script>
+											function setHiddenValues2() {
+												  // 마커의 위도와 경도를 가져옵니다.
+												  console.log("Getting marker's latitude and longitude...");
+												  var markerLat = marker.getPosition().lat(); // 마커의 위도
+												  var markerLng = marker.getPosition().lng(); // 마커의 경도
+
+												  // 가져온 위도와 경도를 콘솔에 출력합니다.
+												  console.log("Marker's Latitude: " + markerLat);
+												  console.log("Marker's Longitude: " + markerLng);
+
+												  // 히든 필드에 값을 설정합니다.
+												  document.getElementById("hiddenLatitude2").value = markerLat;
+												  document.getElementById("hiddenLongitude2").value = markerLng;
+
+												  // 장소 이름과 주소를 가져옵니다.
+												  var placeName = document.getElementById('search').value;
+
+												  // 선택된 결과를 div에 추가합니다.
+												  var selectedResultDiv = document.getElementById('selected-result');
+												  var contentToAdd = placeName +
+								                   '<input type="hidden" name="latitude2" value="' + markerLat + '">' +
+								                   '<input type="hidden" name="longitude2" value="' + markerLng + '"><br>';
+
+
+												  selectedResultDiv.innerHTML += contentToAdd;
+
+												  console.log("히든 필드의 latitude 값: " + markerLat);
+												  console.log("히든 필드의 longitude 값: " + markerLng);
+												}
+
+											</script>
+											
+												<!-- 검색창에 키보드 입력이 발생하면 "추가하기" 버튼을 비활성화합니다 -->
+												<script>
+													  // 검색창에 키보드 입력이 발생하면 "추가하기" 버튼을 비활성화
+													  document.getElementById('search').addEventListener('keyup', function() {
+													    document.getElementById('addButton2').disabled = true;
+													  });
+												 </script>	
+
 
 			<!-- 광역시/특별시/도 선택 -->
 			
-			<div class ="mb-6";>
+			<div class ="mb-6">
 			<div>
 			추천장소를 찾아서 정하기
 			</div>
@@ -93,7 +238,7 @@
 			  </div>
 			  <div class="col-md-4">
 			    <button class="btn btn-primary" onclick="saveSelectedResults('${dayId}')" type="submit" style="width: 100%;">결정 완료</button>
-
+				
 			  </div>
 			</div>
 
@@ -131,7 +276,7 @@
 	}
 </script>
 
-
+<!-- 
 <script>
 	function saveResults() {
 		var resultElements = document.getElementById('selected-result').children;
@@ -148,17 +293,7 @@
 		
 	}
 </script>
-
-<script>
-	document.getElementById('addButton').addEventListener('click', function() {
-		  const placeName = document.getElementById('hi').value.trim();
-		  if (placeName.length === 0) {
-		    alert('장소를 입력하세요');
-		  } else {
-		    // 여기에 장소를 추가하는 로직을 작성할 수 있습니다.
-		}
-	});
-</script>
+ -->
 
 
 
