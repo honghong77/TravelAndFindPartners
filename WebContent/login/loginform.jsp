@@ -56,8 +56,8 @@
 		                $('label').removeClass('warning');
 		            }, 1500);
 		        }
-		    }
-				
+		    });
+		});		
 	</script>
 </body>
 </html>

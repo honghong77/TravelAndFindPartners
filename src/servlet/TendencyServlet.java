@@ -16,7 +16,7 @@ public class TendencyServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String userId = (String) req.getSession().getAttribute("tendencyUserId");
+		String userId = (String) req.getSession().getAttribute("id");
 	    
 	    if (userId != null) {
 	        System.out.println("회원가입 아이디: " + userId);
@@ -27,19 +27,11 @@ public class TendencyServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-		String userId = (String) req.getSession().getAttribute("tendencyUserId");
-		if (userId != null) {
-	        System.out.println("회원가입 아이디: " + userId);
-	        // 여기서 해당 아이디를 이용하여 필요한 작업을 수행할 수 있습니다.
-	        resp.sendRedirect("./tendency/tendency.jsp");
-	    }
-		System.out.println(userId);
+		String userId = (String) req.getSession().getAttribute("id");
+		
 		Tendency userTendency = new Tendency();
 		String[] selectedTripTendencies = req.getParameterValues("tripTendency");
-        String[] selectedMyTendencies = req.getParameterValues("myTendency");
-        System.out.println(selectedMyTendencies);
-        System.out.println(selectedTripTendencies);
-        
+        String[] selectedMyTendencies = req.getParameterValues("myTendency");    
        
         userTendency.setId(userId);
         userTendency.setTriptendency1(selectedTripTendencies[0]);
