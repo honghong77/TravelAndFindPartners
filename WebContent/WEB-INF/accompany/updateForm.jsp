@@ -41,8 +41,9 @@
 </div>
 
 <div id="main">
-	<form action="" name="form" enctype="multipart/form-data" onSubmit="return checkform();">
+	<form action="save" method="post" name="form" enctype="multipart/form-data" onSubmit="return checkform();">
 	<div class="choice">
+	
 	<div class="location" id="locations">
 			<input type="radio" class="rb" name="radiobtn" id="radiobtn1" value="서울"><label for="radiobtn1">서울</label>
 			<input type="radio" class="rb" name="radiobtn" id="radiobtn2" value="부산"><label for="radiobtn2">부산</label>
@@ -62,6 +63,8 @@
 			<input type="radio" class="rb" name="radiobtn" id="radiobtn16" value="경남"><label for="radiobtn16">경남</label>
 			<input type="radio" class="rb" name="radiobtn" id="radiobtn17" value="제주"><label for="radiobtn17">제주</label>
 	</div>
+	
+		<input type="text" id="no" name="no" value="<%= c.getNo() %>">
 		
 	
 		<div class="personnel">
@@ -161,11 +164,6 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 		
 		
 		<div id="board_button">
-			<input type="hidden" id="no" name="no" value="<%= c.getNo() %>">
-			<input type="hidden" id="id" name="id" value="<%= c.getId() %>">
-			<input type="hidden" id="id" name="id" value="<%= c.getId() %>">
-			<input type="hidden" id="id" name="id" value="<%= c.getId() %>">
-			
 			<input class="btn btn-primary" type="submit" value="저장하기" id="btn1">
 			<button type="button" class="btn btn-light" id="btn2" onclick="location.href='companionBoardForm.jsp';">수정취소</button>
 		</div>
@@ -188,7 +186,6 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
    document.getElementById("selectedImage").src = 'data:image/png;base64,' + companion.image;
    
    const loca = companion.location;
-   console.log(loca);
    
    switch(loca) {
   	case '서울':  

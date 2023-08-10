@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, location = "d:\\logs")
 @WebServlet("/update")
 public class UpdateServlet extends HttpServlet{
 	final static CompanionBoardDAO dao = new CompanionBoardDAO();
@@ -24,22 +26,18 @@ public class UpdateServlet extends HttpServlet{
 //		String id = (String) session.getAttribute("id");
 		String id = "id";
 	
-		int paramNo = Integer.valueOf(req.getParameter("num"));
+		 int paramNo = Integer.valueOf(req.getParameter("no"));
+		
 		String start = req.getParameter("startdate");
 		String end = req.getParameter("enddate");
 		String location = req.getParameter("radiobtn"); // null
-		
+		System.out.println( "넘버"+ paramNo);
 		System.out.println(id);
 		System.out.println(location);
-//		System.out.println(personnel);
-//		System.out.println(title);
-//		System.out.println(content);
+
 		System.out.println(start);
 		System.out.println(end);
-//		System.out.println(image);
-//		System.out.println(concept1);
-//		System.out.println(concept2);
-//		System.out.println(concept3);
+
 		
 		
 		
@@ -79,24 +77,32 @@ public class UpdateServlet extends HttpServlet{
 		case 1:
 			concept1 = concepts[0];
 		}
+		
+		System.out.println(image);
+		System.out.println(personnel);
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println(concept1);
+		System.out.println(concept2);
+		System.out.println(concept3);
 
 		
 
-		try {
-			if ((id != null && !id.trim().isEmpty()) && (start != null && !start.trim().isEmpty())
-					&& (end != null && !end.trim().isEmpty()) && (location != null && !location.trim().isEmpty())
-					&& (title != null && !title.trim().isEmpty()) && (content != null && !content.trim().isEmpty()) && (image != null && image.length != 0)
-					&& (concept1 != null || !concept1.trim().isEmpty() || concept2 != null || !concept2.trim().isEmpty()
-							|| concept3 != null || !concept3.trim().isEmpty())) {
-				Companion cb = new Companion(start, end, location, image, title, content, personnel,
-						concept1, concept2, concept3);
-				dao.update(cb, paramNo);
-			} else {
-				resp.sendRedirect("http://localhost:8080/TravelAndFindPartners/view?no=" + paramNo);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 	
+//		try {
+//			if ((id != null && !id.trim().isEmpty()) && (start != null && !start.trim().isEmpty())
+//					&& (end != null && !end.trim().isEmpty()) && (location != null && !location.trim().isEmpty())
+//					&& (title != null && !title.trim().isEmpty()) && (content != null && !content.trim().isEmpty()) && (image != null && image.length != 0)
+//					&& (concept1 != null || !concept1.trim().isEmpty() || concept2 != null || !concept2.trim().isEmpty()
+//							|| concept3 != null || !concept3.trim().isEmpty())) {
+//				Companion cb = new Companion(start, end, location, image, title, content, personnel,
+//						concept1, concept2, concept3);
+//				dao.update(cb, paramNo);
+//			} else {
+//				resp.sendRedirect("http://localhost:8080/TravelAndFindPartners/view?no=" + paramNo);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} 	
 		resp.sendRedirect("http://localhost:8080/TravelAndFindPartners/view?no=" + paramNo);
 	}
 

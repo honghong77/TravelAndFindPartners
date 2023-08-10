@@ -16,6 +16,7 @@ public class ListController extends HttpServlet {
 	private final static Jackson jackson = new Jackson();
 	
 	@Override
+	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String tempPage = req.getParameter("page");
 		String search = req.getParameter("search");
@@ -51,7 +52,8 @@ public class ListController extends HttpServlet {
 		int totalPages = totalData % 9 == 0 ? totalData / 9 : (totalData / 9) + 1;
 		
 		// cPage(현재 페이지 정하기)
-		if (tempPage == null || tempPage.length() == 0) {
+		if (tempPage == null
+				|| tempPage.length() == 0) {
 			currendPage = 1;
 		}
 		try {

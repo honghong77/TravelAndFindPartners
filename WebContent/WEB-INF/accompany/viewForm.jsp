@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <link href="viewStyle.css" rel="stylesheet" type="text/css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
@@ -15,10 +17,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <body>
 <%
+	// 이게 맞나
+	// session = request.getSession(false); 
+	//String id = (String) session.getAttribute("id");
+	String loginUser = "id";
+
 	List<Companion2> companionList = (List<Companion2>) request.getAttribute("list");
 	Companion2 companion = companionList.get(0);
 	int no = companion.getNo();
@@ -28,7 +34,7 @@
 %>
 
 <div>
-<img src="trip.jpg" class="rounded mx-auto d-block" id="image" alt="...">
+<img src="" class="rounded mx-auto d-block" id="image" alt="trip.jpg">
 </div>
 
 <form action="update" method="POST" id="update">
@@ -56,6 +62,49 @@
 	</div>
 </div>
 </form>	
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const replyBtn = document.getElementById("reply-bnt");
+    replyBtn.addEventListener("click", function() {
+        <% if (loginUser != null) { %>
+        const content = document.getElementById("usr").value;
+        const recipeNo = "<%= no %>";
+        const user = "<%= loginUser %>";
+        
+        const formData = new FormData();
+        formData.append("content", content);
+        formData.append("recipeNo", recipeNo);
+        formData.append("user", user);
+        
+        fetch("reply", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result > 0) {
+                selectReplyList();
+                document.getElementById("usr").value = "";
+            }
+        })
+        .catch (error => {
+            console.error("Error:", error);
+        });
+        <% } %>
+    });
+});
+</script>
+
+
+
+
+
+<div class="form-group" style="width: 80%;">
+<label for="usr"></label>
+<input type="text" class="form-control" id="usr" placeholder="소중한 레시피에 쉐프님의 멋진 댓글을 남겨주세요 :) " style="height: 30px;">
+<button class="btn btn-sm btn-success" id="reply-bnt">등록</button>
+</div>
 
 <div class="modal" id="myModal" tabindex="-1">
   <div class="modal-dialog">
@@ -176,7 +225,6 @@ if (idCheck === false) {
 	 $("#delete").hide()
 	 $("#update").hide()
 }
-
 
 </script>
 </html>
