@@ -79,7 +79,7 @@
 	</nav>
 	<br>
 
-	<!-- 여행일정 만들기 모달 -->
+	<%-- 여행일정 만들기 모달입니다  --%>
 	<div class="modal fade" id="scheduleModal" tabindex="-1"
 		aria-labelledby="scheduleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -90,7 +90,7 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="/TravelAndFindPartners/schedule3" method="POST">
+					<form action="/TravelAndFindPartners/schedule3" method="POST" onsubmit="return validateForm()">
 						<div class="mb-3">
 							<label for="destinationSelect" class="form-label">여행지</label>
 							<select class="form-select" id="destinationSelect" name="destination" onchange="setCoordinates()">
@@ -131,23 +131,42 @@
 						</div>
 					</form>
 				</div>
-	
-				
-				
-				
-				
-
 
 			</div>
 		</div>
 	</div>
 	<!-- 네브바 끝 -->
+	
+<%-- 여행 일정 만들기 할 때 유효성 검사를 하는 스크립트입니다 --%>
+<script>
+function validateForm() {
+	const destination = document.getElementById('destinationSelect').value;
+	const startDate = document.getElementById('startDate').value;
+	const endDate = document.getElementById('endDate').value;
+
+	if (destination === '여행지를 선택해주세요' || startDate === '' || endDate === '') {
+		alert('모든 필드를 입력해주세요.');
+		return false; 
+	}
+
+	// 날짜 형식으로 변환
+	const start = new Date(startDate);
+	const end = new Date(endDate);
+
+	if (start > end) {
+		alert('여행 종료 날짜가 시작 날짜보다 빠를 수 없습니다.');
+		return false; 
+	}
+
+	return true; 
+}
+</script>
+
 
 
 </body>
-									<!-- 여행지를 선택했을 때 위도와 경도를 정의하는 구간입니다 -->
-									<script>
-									    // 여행지의 위도와 경도를 정의
+<%--  여행지를 선택했을 때 위도와 경도를 정의하고 파라미터로 넘겨줄 수 있도록 설정하는 스크립트 입니다--%> 
+<script>
 									    var coordinates = {
 										    "서울": { lat: 37.5665, lng: 126.9780 },
 										    "부산": { lat: 35.1796, lng: 129.0756 },
@@ -168,11 +187,10 @@
 										    "제주": { lat: 33.4996, lng: 126.5312 }
 										};
 									
-									    var selectedLat = 0; // 선택된 위도
-									    var selectedLng = 0; // 선택된 경도
+									    var selectedLat = 0; // 위도
+									    var selectedLng = 0; // 경도
 									
 									    // 여행지가 선택되면 위도와 경도를 설정
-									    
 										function setCoordinates() {
 										    console.log("함수 실행")
 										    var destination = document.getElementById("destinationSelect").value; // ID 값이 "destinationSelect"
@@ -192,19 +210,19 @@
 
 
 
-								    <!-- 목적지, 여행시작시간, 여행종료시간, 위도, 경도의 정보를 파라미터로 넘겨주는 구간입니다-->
-								    <%
-								        String destination = request.getParameter("destination");
-								        String startDate = request.getParameter("startDate");
-								        String endDate = request.getParameter("endDate");
-								        String latitude = request.getParameter("latitude");
-								        String longitude = request.getParameter("longitude");
-								        request.setAttribute("destination", destination);
-								        request.setAttribute("startDate", startDate);
-								        request.setAttribute("endDate", endDate);
-								        request.setAttribute("latitude", latitude); // 위도 저장
-								        request.setAttribute("longitude", longitude); // 경도 저장
-								    %>
+<%-- 목적지, 여행시작시간, 여행종료시간, 위도, 경도의 정보를 파라미터로 넘겨주는 구간입니다 --%> 
+<%
+    String destination = request.getParameter("destination");
+    String startDate = request.getParameter("startDate");
+    String endDate = request.getParameter("endDate");
+    String latitude = request.getParameter("latitude");
+    String longitude = request.getParameter("longitude");
+    request.setAttribute("destination", destination);
+    request.setAttribute("startDate", startDate);
+    request.setAttribute("endDate", endDate);
+    request.setAttribute("latitude", latitude); // 위도 저장
+    request.setAttribute("longitude", longitude); // 경도 저장
+%>
 								    
 								    
 </html>
