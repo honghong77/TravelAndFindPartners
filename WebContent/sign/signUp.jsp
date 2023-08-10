@@ -18,7 +18,7 @@
                     <!-- <td><span>id</span></td> -->
                     <td>
                         <div>
-                            <input type="text" name="id" id="id" placeholder="이메일"/>
+                            <input type="text" name="id" id="id" placeholder="이메일 주소"/>
                         </div>
                     </td>
                 </tr>
@@ -26,7 +26,7 @@
                     <!-- <td><span>pw</span></td> -->
                     <td>
                         <div>
-                            <input type="password" name="password" id="pw" maxlength='20'placeholder="비밀번호" />
+                            <input type="password" name="password" id="pw" maxlength='20'placeholder="비밀번호(8자~20자,영문+숫자+특수문자 사용)" />
                         </div>
                     </td>
                 </tr>
@@ -42,7 +42,7 @@
                     <!-- <td><span>nickname</span></td> -->
                     <td>
                         <div>
-                            <input type="text" name="nickname" id="nickname" maxlength='12'placeholder="닉네임" oninput="checkNicknameDuplication()"/>
+                            <input type="text" name="nickname" id="nickname" maxlength='5'placeholder="닉네임(2자 ~ 5자)" oninput="checkNicknameDuplication()"/>
                         </div>
                         <div id="nicknameCheckResult"></div>
                     </td>
@@ -60,7 +60,7 @@
                     <!-- <td><span>생년월일</span></td> -->
                     <td>
                         <div>
-                            <input type="text" name="birth" id="birth" placeholder="생년월일 8자리를 입력하세요.">
+                            <input type="text" name="birth" id="birth" placeholder="생년월일 (예 19950101)">
                         </div>
                     </td>
                 </tr>

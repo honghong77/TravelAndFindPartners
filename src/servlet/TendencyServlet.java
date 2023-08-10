@@ -26,28 +26,25 @@ public class TendencyServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-		String userId = (String) req.getSession().getAttribute("id");
-		
-		Tendency userTendency = new Tendency();
-		String[] selectedTripTendencies = req.getParameterValues("tripTendency");
-        String[] selectedMyTendencies = req.getParameterValues("myTendency");    
-       
-        userTendency.setId(userId);
-        userTendency.setTriptendency1(selectedTripTendencies[0]);
-        userTendency.setTriptendency2(selectedTripTendencies[1]);
-        userTendency.setTriptendency3(selectedTripTendencies[2]);
-        userTendency.setMytendency1(selectedMyTendencies[0]);
-        userTendency.setMytendency2(selectedMyTendencies[1]);
-        userTendency.setMytendency3(selectedMyTendencies[2]);
-        userTendency.setMytendency4(selectedMyTendencies[3]);
-        userTendency.setMytendency5(selectedMyTendencies[4]);
-        userTendency.setMytendency6(selectedMyTendencies[5]);
-               
-        TendencyDAO.insertTendency(userTendency);
-        
-        
-        resp.sendRedirect("./profile/profile.jsp");
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {        
+	    String userId = (String) req.getSession().getAttribute("id");
+	    
+	    Tendency userTendency = new Tendency();
+	    String[] selectedTripTendencies = req.getParameterValues("tripTendency");
+	    String[] selectedMyTendencies = req.getParameterValues("myTendency");    
+	   
+	    userTendency.setId(userId);
+	    
+	    if (selectedTripTendencies != null && selectedTripTendencies.length >= 1) {
+	        userTendency.setTriptendency1(selectedTripTendencies[0]);
+	    }
+	    
+	    if (selectedMyTendencies != null && selectedMyTendencies.length >= 1) {
+	        userTendency.setMytendency1(selectedMyTendencies[0]);
+	    }
+	           
+	    TendencyDAO.insertTendency(userTendency);
+	    
+	    resp.sendRedirect("./profile/profile.jsp");
 	}
-	
 }

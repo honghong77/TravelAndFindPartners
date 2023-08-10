@@ -59,11 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return selectedItems;
         }
     });
-/*
-    function goToProfileSelection() {
-        window.location.href = "../0801/WebContent/profile/profile.jsp";
-    }
-*/
+
 	function getSelectedItems() {
     const selectedItems = [];
     document.querySelectorAll('.btn-checked').forEach(function (label) {
@@ -77,23 +73,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	$('#ct_frm').submit();
 	}    
-// 서버로 선택한 항목을 전송하는 비동기 요청 (Ajax 등)을 수행합니다.
-    // 이때 선택한 항목을 서버로 보내는 방식은 POST 요청 또는 다른 방식을 사용할 수 있습니다.
 
-    // 예시로 jQuery를 사용한 Ajax 요청
-/*
-    $.ajax({
-        url: '/0801/tendency', // 서버의 저장 처리를 수행하는 URL
-        method: 'POST',
-        data: { selectedItems: selectedItems }, // 선택한 항목을 서버에 전송
-		datatype: "json",
-        success: function(response) {
-            // 서버로부터의 응답 처리
-            console.log(response); // 서버 응답을 콘솔에 출력
-            window.location.href = "/tendency/WebContent/profile/profile.jsp"; // 다음 페이지로 이동
-        },
-        error: function(error) {
-            console.error(error); // 오류 발생 시 콘솔에 출력
-        }
-    });
-*/

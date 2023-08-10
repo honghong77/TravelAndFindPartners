@@ -12,10 +12,11 @@
 <body>
 	<div class="container">
         <p><h1>관심사와 취향을 선택해주세요</h1></p>     
-        <p><h3>내 관심사에 딱 맞는 동행과 여행을 추천해 드려요</h3></p>
+        <p><h2>내 관심사에 딱 맞는 동행과 여행을 추천해 드려요</h2></p>
         
         <form action="/TravelAndFindPartners/tendency" class="toggle" id="ct_frm" method="post">
             <p><h1>나는 어떤 여행을 좋아하나요?</h1></p>
+            <p><h2>(최대 3개까지 선택)</h2></p>
             <input type="checkbox" class="btn-check" id="btn-check" name="tripTendency" value="1" autocomplete="off">
             <label class="btn btn-primary" for="btn-check">&#128279; 무계획</label>
 
@@ -23,10 +24,10 @@
             <label class="btn btn-primary" for="btn-check2">&#128512; 관광</label>
     
             <input type="checkbox" class="btn-check" id="btn-check3" name="tripTendency" value="3" autocomplete="off">
-            <label class="btn btn-primary" for="btn-check3">&#127958; 바다</label>
+            <label class="btn btn-primary" for="btn-check3">🏖 바다</label>
     
             <input type="checkbox" class="btn-check" id="btn-check4" name="tripTendency" value="4" autocomplete="off">
-            <label class="btn btn-primary" for="btn-check4">⛰ 등산</label>
+            <label class="btn btn-primary" for="btn-check4">🌄 등산</label>
     
             <input type="checkbox" class="btn-check" id="btn-check5" name="tripTendency" value="5" autocomplete="off">
             <label class="btn btn-primary" for="btn-check5">&#127857; 맛집/카페 탐방</label>
@@ -54,6 +55,7 @@
         
       
             <p><h1>나는 어떤 여행자인가요?</h1></p>
+            <p><h2>(최대 6개까지 선택)</h2></p>
             <div class="container2">
                
                 <input type="checkbox" class="btn-check2" id="my" name="myTendency" value="13" autocomplete="off">
