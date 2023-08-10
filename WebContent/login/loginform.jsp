@@ -37,7 +37,7 @@
 			document.location.href="../sign/signUp.jsp";
 		}
 	
-		$(document).ready(function() {
+		/*$(document).ready(function() {
 		    let id = $('#id');
 		    let pw = $('#pw');
 		    let btn = $('button[type="submit"]');
@@ -57,7 +57,7 @@
 		            }, 1500);
 		        }
 		    });
-		});		
+		});		*/
 	</script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 package profile;
 
-import java.awt.Image;
 
 public class Profile {
 	private String id;

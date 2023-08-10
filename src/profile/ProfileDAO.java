@@ -1,14 +1,15 @@
 package profile;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
+
 public class ProfileDAO {
-	private static String url = "jdbc:mysql://localhost:3306/trip2";
+	private static String url = "jdbc:mysql://localhost:3306/trip";
 	private static String username = "root";
 	private static String pw = "root";
 	
@@ -26,8 +27,7 @@ public class ProfileDAO {
 			conn = DriverManager.getConnection(url, username, pw);
 			stmt = conn.prepareStatement("UPDATE member SET profile = ? WHERE id = ?");
 			
-			InputStream inputStream = new ByteArrayInputStream(img);
-			stmt.setBlob(1, inputStream);
+			stmt.setBytes(1, img);
 			stmt.setString(2, id);
 			
 			int result = stmt.executeUpdate();

@@ -5,43 +5,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fileInput.addEventListener('change', function (event) {
         const file = event.target.files[0];
+		var imgsrc = document.querySelector('.imgsrc');
         if (file) {
             profileImage.src = URL.createObjectURL(file);
+			imgsrc.value = URL.createObjectURL(file);
         }
     });
 
     defaultProfiles.forEach(function (defaultProfile) {
         defaultProfile.addEventListener('click', function () {
+			var imgsrc = document.querySelector('.imgsrc');
+			fileInput.value = null;
             profileImage.src = defaultProfile.src;
+			imgsrc.value = defaultProfile.src;
         });
     });
-});
 
-function goToLoginPage() {
-    window.location.href = "/0801/login"; 
-}
+    const btnOk = document.querySelector('.btn_ok');
+    btnOk.addEventListener('click', function () {
+        const fileInput = document.getElementById('file-input');
+        const selectedImage = fileInput.files[0];
 
-function saveProfileSelection() {
-    const selectedProfileImageSrc = document.querySelector('.profile img').src;
-    const userId = '<%= session.getAttribute("userId") %>';
+        if (selectedImage) {
+            const reader = new FileReader();
 
-    // 서버에 선택한 프로필 정보를 전송하고 업데이트합니다.
-    fetch('/0801/src/profile', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            userId: userId,
-            selectedProfileImageSrc: selectedProfileImageSrc,
-        }),
-    }).then(response => {
-        if (response.ok) {
-            goToLoginPage();
-        } else {
-            console.error('프로필 정보 업데이트 실패');
+            reader.onload = function(event) {
+                const imgBase64 = event.target.result.split(',')[1]; // 이미지를 Base64로 변환하여 서버에 전송
+                document.querySelector('input[name="imgsrc"]').value = imgBase64;
+            };
+
+            reader.readAsDataURL(selectedImage);
         }
-    }).catch(error => {
-        console.error('네트워크 에러:', error);
+        document.querySelector('form').submit(); // 폼 전송
     });
-}
+
+	function selectDefaultProfile(filename) {
+    var encodedFilename = encodeURIComponent(filename);
+    var imagePath = "http://localhost:8080/TravelAndFindPartners/profile/" + encodedFilename;
+    
+    // imagePath를 서버로 전달하거나 다른 로직을 추가할 수 있습니다.
+	}
+});

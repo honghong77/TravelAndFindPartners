@@ -39,6 +39,10 @@ public class SignUpServlet extends HttpServlet {
             out.println("<script>alert('이미 사용 중인 닉네임입니다.'); history.back();</script>");
             return;
         }
+        if (SignDAO.selectId(id)) {
+        	out.println("<script>alert('이미 사용 중인 아이디입니다.'); history.back();</script>");
+        	return;
+        }
         
         boolean isSuccess = SignDAO.insert(id, password, name, nickname, gender, birth);      
         
