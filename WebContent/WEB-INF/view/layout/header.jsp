@@ -9,6 +9,19 @@
 	left: -50px;
 	margin-top: var(- -bs-dropdown-spacer);
 }
+
+header {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       background-color: white; /* Set your desired background color */
+       z-index: 1000; /* Set a high z-index to keep the header on top of other elements */
+   }
+ body {
+        padding-top: 70px; /* 헤더의 높이에 따라 값을 조정하세요 */
+    }   
+    
 </style>
 
 <html lang="en">
@@ -21,18 +34,18 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
-<script
+<!-- <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
-	rel="stylesheet">
+	rel="stylesheet"> -->
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -42,7 +55,7 @@
 
 </head>
 <body>
-
+<header>
 	<!-- 네브바 시작 -->
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
@@ -55,7 +68,25 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown"
 				style="justify-content: flex-end;">
-				<ul class="navbar-nav">
+					<ul class="navbar-nav">
+		                <!-- 프로필 이미지와 드롭다운 메뉴를 추가합니다 -->
+		                <li class="nav-item dropdown">
+		                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		                        <!-- 여기에 프로필 이미지를 추가합니다 -->
+		                        <img src="path_to_profile_image.jpg" alt="프로필 이미지">
+		                    </a>
+		                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+		                        <!-- 마이페이지와 로그아웃 링크를 추가합니다 -->
+		                        <li><a class="dropdown-item" href="#">마이페이지</a></li>
+		                        <li><a class="dropdown-item" href="#">로그아웃</a></li>
+		                    </ul>
+		                </li>
+	                <li class="nav-item" id="loginLink">
+	                    <a class="nav-link" href="login/loginform.jsp">로그인</a>
+	                </li>
+	                <li class="nav-item" id="signupLink">
+	                    <a class="nav-link" href="sign/signUp.jsp">회원가입</a>
+	                </li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"> 작성하기 </a>
@@ -63,7 +94,7 @@
 							<li><a class="dropdown-item" href="write">동행 모집하기</a></li>
 							<li><a class="dropdown-item" data-bs-toggle="modal"
 								data-bs-target="#scheduleModal">여행일정 만들기</a></li>
-						</ul></li>
+						</ul></li>		
 				</ul>
 			</div>
 		</div>
@@ -81,16 +112,7 @@
 		</div>
 	</nav>
 	
-	<nav class="navbar navbar-expand-lg bg-light">
-		<div class="container-fluid">
-			<div class="collapse navbar-collapse" id="navbarNavDropdown">
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="login/loginform.jsp">로그인</a></li>
-					<li class="nav-item"><a class="nav-link" href="sign/signUp.jsp">회원가입</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	
 	
 	
 	
@@ -146,19 +168,33 @@
 						</div>
 					</form>
 				</div>
-				
-				
-				
-
-
 			</div>
 		</div>
 	</div>
 	<!-- 네브바 끝 -->
-
-
+</header>
 </body>
-
+<script>
+    // JavaScript로 로그인 상태를 체크하고 헤더를 동적으로 변경합니다.
+    // 로그인 상태에 따라 표시할 링크들의 id를 조작하여 보여주거나 숨깁니다.
+    // 이 예시는 단순한 가정으로 작성되었습니다.
+    
+    // 사용자가 로그인되어 있는 경우
+    var isLoggedIn = true; // 로그인 상태 여부를 설정
+    if (isLoggedIn) {
+        document.getElementById("profileLink").style.display = "inline";
+        document.getElementById("myPageLink").style.display = "inline";
+        document.getElementById("logoutLink").style.display = "inline";
+        document.getElementById("loginLink").style.display = "none";
+        document.getElementById("signupLink").style.display = "none";
+    } else { // 로그인되어 있지 않은 경우
+        document.getElementById("profileLink").style.display = "none";
+        document.getElementById("myPageLink").style.display = "none";
+        document.getElementById("logoutLink").style.display = "none";
+        document.getElementById("loginLink").style.display = "inline";
+        document.getElementById("signupLink").style.display = "inline";
+    }
+</script>
 
 
 

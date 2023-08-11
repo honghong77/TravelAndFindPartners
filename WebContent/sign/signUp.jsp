@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="signStyle.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <body>
 	<section class="sign">
         <h2>회원가입</h2>

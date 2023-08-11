@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
 
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <title>여행 동행 사이트</title>
 </head>
 
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
 <body>
 		
