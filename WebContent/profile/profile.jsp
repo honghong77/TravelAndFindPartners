@@ -15,7 +15,7 @@
                     <input type="file" id="file-input" name="profileImage" accept="image/*">
                     <label for="file-input">
                         <img src="basic.jpg" alt="프로필 사진" name="img" value="img" id="preview-image">
-                        <input type="hidden" name="imgsrc" class="imgsrc" value="">
+                        <input type="hidden" name="imgsrc" class="imgsrc" value="http://localhost:8080/TravelAndFindPartners/profile/basic.jpg">
                     </label>
                 </div>
                 <div class="default-profiles">
@@ -27,6 +27,6 @@
         </div>
         <span class="btn_ok">완료</span>
     </form>
-    <script src="profileJs.js?a=b"></script>
+    <script src="profileJs.js?a=d"></script>
 </body>
 </html>

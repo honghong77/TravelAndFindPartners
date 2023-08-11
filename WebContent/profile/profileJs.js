@@ -45,4 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // imagePath를 서버로 전달하거나 다른 로직을 추가할 수 있습니다.
 	}
+		
 });
+
