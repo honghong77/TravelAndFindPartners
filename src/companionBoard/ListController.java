@@ -16,7 +16,6 @@ public class ListController extends HttpServlet {
 	private final static Jackson jackson = new Jackson();
 	
 	@Override
-	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String tempPage = req.getParameter("page");
 		String search = req.getParameter("search");
@@ -122,5 +121,4 @@ public class ListController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 	}
-	
 }

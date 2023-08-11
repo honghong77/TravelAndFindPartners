@@ -1,25 +1,17 @@
 package companionBoard;
 
-public class Reply {
-	private int no;
+public class BoardReply {
 	private String id;
 	private String content;
 	private String image;
 	private String time;
 	
-	public Reply(int no, String id, String content) {
+	public BoardReply(String id, String content, String image, String time) {
 		super();
-		this.no = no;
 		this.id = id;
 		this.content = content;
-	}
-
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
+		this.image = image;
+		this.time = time;
 	}
 
 	public String getId() {
@@ -36,5 +28,21 @@ public class Reply {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 }

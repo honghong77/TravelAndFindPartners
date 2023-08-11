@@ -48,7 +48,7 @@ public class CompanionBoardDAO {
 	
 	
 	public List<Companion2> getList(int number) throws SQLException {
-		String sql = "SELECT * FROM companionboard WHERE no = " + number;
+		String sql = "SELECT * FROM companionboard WHERE no = ?";
 		List<Companion2> list = new ArrayList<Companion2>();
 		
 		Connection conn = null;
@@ -58,6 +58,7 @@ public class CompanionBoardDAO {
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, number);
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -137,6 +138,62 @@ public class CompanionBoardDAO {
 		} finally {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
+		}
+		return -1;
+	}
+	
+	public int updateExceptImg(Companion companionBoard, int no) throws SQLException {
+		String sql = "UPDATE companionboard SET start = ?, end = ?, location = ? , title = ?, content = ?, personnel = ?, concept1 = ?, concept2 = ?, concept3 = ? WHERE no = " + no;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, companionBoard.getStart());
+			stmt.setString(2, companionBoard.getEnd());
+			stmt.setString(3, companionBoard.getLocation());
+			stmt.setString(4, companionBoard.getTitle());
+			stmt.setString(5, companionBoard.getContent());
+			stmt.setInt(6, companionBoard.getPersonnel());
+			stmt.setString(7, companionBoard.getConcept1());
+			stmt.setString(8, companionBoard.getConcept2());
+			stmt.setString(9, companionBoard.getConcept3());
+			
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return -1;
+	}
+	
+	public int getNo(String id) throws SQLException {
+		String sql = "SELECT no FROM companionboard where id = ? ORDER BY no DESC LIMIT 1";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				return rs.getInt("no");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+			DBUtil.close(rs);
 		}
 		return -1;
 	}

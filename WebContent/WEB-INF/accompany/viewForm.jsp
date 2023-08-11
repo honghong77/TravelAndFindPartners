@@ -18,12 +18,12 @@
 <title>Insert title here</title>
 </head>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+
 <body>
 <%
 	// 이게 맞나
-	// session = request.getSession(false); 
-	//String id = (String) session.getAttribute("id");
-	String loginUser = "id";
+	session = request.getSession(false); 
+	String loginUser = (String) session.getAttribute("id");
 
 	List<Companion2> companionList = (List<Companion2>) request.getAttribute("list");
 	Companion2 companion = companionList.get(0);
@@ -40,7 +40,7 @@
 <form action="update" method="POST" id="update">
 <div class="main">
 	<div id="title" name="title">제목</div>
-	<input type="hidden" id="id" name="id" value="<%= id %>">
+	<input type="hidden" id="paramId" name="paramId" value="<%= id %>">
 	
 	<div id="id" name="id">작성자</div>
 	
@@ -63,48 +63,139 @@
 </div>
 </form>	
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const replyBtn = document.getElementById("reply-bnt");
-    replyBtn.addEventListener("click", function() {
-        <% if (loginUser != null) { %>
-        const content = document.getElementById("usr").value;
-        const recipeNo = "<%= no %>";
-        const user = "<%= loginUser %>";
-        
-        const formData = new FormData();
-        formData.append("content", content);
-        formData.append("recipeNo", recipeNo);
-        formData.append("user", user);
-        
-        fetch("reply", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result > 0) {
-                selectReplyList();
-                document.getElementById("usr").value = "";
-            }
-        })
-        .catch (error => {
-            console.error("Error:", error);
-        });
-        <% } %>
-    });
-});
-</script>
-
-
 
 
 
 <div class="form-group" style="width: 80%;">
 <label for="usr"></label>
-<input type="text" class="form-control" id="usr" placeholder="소중한 레시피에 쉐프님의 멋진 댓글을 남겨주세요 :) " style="height: 30px;">
+<input type="text" class="form-control" id="usr" placeholder="댓글을 남겨주세요 :) " style="height: 30px;">
 <button class="btn btn-sm btn-success" id="reply-bnt">등록</button>
 </div>
+
+<div id="reply-list-area"> 
+<!--댓글 한개의 div 영역 --> 
+<div class="reply-detail" align="center" id="reply-content-area"> 
+<table style="width: 500px;"> 
+<tbody> 			 
+</tbody> 
+</table> 
+</div> 
+</div>
+
+
+
+
+<script>
+
+window.onload = selectReplyList();
+
+const replyBtn = document.getElementById("reply-bnt");
+replyBtn.addEventListener("click", function() {
+
+    const content = document.getElementById("usr").value;
+    
+    if (content.trim() === "") {
+        alert("댓글을 입력해주세요");
+    } else {
+    	const boardNo = "<%= no%>";
+        const user = "<%= loginUser %>";
+
+        const reply = {
+            content: content,
+            boardNo: boardNo,
+            user: user
+        };
+
+        console.log(reply);
+
+        fetch("reply", {
+            method: "post",
+            body: JSON.stringify(reply),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => response.text())
+        .then(result => {
+            const msg = (parseInt(result) !== 0) ? "댓글이 등록 되었습니다." : "댓글 등록 실패..!";
+            alert(msg);
+    		
+            selectReplyList();
+            document.getElementById("usr").value = "";
+        });
+    }
+});
+
+
+function selectReplyList() {
+	 const boardNo = "<%= no%>";
+	 const reply = {
+		boardNo: boardNo,
+	 }; 
+	 
+	 fetch("replyview", {
+	    method: "post",
+	    body: JSON.stringify(reply),
+	    headers: {
+	      "Content-Type": "application/json"
+	    }
+	 })
+	 .then(response => response.json())
+	 .then(list => {
+		 console.log(list);
+	    var result = "";
+
+	    for (var i in list) {
+	    	const base64Image = list[i].image;
+	    	console.log(base64Image);
+	    	  		
+	    	const byteCharacters = atob(base64Image);
+	    	const byteArrays = [];
+	    	for (let i = 0; i < byteCharacters.length; i++) {
+	    	    byteArrays.push(byteCharacters.charCodeAt(i));
+	    	}
+	    	console.log(byteArrays);
+	    	    
+	    	const blob = new Blob([new Uint8Array(byteArrays)], { type: 'image/png' });
+	    	console.log(blob);
+
+	    	const imageUrl = URL.createObjectURL(blob);
+	    	console.log(imageUrl);
+	    	
+	        result +=
+	          "<br>" +
+	          "<td>" +
+	          "<div class='box' style='background: WHITE;'>" +
+	          "<img class='profile' src='" + imageUrl + "'width='50' height='50'>" +
+	          "</div>" +
+	          "</td>" +
+	          "<td>" +
+	          "<b>" +
+	          list[i].id +
+	          "</b>" +
+	          "</td>" +
+	          "<td>" +
+	          list[i].time +
+	          "</td>" +
+	          "<td style='color: gray;'>" +
+	          "<button class='edit-reply-btn' data-index='" + i + "'>수정</button>" +
+	          "<button class='delete-reply-btn' data-index='" + i + "'>삭제</button>" +
+	          "</td>" +
+	          "<br>" +
+	          "<tr class='reply-deatil-content'>" +
+	          "<td colspan='3'>" +
+	          list[i].content +
+	          "</td>" +
+	          "</tr>" +
+	          "<br>";
+	      }
+
+	      document.querySelector("#reply-content-area tbody").innerHTML = result;
+	    });
+	}
+</script>
+
+
+
 
 <div class="modal" id="myModal" tabindex="-1">
   <div class="modal-dialog">
@@ -135,37 +226,14 @@ $(document).ready(function(){
 });
 </script>
 
-
-
-
-
-
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    /*
-    var disqus_config = function () {
-    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    */
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://trip-with.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-
 </body>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 
 <script>
 const companionList = <%= request.getAttribute("json") %>;
+
+console.log(companionList);
+
 const companion = companionList[0];
 const frame = document.getElementById("image");
 
@@ -222,8 +290,8 @@ document.getElementById("personnel").innerText = companion.personnel;
 const idCheck = <%= request.getAttribute("idCheck")%>
 
 if (idCheck === false) {
-	 $("#delete").hide()
-	 $("#update").hide()
+	 $("#view_button").hide()
+
 }
 
 </script>

@@ -30,10 +30,9 @@ public class BoarderController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		HttpSession session = req.getSession(false); 
-//		String id = (String) session.getAttribute("id");
+		HttpSession session = req.getSession(false); 
+		String id = (String) session.getAttribute("id");
 
-		String id = "id";
 		String start = req.getParameter("startdate");
 		String end = req.getParameter("enddate");
 		String location = req.getParameter("radiobtn"); // null
@@ -52,6 +51,8 @@ public class BoarderController extends HttpServlet {
             // 버퍼에서 출력 스트림으로 바이트 쓰기
             os.write(buffer, 0, len);
         }
+        
+        input.close();
  
         byte[] image = os.toByteArray();
 		
@@ -94,11 +95,16 @@ public class BoarderController extends HttpServlet {
 				Companion cb = new Companion(id, start, end, location, image, title, content, personnel,
 						concept1, concept2, concept3);
 				dao.insertData(cb);
+				int no = dao.getNo(id);
+				System.out.println("pk넘버" + no);
+				resp.sendRedirect("http://localhost:8080/TravelAndFindPartners/view?no=" + no);
 			} else {
 				req.getRequestDispatcher("/WEB-INF/accompany/companionBoardForm.jsp").forward(req, resp);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
+		
+
 	}
 }

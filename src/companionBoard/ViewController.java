@@ -31,9 +31,8 @@ public class ViewController extends HttpServlet{
 		
 		req.setAttribute("list", list);
 		
-//		HttpSession session = req.getSession(false); 
-//		String id = (String) session.getAttribute("id");
-		String id = "id";
+		HttpSession session = req.getSession(false); 
+		String id = (String) session.getAttribute("id");
 		
 		boolean idCheck = false;
 		if (id.equals(list.get(0).getId())) {

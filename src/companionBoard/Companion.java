@@ -60,6 +60,20 @@ public class Companion {
 		this.concept2 = concept2;
 		this.concept3 = concept3;
 	}
+	
+	public Companion(String start, String end, String location, String title, String content,
+			int personnel, String concept1, String concept2, String concept3) {
+		super();
+		this.start = start;
+		this.end = end;
+		this.location = location;
+		this.title = title;
+		this.content = content;
+		this.personnel = personnel;
+		this.concept1 = concept1;
+		this.concept2 = concept2;
+		this.concept3 = concept3;
+	}
 
 	public int getNo() {
 		return no;

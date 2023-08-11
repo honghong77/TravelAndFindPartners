@@ -64,7 +64,7 @@
 			<input type="radio" class="rb" name="radiobtn" id="radiobtn17" value="제주"><label for="radiobtn17">제주</label>
 	</div>
 	
-		<input type="text" id="no" name="no" value="<%= c.getNo() %>">
+		<input type="hidden" id="no" name="no" value="<%= c.getNo() %>">
 		
 	
 		<div class="personnel">
@@ -165,7 +165,7 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 		
 		<div id="board_button">
 			<input class="btn btn-primary" type="submit" value="저장하기" id="btn1">
-			<button type="button" class="btn btn-light" id="btn2" onclick="location.href='companionBoardForm.jsp';">수정취소</button>
+			<button type="button" class="btn btn-light" id="btn2" onclick="location.href='http://localhost:8080/TravelAndFindPartners/view?no=' + <%= c.getNo() %>;">수정취소</button>
 		</div>
 		</form>
 	</div>
@@ -299,13 +299,6 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 	    console.log("이미지가 없는 상태입니다.");
 	}
 
-
-
- 
- 
- 
- 
- 
  
  	// 유효성 검사
  	function checkform() {

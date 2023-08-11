@@ -15,4 +15,15 @@ public class Jackson {
             return null;
         }
     }
+	
+	public String convertReplyListToJson(List<BoardReply> list) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+        	String json = objectMapper.writeValueAsString(list);
+            return json;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

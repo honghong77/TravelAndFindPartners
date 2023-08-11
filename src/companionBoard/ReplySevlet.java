@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @WebServlet("/reply")
 public class ReplySevlet extends HttpServlet{
@@ -21,26 +24,27 @@ public class ReplySevlet extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = req.getParameter("user");
-		String content = req.getParameter("content"); 		
-		// int no = Integer.parseInt(req.getParameter("recipeNo"));
-		String no = req.getParameter("recipeNo");
-		
-		System.out.println(id);
-		System.out.println(content);
-		System.out.println(no);
-		
-		// Reply reply = new Reply(no, id, content);	
-		 		
-//		int result = 0;
-//		try {
-//			result = dao.insertData(reply);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}	
-//		
-//		resp.getWriter().print(result); 	
+		 ObjectMapper objectMapper = new ObjectMapper();
+	     JsonNode jsonNode = objectMapper.readTree(req.getReader());
+
+	     String content = jsonNode.get("content").asText();
+	     int no = Integer.valueOf(jsonNode.get("boardNo").asText());
+	     String id = jsonNode.get("user").asText();
+
+	     System.out.println("Content: " + content);
+	     System.out.println("boardNo: " + no);
+	     System.out.println("User: " + id);
+	     
+	     Reply reply = new Reply(no, id, content);	
+	 		
+	     int result = 0;
+	     try {
+	    	 result = dao.insertData(reply);
+	     } catch (SQLException e) {
+	    	 e.printStackTrace();
+	     }	
+			
+	     resp.getWriter().print(result); 
 	}
 	
 }
