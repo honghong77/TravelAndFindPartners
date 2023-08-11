@@ -194,7 +194,7 @@
 				}
 			</script>
 
-<!-- 검색창에 키보드 입력이 발생하면 "추가하기" 버튼을 비활성화합니다 -->
+<!-- 검색창에 키보드 입력이 발생하면 "추가하기" 버튼을 비활성화하는 스크립트입니다 -->
 <script>
 				// 검색창에 키보드 입력이 발생하면 "추가하기" 버튼을 비활성화
 				document
@@ -251,6 +251,8 @@
 				
 				<div class="col-md-4">
 					<button class="btn btn-primary" onclick="saveSelectedResults('${dayId}')" type="submit" style="width: 100%;">결정 완료</button>
+					<button class="btn btn-primary mt-4" onclick="clearContents()" type="submit" style="width: 100%;">초기화</button>
+
 				</div>
 			</div>
 		</div>
@@ -630,4 +632,11 @@ function saveSelectedResults(dayId) {
 
 </script>
 
+<!-- 초기화 버튼을 눌렀을 때 selected-result안에 있는 내용들을 전부 삭제하는 기능입니다 -->
+<script>
+function clearContents() {
+    document.getElementById("selected-result").innerHTML = "";
+    alert('여행지 목록이 초기화 되었습니다');
+}
+</script>
 
