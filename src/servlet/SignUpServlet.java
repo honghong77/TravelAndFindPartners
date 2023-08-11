@@ -19,6 +19,7 @@ public class SignUpServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.sendRedirect("./sign/signUp.jsp");
+		System.out.println(req.getRequestURI());
 	}
 
 	@Override
@@ -38,11 +39,15 @@ public class SignUpServlet extends HttpServlet {
             out.println("<script>alert('이미 사용 중인 닉네임입니다.'); history.back();</script>");
             return;
         }
+        if (SignDAO.selectId(id)) {
+        	out.println("<script>alert('이미 사용 중인 아이디입니다.'); history.back();</script>");
+        	return;
+        }
         
         boolean isSuccess = SignDAO.insert(id, password, name, nickname, gender, birth);      
         
         if (isSuccess) {
-        	req.getSession().setAttribute("tendencyUserId", id);
+        	req.getSession().setAttribute("id", id);
             resp.sendRedirect("./tendency/tendency.jsp");
         } else {
             out.println("<script>alert('회원가입에 실패했습니다.');</script>");

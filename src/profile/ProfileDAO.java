@@ -1,16 +1,19 @@
 package profile;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+
 
 public class ProfileDAO {
 	private static String url = "jdbc:mysql://localhost:3306/trip";
 	private static String username = "root";
 	private static String pw = "root";
 	
-	public static boolean updateProfileSelection(String id, String img) {
+	public static boolean updateProfileSelection(byte[] img, String id) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
@@ -23,7 +26,8 @@ public class ProfileDAO {
 		try {
 			conn = DriverManager.getConnection(url, username, pw);
 			stmt = conn.prepareStatement("UPDATE member SET profile = ? WHERE id = ?");
-			stmt.setString(1, img);
+			
+			stmt.setBytes(1, img);
 			stmt.setString(2, id);
 			
 			int result = stmt.executeUpdate();

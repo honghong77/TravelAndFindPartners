@@ -1,14 +1,13 @@
 package profile;
 
-import java.awt.Image;
 
 public class Profile {
 	private String id;
-	private Image img;
+	private byte[] img;
 	
 	public Profile() {}
 
-	public Profile(String id, Image img) {
+	public Profile(String id, byte[] img) {
 		super();
 		this.id = id;
 		this.img = img;
@@ -22,12 +21,13 @@ public class Profile {
 		this.id = id;
 	}
 
-	public Image getImg() {
+	public byte[] getImg() {
 		return img;
 	}
 
-	public void setImg(Image img) {
+	public void setImg(byte[] img) {
 		this.img = img;
 	}
-		
+	
+			
 }

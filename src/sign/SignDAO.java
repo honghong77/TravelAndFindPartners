@@ -110,4 +110,55 @@ public class SignDAO {
 	    return isDuplicated;
 	}
 	
+	public static boolean selectId(String id) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		boolean isDuplicated = false;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
+			conn = DriverManager.getConnection(url, username, pw);
+			stmt = conn.prepareStatement("select id from member where id = ?");
+			stmt.setString(1, id);
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				// 닉네임이 이미 DB에 존재하는 경우
+				isDuplicated = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return isDuplicated;
+	}
+	
 }

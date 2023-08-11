@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
         System.out.println(loginResult);
         if (loginResult == 2) {
             // 로그인 성공 처리
-            resp.sendRedirect("./login/success.jsp"); // 로그인 성공 페이지로 리다이렉트
+            resp.sendRedirect("/TravelAndFindPartners/home"); // 로그인 성공 페이지로 리다이렉트
         } else if (loginResult == 1) {
             // 비밀번호 불일치 처리
             resp.sendRedirect("./login/failure.jsp?error=password"); // 비밀번호 불일치 페이지로 리다이렉트
