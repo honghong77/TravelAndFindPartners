@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,19 +31,35 @@ public class DBSave extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/trip", "root", "root");
-            String query = "INSERT INTO travel (member_id, start_date, end_date, location, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)"; // 위도, 경도 추가
-            stmt = conn.prepareStatement(query);
+            String query = "INSERT INTO travel (member_id, start_date, end_date, location, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)";
+            stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);  // 여기에 RETURN_GENERATED_KEYS를 추가
+
             stmt.setString(1, memberId);
             stmt.setString(2, startDate);
             stmt.setString(3, endDate);
             stmt.setString(4, destination);
-            stmt.setFloat(5, Float.parseFloat(latitude)); // 위도를 부동 소수점으로 변환
-            stmt.setFloat(6, Float.parseFloat(longitude)); // 경도를 부동 소수점으로 변환
-            stmt.executeUpdate();
+            stmt.setFloat(5, Float.parseFloat(latitude));
+            stmt.setFloat(6, Float.parseFloat(longitude));
+
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating travel failed, no rows affected.");
+            }
+
+            int generatedTravelId = -1;  // 초기화
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    generatedTravelId = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating travel failed, no ID obtained.");
+                }
+            }
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"message\":\"일정이 저장되었습니다.\"}");
+            response.getWriter().write("{\"success\": true, \"message\":\"일정이 저장되었습니다.\", \"travel_id\":" + generatedTravelId + "}");
+
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -162,53 +162,47 @@ function validateForm() {
 }
 </script>
 
-
-
 </body>
 <%--  여행지를 선택했을 때 위도와 경도를 정의하고 파라미터로 넘겨줄 수 있도록 설정하는 스크립트 입니다--%> 
 <script>
-									    var coordinates = {
-										    "서울": { lat: 37.5665, lng: 126.9780 },
-										    "부산": { lat: 35.1796, lng: 129.0756 },
-										    "인천": { lat: 37.4563, lng: 126.7052 },
-										    "대구": { lat: 35.8714, lng: 128.6014 },
-										    "광주": { lat: 35.1601, lng: 126.8526 },
-										    "대전": { lat: 36.3504, lng: 127.3845 },
-										    "울산": { lat: 35.5384, lng: 129.3114 },
-										    "세종": { lat: 36.4801, lng: 127.2890 },
-										    "경기": { lat: 37.4138, lng: 127.5183 },
-										    "강원": { lat: 37.8228, lng: 128.1555 },
-										    "충북": { lat: 36.8000, lng: 127.7000 },
-										    "충남": { lat: 36.5184, lng: 126.8000 },
-										    "전북": { lat: 35.7175, lng: 127.1530 },
-										    "전남": { lat: 34.8161, lng: 126.4629 },
-										    "경북": { lat: 36.4919, lng: 128.8889 },
-										    "경남": { lat: 35.4606, lng: 128.2132 },
-										    "제주": { lat: 33.4996, lng: 126.5312 }
-										};
-									
-									    var selectedLat = 0; // 위도
-									    var selectedLng = 0; // 경도
-									
-									    // 여행지가 선택되면 위도와 경도를 설정
-										function setCoordinates() {
-										    console.log("함수 실행")
-										    var destination = document.getElementById("destinationSelect").value; // ID 값이 "destinationSelect"
-										    if (coordinates[destination]) {
-										        selectedLat = coordinates[destination].lat;
-										        selectedLng = coordinates[destination].lng;
-										
-										        // 숨겨진 입력 필드에 위도와 경도 값을 설정
-										        document.getElementById("latitude").value = selectedLat;
-										        document.getElementById("longitude").value = selectedLng;
-										    }
-										}
+var coordinates = {
+    "서울": { lat: 37.5665, lng: 126.9780 },
+    "부산": { lat: 35.1796, lng: 129.0756 },
+    "인천": { lat: 37.4563, lng: 126.7052 },
+    "대구": { lat: 35.8714, lng: 128.6014 },
+    "광주": { lat: 35.1601, lng: 126.8526 },
+    "대전": { lat: 36.3504, lng: 127.3845 },
+    "울산": { lat: 35.5384, lng: 129.3114 },
+    "세종": { lat: 36.4801, lng: 127.2890 },
+    "경기": { lat: 37.4138, lng: 127.5183 },
+    "강원": { lat: 37.8228, lng: 128.1555 },
+    "충북": { lat: 36.8000, lng: 127.7000 },
+    "충남": { lat: 36.5184, lng: 126.8000 },
+    "전북": { lat: 35.7175, lng: 127.1530 },
+    "전남": { lat: 34.8161, lng: 126.4629 },
+    "경북": { lat: 36.4919, lng: 128.8889 },
+    "경남": { lat: 35.4606, lng: 128.2132 },
+    "제주": { lat: 33.4996, lng: 126.5312 }
+};
 
-									</script>
+   var selectedLat = 0; // 위도
+   var selectedLng = 0; // 경도
 
+   // 여행지가 선택되면 위도와 경도를 설정
+function setCoordinates() {
+    console.log("함수 실행")
+    var destination = document.getElementById("destinationSelect").value; // ID 값이 "destinationSelect"
+    if (coordinates[destination]) {
+        selectedLat = coordinates[destination].lat;
+        selectedLng = coordinates[destination].lng;
 
+        // 숨겨진 입력 필드에 위도와 경도 값을 설정
+        document.getElementById("latitude").value = selectedLat;
+        document.getElementById("longitude").value = selectedLng;
+    }
+}
 
-
+</script>
 
 <%-- 목적지, 여행시작시간, 여행종료시간, 위도, 경도의 정보를 파라미터로 넘겨주는 구간입니다 --%> 
 <%

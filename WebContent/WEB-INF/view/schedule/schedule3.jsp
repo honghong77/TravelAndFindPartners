@@ -155,53 +155,76 @@ function saveSchedule() {
     var startDate = "${requestScope.startDate}";
     var endDate = "${requestScope.endDate}";
     var destination = "${requestScope.destination}";
-    var latitude = "${requestScope.latitude}"; // 위도
-    var longitude = "${requestScope.longitude}"; // 경도
+    var latitude = "${requestScope.latitude}";
+    var longitude = "${requestScope.longitude}";
+
+    console.log("Starting to save travel data...");
 
     $.post('/TravelAndFindPartners/saveSchedule', {
-      member_id: memberId,
-      start_date: startDate,
-      end_date: endDate,
-      location: destination,
-      lat: latitude, 
-      lng: longitude
+        member_id: memberId,
+        start_date: startDate,
+        end_date: endDate,
+        location: destination,
+        lat: latitude,
+        lng: longitude
     }, function(response) {
-      // 응답 처리 (예: 알림 표시)
-      alert(response.message);
+        console.log("Received response from saveSchedule:", response);
 
-      // 이제 여기서 추가적인 데이터를 수집하여 travel_location 테이블에 넣습니다.
-      var days = document.querySelectorAll(".dayItem");
-      var dataToSend = [];
+        if (response.success && response.travel_id) {
+            console.log("Travel data saved successfully. Travel ID:", response.travel_id);
 
-      days.forEach(function(dayElement) {
-          var dayCount = dayElement.querySelector(".fa-plane").nextElementSibling.textContent.trim().split(' ')[1];
-          var date = dayElement.querySelector(".fa-plane").nextElementSibling.textContent.trim().split(' ')[2];
+            var createdTravelId = response.travel_id;
+            var days = document.querySelectorAll(".dayItem");
+            var dataToSend = [];
 
-          var locations = dayElement.querySelectorAll("#memoText .place-name");
-          locations.forEach(function(location) {
-              var locationData = {
-                  travel_id: memberId, // 이 부분은 정확한 값을 지정해야 합니다.
-                  date: date,
-                  location_name: location.textContent,
-                  latitude: location.getAttribute('data-lat'),
-                  longitude: location.getAttribute('data-lng'),
-                  memo: dayElement.querySelector("#memopowerman" + dayCount).textContent
-              };
-              dataToSend.push(locationData);
-          });
-      });
+            days.forEach(function(dayElement) {
+                var planeNextElement = dayElement.querySelector(".fa-plane").nextElementSibling;
 
-      // 추가적인 데이터를 서버에 전송
-      $.post('/TravelAndFindPartners/saveTravelLocation', dataToSend, function(response) {
-          // 여기서 travel_location에 데이터 저장에 대한 응답 처리
-          if (response.success) {
-              window.location.href = '/TravelAndFindPartners/hello';
-          } else {
-              alert("travel_location 저장 중 오류 발생: " + response.message);
-          }
-      });
+                var dayCount = planeNextElement.textContent.trim().split(' ')[1];
+                console.log("Extracted dayCount:", dayCount);
+
+                var dateNode = planeNextElement.nextSibling;
+                while (dateNode && dateNode.nodeType !== 3) {
+                    dateNode = dateNode.nextSibling;
+                }
+                var date = dateNode ? dateNode.nodeValue.trim().split(' ')[2] : undefined;
+                console.log("Extracted date:", date);
+
+                var locations = dayElement.querySelectorAll("#memoText .place-name");
+                locations.forEach(function(location) {
+                    var memoElement = dayElement.querySelector("#memopowerman" + dayCount);
+                    var memoContent = memoElement ? memoElement.textContent : "";
+
+                    var locationData = {
+                        travel_id: createdTravelId,
+                        date: date,
+                        location_name: location.textContent,
+                        latitude: location.getAttribute('data-lat'),
+                        longitude: location.getAttribute('data-lng'),
+                        memo: memoContent
+                    };
+                    dataToSend.push(locationData);
+                });
+            });
+
+            console.log("Sending travel location data...");
+
+            $.post('/TravelAndFindPartners/saveTravelLocation', {locations: JSON.stringify(dataToSend)}, function(response) {
+                console.log("Received response from saveTravelLocation:", response);
+
+                if (response.success) {
+                    console.log("Travel location data saved successfully.");
+                    window.location.href = '/TravelAndFindPartners/hello';
+                } else {
+                    console.error("Error while saving travel location data:", response.message);
+                }
+            });
+        } else {
+            console.error("Error while saving travel data:", response.message);
+        }
     });
 }
+
 </script>
 							
 <%-- (미완성)메모를 DB에 저장하기위해 서블릿으로 보내는 스크립트입니다 --%>
@@ -553,11 +576,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<%-- 동선 최적화 버튼의 활성화 조건이 있는 스크립트입니다--%>
-<script>
 
-
-</script>
 
 
 
