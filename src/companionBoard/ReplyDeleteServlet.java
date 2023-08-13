@@ -1,7 +1,6 @@
 package companionBoard;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,30 +12,26 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@WebServlet("/replyview")
-public class ReplyViewSevlet extends HttpServlet{
+@WebServlet("/replydelete")
+public class ReplyDeleteServlet extends HttpServlet{
 	final static ReplyDAO dao = new ReplyDAO();
-	private final static Jackson jackson = new Jackson();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 	    JsonNode jsonNode = objectMapper.readTree(req.getReader());
-
-	    int no = Integer.valueOf(jsonNode.get("boardNo").asText());
-
-	    System.out.println("boardNo: " + no);
 	    
-	    List<BoardReply> list = null;
-		try {
-			list = dao.getList(no);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	    String json = jackson.convertReplyListToJson(list);	
+	    int pk = Integer.valueOf(jsonNode.get("pk").asText());
+	    
+	    int result = 0;
+	    try {
+	    	result = dao.deleteData(pk);
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    }
 
-	    resp.setContentType("application/json");
-	    resp.getWriter().print(json); 
+	    System.out.println("pk: " + pk);
+	    
+	    resp.getWriter().print(result); 
 	}
 }

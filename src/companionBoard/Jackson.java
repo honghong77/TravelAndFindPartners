@@ -26,4 +26,16 @@ public class Jackson {
             return null;
         }
     }
+	
+	public String convertSchListToJson(List<Schedule> list) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+        	String json = objectMapper.writeValueAsString(list);
+            return json;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+	
 }

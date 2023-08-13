@@ -15,7 +15,9 @@ import dbutil.DBUtil;
 public class CompanionListDAO {
 	// 최신순
 	public List<Companion2> getList(int offset) throws SQLException {
-		String sql = "SELECT * FROM companionboard ORDER BY no DESC LIMIT 9 OFFSET " + offset;
+		String sql = "SELECT no, A.id, start, end, location, image, title, content, personnel,\r\n" + 
+				"concept1, concept2, concept3, time, nickname\r\n" + 
+				"FROM companionboard as A JOIN member as B ON A.id = B.id ORDER BY no DESC LIMIT 9 offset ?";
 		List<Companion2> list = new ArrayList<Companion2>();
 		
 		Connection conn = null;
@@ -25,6 +27,7 @@ public class CompanionListDAO {
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, offset);
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -40,13 +43,14 @@ public class CompanionListDAO {
 				String concept1 = rs.getString("concept1");
 				String concept2 = rs.getString("concept2");
 				String concept3 = rs.getString("concept3");
+				String nickname = rs.getString("nickname");
 				
 				byte[] imageBytes = rs.getBytes("image");
 
 	            // Convert the BLOB data to a Base64-encoded string
 	            String image = Base64.getEncoder().encodeToString(imageBytes);
 				
-				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3);
+				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3, nickname);
 				list.add(c);
 			}
 		} catch (SQLException e) {
@@ -87,7 +91,11 @@ public class CompanionListDAO {
 	
 	// 최신순 + 검색
 	public List<Companion2> getSearchList(int offset, String search) throws SQLException {
-		String sql = "SELECT * FROM companionboard Where location = ? or title LIKE ? or content LIKE ? ORDER BY no DESC LIMIT 9 OFFSET " + offset;
+		String sql = "SELECT no, A.id, start, end, location, image, title, content, personnel,\r\n" + 
+				"concept1, concept2, concept3, time, nickname\r\n" + 
+				"FROM companionboard as A JOIN member as B ON A.id = B.id\r\n" + 
+				"Where location = ? or title LIKE ? or content LIKE ? \r\n" + 
+				"ORDER BY no DESC LIMIT 9 OFFSET ?;";
 		List<Companion2> list = new ArrayList<Companion2>();
 		
 		Connection conn = null;
@@ -100,6 +108,7 @@ public class CompanionListDAO {
 			stmt.setString(1, search);
 			stmt.setString(2, "%" + search + "%");
 			stmt.setString(3, "%" + search + "%");
+			stmt.setInt(4, offset);
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -115,13 +124,14 @@ public class CompanionListDAO {
 				String concept1 = rs.getString("concept1");
 				String concept2 = rs.getString("concept2");
 				String concept3 = rs.getString("concept3");
+				String nickname = rs.getString("nickname");
 				
 				byte[] imageBytes = rs.getBytes("image");
 
 	            // Convert the BLOB data to a Base64-encoded string
 	            String image = Base64.getEncoder().encodeToString(imageBytes);
 
-				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3);
+				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3, nickname);
 				list.add(c);
 			}
 		} catch (SQLException e) {
@@ -165,7 +175,9 @@ public class CompanionListDAO {
 	
 	// 컨셉
 	public List<Companion2> getConceptList(int offset, String concept) throws SQLException {
-		String sql = "SELECT * FROM companionboard WHERE concept1 = ? OR concept2 = ? OR concept3 = ? ORDER BY no DESC LIMIT 9 OFFSET " + offset;
+		String sql = "SELECT no, A.id, start, end, location, image, title, content, personnel,\r\n" + 
+				"concept1, concept2, concept3, time, nickname\r\n" + 
+				"FROM companionboard as A JOIN member as B ON A.id = B.id WHERE concept1 = ? OR concept2 = ? OR concept3 = ? ORDER BY no DESC LIMIT 9 OFFSET ?";
 		List<Companion2> list = new ArrayList<Companion2>();
 		
 		Connection conn = null;
@@ -178,6 +190,7 @@ public class CompanionListDAO {
 			stmt.setString(1, concept);
 			stmt.setString(2, concept);
 			stmt.setString(3, concept);
+			stmt.setInt(4, offset);
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -193,13 +206,14 @@ public class CompanionListDAO {
 				String concept1 = rs.getString("concept1");
 				String concept2 = rs.getString("concept2");
 				String concept3 = rs.getString("concept3");
+				String nickname = rs.getString("nickname");
 				
 				byte[] imageBytes = rs.getBytes("image");
 
 	            // Convert the BLOB data to a Base64-encoded string
 	            String image = Base64.getEncoder().encodeToString(imageBytes);
 
-				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3);
+				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3, nickname);
 				list.add(c);
 			}
 		} catch (SQLException e) {
@@ -243,7 +257,9 @@ public class CompanionListDAO {
 	
 	// 조건 & 컨셉
 	public List<Companion2> getSearchConceptList(int offset, String concept, String search) throws SQLException {
-		String sql = "SELECT * FROM companionboard WHERE (concept1 = ? OR concept2 = ? OR concept3 = ?) AND (location = ? OR content LIKE ? OR title LIKE ?) ORDER BY no DESC LIMIT 9 OFFSET " + offset;
+		String sql = "SELECT no, A.id, start, end, location, image, title, content, personnel,\r\n" + 
+				"concept1, concept2, concept3, time, nickname\r\n" + 
+				"FROM companionboard as A JOIN member as B ON A.id = B.id WHERE (concept1 = ? OR concept2 = ? OR concept3 = ?) AND (location = ? OR content LIKE ? OR title LIKE ?) ORDER BY no DESC LIMIT 9 OFFSET ?" ;
 		List<Companion2> list = new ArrayList<Companion2>();
 		
 		Connection conn = null;
@@ -259,6 +275,7 @@ public class CompanionListDAO {
 			stmt.setString(4, search);
 			stmt.setString(5, "%" + search + "%");
 			stmt.setString(6, "%" + search + "%");
+			stmt.setInt(7, offset);
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -274,13 +291,14 @@ public class CompanionListDAO {
 				String concept1 = rs.getString("concept1");
 				String concept2 = rs.getString("concept2");
 				String concept3 = rs.getString("concept3");
+				String nickname = rs.getString("nickname");
 				
 				byte[] imageBytes = rs.getBytes("image");
 
 	            // Convert the BLOB data to a Base64-encoded string
 	            String image = Base64.getEncoder().encodeToString(imageBytes);
 
-				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3);
+				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3, nickname);
 				list.add(c);
 			}
 		} catch (SQLException e) {
@@ -324,6 +342,4 @@ public class CompanionListDAO {
 		}
 		return -1;
 	}
-	
-	
 }

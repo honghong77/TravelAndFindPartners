@@ -2,6 +2,7 @@ package companionBoard;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/view")
 public class ViewController extends HttpServlet{
 	private final static CompanionBoardDAO dao = new CompanionBoardDAO();
+	private final static ScheduleDAO schDao = new ScheduleDAO();
+	
 	private final static Jackson jackson = new Jackson();
 	
 	@Override
@@ -24,7 +27,7 @@ public class ViewController extends HttpServlet{
 		System.out.println(no);
 		
 		try {
-			list = dao.getList(no);
+			list = dao.getViewList(no);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -32,19 +35,32 @@ public class ViewController extends HttpServlet{
 		req.setAttribute("list", list);
 		
 		HttpSession session = req.getSession(false); 
-		String id = (String) session.getAttribute("id");
+		String sessionId = (String) session.getAttribute("id");
+		
+		String id = list.get(0).getId();
 		
 		boolean idCheck = false;
-		if (id.equals(list.get(0).getId())) {
+		if (sessionId != null && id.equals(sessionId)) {
 			idCheck = true;
 		}
 		System.out.println(idCheck);
 		
 		String json = jackson.convertListToJson(list);
 		
+		
+		List<Schedule> schList = null;
+		try {
+			schList = schDao.getList(sessionId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String schJson = jackson.convertSchListToJson(schList);
+		
+		
 		req.setAttribute("json", json);
 		req.setAttribute("idCheck", idCheck);
-		
+		req.setAttribute("schJson", schJson);
 		
 		req.getRequestDispatcher("/WEB-INF/accompany/viewForm.jsp").forward(req, resp);
 	}

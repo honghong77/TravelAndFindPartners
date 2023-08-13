@@ -5,8 +5,10 @@ div {
 }
 
 .main {
-	display: flex;
-    justify-content: center; 
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #image{

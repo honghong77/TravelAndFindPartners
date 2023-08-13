@@ -1,15 +1,15 @@
 package companionBoard;
 
-public class Reply {
+public class Schedule {
 	private int no;
 	private String id;
-	private String content;
+	private String title;
 	
-	public Reply(int no, String id, String content) {
+	public Schedule(int no, String id, String title) {
 		super();
 		this.no = no;
 		this.id = id;
-		this.content = content;
+		this.title = title;
 	}
 
 	public int getNo() {
@@ -28,11 +28,12 @@ public class Reply {
 		this.id = id;
 	}
 
-	public String getContent() {
-		return content;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setTitle(String title) {
+		this.title = title;
 	}
+	
 }

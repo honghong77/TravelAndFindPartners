@@ -65,7 +65,7 @@
 	
 </form>
 
-<div  class="card-template" style="display: none;">
+<div class="card-template" style="display: none;">
 <a class="link" href=""> <!-- 클릭 시 링크 설정 -->
 	<div class="card" >
 		<!-- 카드 헤더 -->
@@ -169,7 +169,7 @@ for (let i = 0; i < numberOfCards && i < companionList.length; i++) {
   	const companion = companionList[i];
   	newCard.querySelector('.card-body-header h1').innerText = companion.title;
   	newCard.querySelector('.card-body-hashtag').innerText = "#" + companion.concept1 + " #" + companion.concept2 + " #" + companion.concept3;
-	  newCard.querySelector('.card-body-nickname').innerText = '작성자: ' + companion.id;
+	  newCard.querySelector('.card-body-nickname').innerText = '작성자: ' + companion.nickname;
 	  newCard.querySelector('.card-body-description').innerText = companion.content;
 	  newCard.querySelector('.reg_date').innerText = companion.start + " ~ " + companion.end;
 	  newCard.querySelector('.card-header-is_closed').innerText = companion.location;

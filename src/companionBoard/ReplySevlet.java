@@ -18,11 +18,6 @@ public class ReplySevlet extends HttpServlet{
 	final static ReplyDAO dao = new ReplyDAO();
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		 	
-	}
-
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		 ObjectMapper objectMapper = new ObjectMapper();
 	     JsonNode jsonNode = objectMapper.readTree(req.getReader());

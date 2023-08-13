@@ -60,7 +60,7 @@ public class ListController extends HttpServlet {
 		} catch (NumberFormatException e) {
 			currendPage = 1;
 		}
-		
+			
 		if (totalPages == 0) {
 		    totalPages = 1;
 		}

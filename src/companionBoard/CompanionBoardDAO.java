@@ -46,7 +46,6 @@ public class CompanionBoardDAO {
 		return -1;
 	}
 	
-	
 	public List<Companion2> getList(int number) throws SQLException {
 		String sql = "SELECT * FROM companionboard WHERE no = ?";
 		List<Companion2> list = new ArrayList<Companion2>();
@@ -80,6 +79,62 @@ public class CompanionBoardDAO {
 	            String image = Base64.getEncoder().encodeToString(imageBytes);
 
 				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3);
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+			DBUtil.close(rs);
+		}
+		return list;
+	}
+	
+	
+	
+
+	public List<Companion2> getViewList(int number) throws SQLException {
+		String sql = "SELECT no, A.id, start, end, location, image, title, content, personnel,\r\n" + 
+				"concept1, concept2, concept3, time, nickname, profile\r\n" + 
+				"FROM companionboard as A JOIN member as B ON A.id = B.id WHERE no = ?";
+		List<Companion2> list = new ArrayList<Companion2>();
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, number);
+			rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				int no = rs.getInt("no");
+				String id = rs.getString("id");
+				String start = rs.getString("start");
+				String end = rs.getString("end");
+				String location = rs.getString("location");
+
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int personnel = rs.getInt("personnel");
+				String concept1 = rs.getString("concept1");
+				String concept2 = rs.getString("concept2");
+				String concept3 = rs.getString("concept3");
+				String time = rs.getString("time");
+				String nickname = rs.getNString("nickname");
+				
+				byte[] imageBytes = rs.getBytes("image");
+
+	            String image = Base64.getEncoder().encodeToString(imageBytes);
+	            
+	            byte[] profileBytes = rs.getBytes("profile");
+
+	            String profile = Base64.getEncoder().encodeToString(profileBytes);
+
+				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3, time, nickname, profile);
 				list.add(c);
 			}
 		} catch (SQLException e) {

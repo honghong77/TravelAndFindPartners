@@ -23,8 +23,14 @@ public class BoarderController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 로그인 했을 때만 접근 할 수 있게 수정
-		req.getRequestDispatcher("/WEB-INF/accompany/companionBoardForm.jsp").forward(req, resp);
+		HttpSession session = req.getSession(false); 
+		String id = (String) session.getAttribute("id");
+		
+		if (id == null) {
+			resp.sendRedirect("login");
+		} else {
+			req.getRequestDispatcher("WEB-INF/accompany/companionBoardForm.jsp").forward(req, resp);
+		}
 	}
 
 	@Override
@@ -74,7 +80,7 @@ public class BoarderController extends HttpServlet {
 			concept1 = concepts[0];
 		}
 
-		System.out.println(id);
+		System.out.println("세션아이디" + id);
 		System.out.println(location);
 		System.out.println(personnel);
 		System.out.println(title);

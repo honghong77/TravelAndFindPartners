@@ -13,8 +13,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@WebServlet("/replyview")
-public class ReplyViewSevlet extends HttpServlet{
+@WebServlet("/replyupdate")
+public class ReplyUpdateServlet extends HttpServlet{
 	final static ReplyDAO dao = new ReplyDAO();
 	private final static Jackson jackson = new Jackson();
 
@@ -22,21 +22,21 @@ public class ReplyViewSevlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 	    JsonNode jsonNode = objectMapper.readTree(req.getReader());
-
-	    int no = Integer.valueOf(jsonNode.get("boardNo").asText());
-
-	    System.out.println("boardNo: " + no);
 	    
-	    List<BoardReply> list = null;
-		try {
-			list = dao.getList(no);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	    String json = jackson.convertReplyListToJson(list);	
+	    String content = jsonNode.get("content").asText();
+	    int pk = Integer.valueOf(jsonNode.get("pk").asText());
+	    
+	    int result = 0;
+	    try {
+	    	result = dao.updateData(content, pk);
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    }
 
-	    resp.setContentType("application/json");
-	    resp.getWriter().print(json); 
+	    System.out.println("content: " + content);
+	    System.out.println("pk: " + pk);
+	    
+	    resp.getWriter().print(result); 
 	}
 }
+
