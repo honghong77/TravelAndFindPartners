@@ -13,7 +13,7 @@
 			<div class="input-group mb-3">
 
 				<%
-					String destination = request.getParameter("destination");
+					String destinationString = request.getParameter("destination");
 				if (destination != null && !destination.equals("")) {
 				%>
 				<input type="text" id="search" class="form-control"

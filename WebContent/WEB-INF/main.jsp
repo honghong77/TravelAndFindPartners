@@ -4,93 +4,117 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/custom.css">
-
-<title>여행 동행 사이트</title>
-</head>
-
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
-
-<body>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>여행 동행 사이트</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        .banner-container {
+            width: 1200px;
+            height: 500px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+        }
+        .swiper-slide img {
+            margin-top: 25px;
+            width: 100%;
+            height: 500px;
+            object-fit: contain;
+        }
+        
+        /* 헤더와의 마진을 추가 */
+        .banner-container {
+		    position: relative;
+		    margin-top: 20px;
+		    display: flex;
+		    align-items: flex-end;
+		}
 		
-	</nav>  
-	<div class="container">	
-		<div class="jumbotron">
-			<div class="container">
-					<h1>웹 사이트 소개 <br></h1>
-					<p>이 홈페이지는 회원들이 언제든지 여행 계획을 세워서 동행자를 찾는 홈페이지입니다. <br><br></p>
-				</div>
-				<div class="container">
-					<div id="myCarousel" class="carousel slide" data-ride="carousel">
-					<ol class="carousel-indicators">
-						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-						<li data-target="#myCarousel" data-slide-to="1"></li>
-						<li data-target="#myCarousel" data-slide-to="2"></li>
-					</ol>
-					<div class="carousel-inner">
-						<div class="item active">
-							<img src="images/1.jpg">
-						</div>
-						<div class="item">
-							<img src="images/2.jpg">
-						</div>
-						<div class="item">
-							<img src="images/3.jpg">
-						</div>
-					</div>
-					<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-						<span class="glyphicon glyphicon-chevron-left"></span>
-					</a>
-					<a class="right carousel-control" href="#myCarousel" data-slide="next">
-						<span class="glyphicon glyphicon-chevron-right"></span>
-					</a>
-				</div>
-			</div>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="js/bootstrap.js"></script> 
-	</div>
-	
-	<div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <button type="button" class="btn btn-success">Success</button>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-      </div>
-    </div>
-  </div>
+		.accompany-text {
+		    position: absolute;
+		    left: 270px;
+		    bottom: 250px;
+		    margin-left: 20px;
+		}
+		
+		.card-container {
+		    display: flex;
+		    flex-wrap: wrap;
+		    justify-content: space-between;
+		    max-width: 1200px;
+		    margin: 20px auto;
+		}
+	</style>
+</head>
+<body>
+    <%-- 헤더 --%>
+    <%@ include file="/WEB-INF/view/layout/head.jsp"%>
+    
+    <%-- 배너 --%>
+    <div class="banner-container">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a href="https://www.hsg.go.kr/tour/contents.do?key=1375" target="_blank">
+                        <img src="./images/1.jpg" alt="이미지 1">
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="https://culture.seoul.go.kr/culture/culture/cultureEvent/view.do?cultcode=142223&menuNo=200008" target="_blank">
+                        <img src="./images/2.jpg" alt="이미지 2">
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=61868dbd-e352-418c-a6f3-9cd0684c5cf7" target="_blank">
+                        <img src="./images/3.jpg" alt="이미지 3">
+                    </a>
+                </div>
+            </div>
+            <!-- 네비게이션 및 페이징 버튼을 감싸는 추가적인 div 요소를 추가 -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>       
+    <%-- 내용 --%>
+    <div class="content">
+    <session>
+        <div class="accompany-text">
+        	<h2>동행</h2>
+    	</div>
+    	<div class="card-container">
+                <!-- 카드 레이아웃 및 내용... -->
+            </div>
+    </session>
 </div>
 
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+    </script>
+    <%-- 푸터 --%>
+    
 </body>
-
-<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
-
 </html>
