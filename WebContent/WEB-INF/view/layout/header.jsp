@@ -72,7 +72,7 @@
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">홈</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">동행</a></li>
-					<li class="nav-item"><a class="nav-link" href="hello">일정</a></li>
+					<li class="nav-item"><a class="nav-link" href="/">일정</a></li>
 				</ul>
 			</div>
 		</div>
@@ -90,7 +90,7 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form action="/TravelAndFindPartners/schedule3" method="POST" onsubmit="return validateForm()">
+					<form action="/schedule3" method="POST" onsubmit="return validateForm()">
 						<div class="mb-3">
 							<label for="destinationSelect" class="form-label">여행지</label>
 							<select class="form-select" id="destinationSelect" name="destination" onchange="setCoordinates()">

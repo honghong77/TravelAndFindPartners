@@ -29,6 +29,11 @@
   	<param-name>jdbcPassword</param-name>
   	<param-value>root</param-value>
   </context-param>
+  
+  <welcome-file-list>
+    <welcome-file>TravelPagination</welcome-file>
+</welcome-file-list>
+  
 
 
 </web-app>
