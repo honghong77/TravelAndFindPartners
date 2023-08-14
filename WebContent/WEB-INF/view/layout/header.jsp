@@ -52,28 +52,28 @@
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="navbarNavDropdown"
-				style="justify-content: flex-end;">
+			<div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: flex-end;">
 				<ul class="navbar-nav">
-    <!-- 작성하기 드롭다운 -->
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">작성하기</a>
-        <ul id="dropdown-menu" class="dropdown-menu">
-            <li><a class="dropdown-item" href="write">동행 모집하기</a></li>
-            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#scheduleModal">여행일정 만들기</a></li>
-        </ul>
-    </li>
-    
-    <!-- 로그인 및 회원가입 링크 -->
-    <% if (session.getAttribute("id") == null) { %>
-        <li class="nav-item login-signup"><a class="nav-link" href="login/loginform.jsp">로그인</a></li>
-        <li class="nav-item login-signup"><a class="nav-link" href="sign/signUp.jsp">회원가입</a></li>
-    <% } else { %>
-        <!-- 사용자별 링크 및 로그아웃 옵션 -->
-        <li class="nav-item"><a class="nav-link" href="myPage">마이페이지</a></li>
-        <li class="nav-item"><a class="nav-link" href="logout">로그아웃</a></li>
-    <% } %>
-</ul>
+				    <!-- 로그인 및 회원가입 링크 -->
+				    <% if (session.getAttribute("id") == null) { %>
+				        <li class="nav-item login-signup"><a class="nav-link" href="login/loginform.jsp">로그인</a></li>
+				        <li class="nav-item login-signup"><a class="nav-link" href="sign/signUp.jsp">회원가입</a></li>
+				    <% } else { %>
+				        <!-- 사용자별 링크 및 로그아웃 옵션 -->
+				        <li class="nav-item"><a class="nav-link" href="myPage">마이페이지</a></li>
+				        <li class="nav-item"><a class="nav-link" href="logout">로그아웃</a></li>
+				    <% } %>
+				    
+				    <!-- 작성하기 드롭다운 -->
+				    <li class="nav-item dropdown">
+				        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">작성하기</a>
+				        <ul id="dropdown-menu" class="dropdown-menu">
+				            <li><a class="dropdown-item" href="write">동행 모집하기</a></li>
+				            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#scheduleModal">여행일정 만들기</a></li>
+				        </ul>
+				    </li>
+				    
+				</ul>
 			</div>
 		</div>
 	</nav>
@@ -90,29 +90,6 @@
 		</div>
 	</nav>
 	
-	<%-- <nav class="navbar navbar-expand-lg bg-light">
-		<div class="container-fluid">
-			<div class="collapse navbar-collapse" id="navbarNavDrop">
-				<ul class="navbar-nav">
-				    <% if (session.getAttribute("id") == null) { %>
-				        <!-- Show login and signup links -->
-				        <li class="nav-item"><a class="nav-link" href="login/loginform.jsp">로그인</a></li>
-				        <li class="nav-item"><a class="nav-link" href="sign/signUp.jsp">회원가입</a></li>
-				    <% } else { %>
-				        <!-- Show user-specific links and logout option -->
-				        <li class="nav-item"><a class="nav-link" href="myPage">마이페이지</a></li>
-				        <li class="nav-item"><a class="nav-link" href="logout">로그아웃</a></li>
-				    <% } %>
-				</ul>
-			</div>
-		</div>
-	</nav> --%>
-	
-	
-	
-	
-	<br>
-
 	<!-- 여행일정 만들기 모달 -->
 	<div class="modal fade" id="scheduleModal" tabindex="-1"
 		aria-labelledby="scheduleModalLabel" aria-hidden="true">
