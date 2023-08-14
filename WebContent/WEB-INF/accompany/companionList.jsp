@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="listStyle.css" rel="stylesheet" type="text/css">
+<link href="companion-css/listStyle.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
 </head>
 

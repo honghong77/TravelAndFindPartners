@@ -73,7 +73,7 @@
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="home">홈</a></li>
+						aria-current="page" href="accountSettings1.jsp">홈</a></li>
 					<li class="nav-item"><a class="nav-link" href="companion">동행</a></li>
 					<li class="nav-item"><a class="nav-link" href="hello">일정</a></li>
 				</ul>

@@ -2261,7 +2261,7 @@ th {
   text-align: left;
 }
 .table {
-  width: 100%;
+  width: 60px;
   max-width: 100%;
   margin-bottom: 20px;
 }
@@ -3185,6 +3185,9 @@ fieldset[disabled] .btn-primary.focus {
   color: #fff;
   background-color: #449d44;
   border-color: #398439;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .btn-success:active,
 .btn-success.active,
