@@ -58,6 +58,7 @@
 <body>
     <%-- 헤더 --%>
     <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+
     
     <%-- 배너 --%>
     <div class="banner-container">
