@@ -67,5 +67,11 @@ public class ProfileServlet extends HttpServlet {
 	    byte[] img = os.toByteArray();
 
 	    ProfileDAO.updateProfileSelection(img, userId);
+	    if (userId != null) {
+			req.getRequestDispatcher("./WEB-INF/main.jsp").forward(req, resp);
+			System.out.println("아이디 :" + userId);
+		} else {
+			req.getRequestDispatcher("./login/loginform.jsp").forward(req, resp);
+		}
 	}
 }
