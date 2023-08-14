@@ -67,7 +67,7 @@
 				    
 				    <!-- 작성하기 드롭다운 -->
 				    <li class="nav-item dropdown">
-				        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">작성하기</a>
+				        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="scheduleLink">작성하기</a>
 				        <ul id="dropdown-menu" class="dropdown-menu">
 				            <li><a class="dropdown-item" href="write">동행 모집하기</a></li>
 				            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#scheduleModal">여행일정 만들기</a></li>
