@@ -146,11 +146,11 @@
 			<div class="card h-100">
 				<iframe id="mapView<%=travelId%>" frameborder="0" style="border: 0; width: 100%; height: 100%;" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAbBV-mR71MB1Oc8kwqjn0bcIG7BEFDGuE&q=<%=rs.getString("location")%>&center=<%=rs.getDouble("latitude")%>,<%=rs.getDouble("longitude")%>" allowfullscreen> </iframe>
 
-				<div class="card-body"><%=rs.getString("member_id")%>님의 여행 일정
+				<div class="card-body"><%=rs.getString("memo")%>
 					<h5 class="card-title"></h5>
 					<p class="card-text"></p><%=rs.getString("location")%>
 					<p class="card-text">
-						<small class="text-muted"><%=rs.getString("memo")%></small>
+						<small class="text-muted"><%=rs.getString("member_id")%>님의 여행 일정</small>
 					</p>
 					<a href="#" class="btn btn-primary mr-4" data-toggle="modal" data-target="#modal<%=travelId%>">일정 간략히 보기</a> 
 					<a href="#" class="btn btn-primary" onclick="travelIdAlert(<%=travelId%>);">일정 상세 보기</a>

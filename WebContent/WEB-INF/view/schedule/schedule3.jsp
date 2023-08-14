@@ -88,14 +88,15 @@ document.querySelectorAll(".dayItem").forEach(function(item) {
       	 <div style="display: flex; justify-content: flex-end;">
 		    <button id="deleteAll" style="display: none">X</button>
 		</div>
-
+			<div>
+			<input id="savetextname" type="text" placeholder="제목을 입력해주세요">
+			</div>
 			<div style="max-height: 1330px; overflow-y: auto;">
 			     	<c:forEach var="item" items="${resultList}" varStatus="status">
 					    <div id="day${status.count}" class="dayItem" style="display: flex; justify-content: left; align-items: center; height: 200px; margin-top: 30px; margin-bottom: 30px;">
 					        <div style="margin-top: 30px;">
 					            <div style="margin-bottom: 50px; margin-top: 50px;">
-					                <i class="fa-solid fa-plane fa-beat fa-xl" style="color: #1e00ff;"></i>
-					                day${status.count} ${item}<br>
+					                <i class="fa-solid fa-plane fa-beat fa-xl" style="color: #1e00ff;"></i>day${status.count} ${item}<br>
 					                <a href="${pageContext.request.contextPath}/schedule2?id=day${status.count}">
 					                    <button type="button" class="btn btn-primary btn-lg" style="margin-right: 30px;">장소 추가</button>
 					                </a>
@@ -193,6 +194,8 @@ function saveSchedule() {
     var destination = "${requestScope.destination}";
     var latitude = "${requestScope.latitude}";
     var longitude = "${requestScope.longitude}";
+    var memoText = document.getElementById('savetextname').value;
+    alert(memoText);
 
     console.log("Starting to save travel data...");
 
@@ -202,9 +205,11 @@ function saveSchedule() {
         end_date: endDate,
         location: destination,
         lat: latitude,
-        lng: longitude
+        lng: longitude,
+        memo: memoText 
     }, function(response) {
         console.log("Received response from saveSchedule:", response);
+        alert(memo);
 
         if (response.success && response.travel_id) {
             console.log("Travel data saved successfully. Travel ID:", response.travel_id);
@@ -873,7 +878,6 @@ function attachDragAndDropEvent() {
     });
 }
 </script>
-
 
 <script>
 document.getElementById("deleteAll").addEventListener("click", async function() {
