@@ -38,7 +38,10 @@
 		    display: flex;
 		    align-items: flex-end;
 		}
-		
+		.accompany-text {
+			position: relative;
+			
+		}
 	</style>
 </head>
 <body>
@@ -74,15 +77,15 @@
     </div>       
     <%-- 내용 --%>
     <div class="content">
-    <session>
-        <div class="accompany-text">
-        	<h2>동행</h2>
-    	</div>
-    	<div class="card-container">
-                <!-- 카드 레이아웃 및 내용... -->
-            </div>
-    </session>
-</div>
+	    <session>
+	        <div class="accompany-text">
+	        	<h2>동행</h2>
+	    	</div>
+	    	<div class="card-container">
+	                <!-- 카드 레이아웃 및 내용... -->
+	            </div>
+	    </session>
+	</div>
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>

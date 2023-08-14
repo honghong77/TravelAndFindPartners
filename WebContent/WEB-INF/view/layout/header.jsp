@@ -9,6 +9,7 @@
 	left: -50px;
 	margin-top: var(- -bs-dropdown-spacer);
 }
+
 </style>
 
 <html lang="en">
@@ -40,7 +41,7 @@
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="https://kit.fontawesome.com/d0a7af3fd0.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="bodies">
 
 	<!-- 네브바 시작 -->
 	<nav class="navbar navbar-expand-lg bg-light">
@@ -71,8 +72,7 @@
 				            <li><a class="dropdown-item" href="write">동행 모집하기</a></li>
 				            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#scheduleModal">여행일정 만들기</a></li>
 				        </ul>
-				    </li>
-				    
+				    </li>				    
 				</ul>
 			</div>
 		</div>
