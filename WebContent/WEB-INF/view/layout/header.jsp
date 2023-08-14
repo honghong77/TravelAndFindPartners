@@ -149,7 +149,7 @@
 	</div>
 	<!-- 네브바 끝 -->
 
-<script src="js/header.js"></script>
+
 </body>
 
 

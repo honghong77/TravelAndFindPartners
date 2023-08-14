@@ -58,6 +58,14 @@ public class Companion2 {
 		this.nickname = nickname;
 	}
 	
+	public Companion2(int no, String image, String title, String content) {
+		super();
+		this.no = no;
+		this.image = image;
+		this.title = title;
+		this.content = content;
+	}
+
 	// 닉네임 없음
 	public Companion2(int no, String id, String start, String end, String location, String image, String title,
 			String content, int personnel, String concept1, String concept2, String concept3) {

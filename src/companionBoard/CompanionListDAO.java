@@ -342,4 +342,41 @@ public class CompanionListDAO {
 		}
 		return -1;
 	}
+	
+	// 컨셉
+		public List<Companion2> getMainList() throws SQLException {
+			String sql = "SELECT no, title, content, image FROM companionboard ORDER BY no DESC LIMIT 6";
+			List<Companion2> list = new ArrayList<Companion2>();
+			
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = DBUtil.getConnection();
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				
+				while (rs.next()) {
+					int no = rs.getInt("no");
+					String title = rs.getString("title");
+					String content = rs.getString("content");
+		
+					byte[] imageBytes = rs.getBytes("image");
+
+		            // Convert the BLOB data to a Base64-encoded string
+		            String image = Base64.getEncoder().encodeToString(imageBytes);
+
+					Companion2 c = new Companion2(no, image, title, content);
+					list.add(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(stmt);
+				DBUtil.close(conn);
+				DBUtil.close(rs);
+			}
+			return list;
+		}
 }

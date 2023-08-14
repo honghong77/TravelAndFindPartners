@@ -1,3 +1,5 @@
+<%@page import="companionBoard.Companion2"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
@@ -46,10 +48,10 @@
 	</style>
 </head>
 <body>
+
     <%-- 헤더 --%>
     <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
-    
     <%-- 배너 --%>
     <div class="banner-container" style="width: 100%; max-width: 1600px; margin: 0 auto;">
         <div class="swiper-container">
@@ -75,7 +77,9 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-pagination"></div>
         </div>
-    </div>       
+    </div>
+    
+      
     <%-- 내용 --%>
     <div class="container" style="margin-left: 420px; margin-top: 30px">
 	    <session>
@@ -86,60 +90,61 @@
 	    	<div class="row row-cols-1 row-cols-md-3 g-4">
 			  <div class="col">
 			    <div class="card h-100">
-			      <img src="..." class="card-img-top" alt="...">
+			      <img src="..." class="card-img-top" alt="..." id="companion-image1">
 			      <div class="card-body">
-			        <h5 class="card-title">Card title</h5>
-			        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+			        <h5 class="card-title" id="companion-title1">Card title</h5>
+			        <p class="card-text" id="companion-content1">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 			      </div>
 			    </div>
 			  </div>
 			  <div class="col">
 			    <div class="card h-100">
-			      <img src="..." class="card-img-top" alt="...">
+			      <img src="..." class="card-img-top" alt="..." id="companion-image2">
 			      <div class="card-body">
-			        <h5 class="card-title">Card title</h5>
-			        <p class="card-text">This is a short card.</p>
+			        <h5 class="card-title" id="companion-title2">Card title</h5>
+			        <p class="card-text" id="companion-content2">This is a short card.</p>
 			      </div>
 			    </div>
 			  </div>
 			  <div class="col">
 			    <div class="card h-100">
-			      <img src="..." class="card-img-top" alt="...">
+			      <img src="..." class="card-img-top" alt="..." id="companion-image3">
 			      <div class="card-body">
-			        <h5 class="card-title">Card title</h5>
-			        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+			        <h5 class="card-title" id="companion-title3">Card title</h5>
+			        <p class="card-text" id="companion-content3">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
 			      </div>
 			    </div>
 			  </div>
 			  <div class="col">
 			    <div class="card h-100">
-			      <img src="..." class="card-img-top" alt="...">
+			      <img src="..." class="card-img-top" alt="..." id="companion-image4">
 			      <div class="card-body">
-			        <h5 class="card-title">Card title</h5>
-			        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+			        <h5 class="card-title" id="companion-title4">Card title</h5>
+			        <p class="card-text" id="companion-content4">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 			      </div>
 			    </div>
 			  </div>
 			  <div class="col">
 			    <div class="card h-100">
-			      <img src="..." class="card-img-top" alt="...">
+			      <img src="..." class="card-img-top" alt="..." id="companion-image5">
 			      <div class="card-body">
-			        <h5 class="card-title">Card title</h5>
-			        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+			        <h5 class="card-title"  id="companion-title5">Card title</h5>
+			        <p class="card-text" id="companion-content5">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 			      </div>
 			    </div>
 			  </div>
 			  <div class="col">
 			    <div class="card h-100">
-			      <img src="..." class="card-img-top" alt="...">
+			      <img src="..." class="card-img-top" alt="..." id="companion-image6">
 			      <div class="card-body">
-			        <h5 class="card-title">Card title</h5>
-			        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+			        <h5 class="card-title"  id="companion-title6">Card title</h5>
+			        <p class="card-text" id="companion-content6">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 			      </div>
 			    </div>
 			  </div>
 			</div>
 	    </session>
+	    
 	    <session>
 	        <div class="accompany-text" style="display: flex; justify-content: space-between; align-items: center;">
 	        	<h2 style="margin-top: 30px">일정</h2>
@@ -220,6 +225,39 @@
                 el: '.swiper-pagination',
             },
         });
+        
+        const companionList = <%= request.getAttribute("json") %>;
+        
+        for (let i = 0; i < companionList.length; i++) {
+
+          	const companion = companionList[i];
+          	const title = document.getElementById("companion-title" + (i + 1));
+          	const content = document.getElementById("companion-content" + (i + 1));
+          	const image = document.getElementById("companion-image" + (i + 1));
+          	title.innerText = companion.title;
+          	content.innerText = companion.content;
+          	
+          	const base64Image = companion.image;
+        	console.log(base64Image);
+        		
+            const byteCharacters = atob(base64Image);
+            const byteArrays = [];
+            
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteArrays.push(byteCharacters.charCodeAt(i));
+            }
+            console.log(byteArrays);
+            
+            const blob = new Blob([new Uint8Array(byteArrays)], { type: 'image/png' });
+            console.log(blob);
+
+            const imageUrl = URL.createObjectURL(blob);
+            console.log(imageUrl);
+
+            image.src = imageUrl;
+        }
+        
+        
     </script>
     <%-- 푸터 --%>
     <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

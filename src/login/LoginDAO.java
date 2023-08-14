@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginDAO {
-	private static String url = "jdbc:mysql://localhost:3306/trip";
-	private static String username = "root";
-	private static String pw2 = "root";
+	private static String url = "jdbc:mysql://local:3306/trip";
+	private static String username = "trip";
+	private static String pw2 = "trip";
 	
 	public int login(String id, String pw) {
         Connection conn = null;
