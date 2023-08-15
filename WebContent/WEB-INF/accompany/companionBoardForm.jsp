@@ -68,7 +68,7 @@
         	<span id="value1">1</span>
 		</div>
 		
-		<div id="날짜선택">
+		<div id="dateChoice">
 		<label for="date">출발 날짜를 선택하세요:
 		  <input type="date"
 		  		 id="startdate"
@@ -158,7 +158,7 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 		
 		<div id="board_button">
 			<input class="btn btn-primary" type="submit" value="등록하기" id="btn1">
-			<button type="button" class="btn btn-light" id="btn2" onclick="location.href='companionBoardForm.jsp';">작성취소</button>
+			<button type="button" class="btn btn-light" id="btn2" onclick="location.href='companion';">작성취소</button>
 		</div>
 		</form>
 	</div>
@@ -226,6 +226,7 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 	
 	    reader.onload = function(event) {
 	    var img = document.createElement("img");
+	    img.className = "mainImage";
 	    img.setAttribute("src", event.target.result);
 	       
 	    var imageContainer = document.querySelector("div#image_container");

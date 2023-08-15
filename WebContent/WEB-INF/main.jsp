@@ -93,7 +93,7 @@
         	<span style="float: right;"><a href="companion">동행 더보기</a></span>
 	    	<div class="row row-cols-1 row-cols-md-3 g-4">
 			  <div class="col">
-			  <a id="companion-no1" href="#">
+			  <a id="companion-no1" href="#" style="text-decoration: none; color: black;">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image1">
 			      <div class="card-body">
@@ -104,7 +104,7 @@
 			   </a>
 			  </div>
 			  <div class="col">
-			  <a id="companion-no2" href="#">
+			  <a id="companion-no2" href="#" style="text-decoration: none; color: black;">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image2">
 			      <div class="card-body">
@@ -115,7 +115,7 @@
 			    </a>
 			  </div>
 			  <div class="col">
-			  <a id="companion-no3" href="#">
+			  <a id="companion-no3" href="#" style="text-decoration: none; color: black;">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image3">
 			      <div class="card-body">
@@ -126,7 +126,7 @@
 			    </a>
 			  </div>
 			  <div class="col">
-			  <a id="companion-no4" href="#">
+			  <a id="companion-no4" href="#" style="text-decoration: none; color: black;">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image4">
 			      <div class="card-body">
@@ -137,7 +137,7 @@
 			    </a>
 			  </div>
 			  <div class="col">
-			  <a id="companion-no5" href="#">
+			  <a id="companion-no5" href="#" style="text-decoration: none; color: black;">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image5">
 			      <div class="card-body">
@@ -148,7 +148,7 @@
 			    </a>
 			  </div>
 			  <div class="col">
-			  <a id="companion-no6" href="#">
+			  <a id="companion-no6" href="#" style="text-decoration: none; color: black;">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image6">
 			      <div class="card-body">

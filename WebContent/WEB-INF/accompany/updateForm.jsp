@@ -140,8 +140,8 @@
 		<div class="mb-3">
   			<label for="formFile" class="form-label">배경사진을 선택해주세요</label>
   			<input class="form-control" type="file" id="image" name="image" accept="image/*" onchange="setThumbnail(event);"/>
-  			<div id="image_container">
-  				<img id="selectedImage" alt="...">
+  			<div id="image_container" style="height: 300px; width: 1080px">
+  				<img id="selectedImage" alt="..." style="height: 300px; width: 1080px">
   			</div>
 		</div>
 		
@@ -354,6 +354,8 @@ ex) 해운대 바다에서 놀다가 저녁으로 조개구이 먹고싶어요">
 	    reader.onload = function(event) {
 	    var img = document.createElement("img");
 	    img.setAttribute("src", event.target.result);
+	    img.style.height = "300px"
+	    img.style.width = "1080px"
 	       
 	    var imageContainer = document.querySelector("div#image_container");
 	     

@@ -33,6 +33,7 @@ a, a:hover {
 
 <title>마이페이지</title>
 </head>
+
 <body>
 	<%
 	String userID = null;

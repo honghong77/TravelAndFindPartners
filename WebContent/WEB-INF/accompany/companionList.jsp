@@ -38,6 +38,7 @@
 %>
 <span id="listSize" style="display: none;"> <%= list.size() %> </span>
 
+  <div id="filter">
 <form class="row g-3">
   <div class="col-auto">
     <label for="inputPassword2" class="visually-hidden">검색</label>
@@ -64,6 +65,7 @@
   </div>
 	
 </form>
+</div>
 
 <div class="card-template" style="display: none;">
 <a class="link" href=""> <!-- 클릭 시 링크 설정 -->

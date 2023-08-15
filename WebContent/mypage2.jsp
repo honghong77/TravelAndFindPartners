@@ -34,6 +34,8 @@ a, a:hover {
 <title>여행 동행 사이트</title>
 </head>
 <body>
+<%-- 헤더 --%>
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 	<%
 		String userID = null;
 	if (session.getAttribute("userID") != null) {

@@ -40,6 +40,7 @@
     	padding-bottom: 20px;
     	font-size: 20px;
     	text-align: center;
+    	margin-right: 15px;
 	}
 	
 	.rb{
@@ -47,16 +48,19 @@
 	}
 		
 	.rb>label{
-		padding: 5px 10px; border:1px solid #ccc; border-radius:3px
+		
 	}
 	
 	input[type=radio]:checked + label 
 	{
-		background: #ccc;
+		background: #26BF4F;
 		color: white;
+		padding: 2px 2px; 
+		border:0px solid #26BF4F; 
+		border-radius:3px;
 	}
 
- 	img {
+ 	.mainImage {
       width: 1080px;
       height: 300px;
     }
@@ -73,6 +77,26 @@
     #btn2 {
     	width: 540px;
     }
+
+	.personnel {
+		margin-bottom: 20px;
+	}
+	
+	#dateChoice {
+		margin-bottom: 20px;
+	}
+	
+#concept {
+    display: grid;
+    grid-template-columns: repeat(12, auto);
+    align-items: normal;
+    grid-gap: 10px;
+    justify-items: start;
+    align-content: normal;
+    margin-left: 25px;
+    margin-right: 25px;
+    grid-column-gap: 0px;
+}
 
     
     

@@ -41,37 +41,46 @@
 	<div id="title" name="title">제목</div>
 	<input type="hidden" id="paramId" name="paramId" value="<%= id %>">
 	
-	<img src="" class="rounded mx-auto d-block" id="profile" alt="..." width="50px" height="50px">
-	<div id="nickname" name="nickname">작성자</div>
+	<div class="profile-container">
+		<img src="" id="profile" alt="..." width="50px" height="50px">
+		<div id="nickname" name="nickname">작성자</div>
+	</div>
 	
-	<div>
+	<div class="info-container">
 		<div id="location" name="location">지역</div>
 		<div id="personnel" name="personnel">인원</div>
 		<div id="date">날짜</div>
 	</div>
 	
-	<p><span id="concept" style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em;">테스트트트트트트트트트</span></p>
+	<p><span id="concept">컨셉</span></p>
 	
 	<div id="content">내용</div>	
-	<div id="time">작성시간</div>
+	
 	
 	<div id="addSchedule">
 		<button type="button" class="btn btn-success" id="add">여행 일정 추가</button>
 	</div>
 	
+	<div align="right" id="time">작성시간</div>
+	
 
-	<div id="view_button">
-		<input type="hidden" id="no" name="no" value="<%= no %>">
-		<input class="btn btn-primary" type="submit" value="수정하기" id="update">
-		<button type="button" class="btn btn-light" id="delete">삭제하기</button>
-	</div>
+	<div class="row" id="updateAndDelete">
+    <div class="col">
+        <div id="view_button" class="d-flex justify-content-between">
+            <input type="hidden" id="no" name="no" value="<%= no %>">
+            <input class="btn btn-primary btn-block" type="submit" value="수정하기" id="update">
+            <button type="button" class="btn btn-light btn-block" id="delete">삭제하기</button>
+        </div>
+    </div>
 </div>
+</div>
+
 </form>	
 
 
 
 
-<div class="form-group" style="width: 80%;">
+<div class="form-group">
 <label for="usr"></label>
 <input type="text" class="form-control" id="usr" placeholder="댓글을 남겨주세요 :) " style="height: 30px;">
 <button class="btn btn-sm btn-success" id="reply-bnt">등록</button>
@@ -90,6 +99,7 @@
 
 <div class="reply-template" style="display: none;">
   <br>
+  	<div id="profileAndNick">
 	<td>
 	  <div class="box" style="background: WHITE";>
 	    <img class="profile" src="" alt="" width="50" height="50">
@@ -103,14 +113,8 @@
 	  	</div>
 	  </b>
 	</td>
-
-	<td>
-	  <div class="reply-time">
-	  	작성시간
-	  </div>
-	</td>
+	</div>
 	
-	<br>
 	<tr class="reply-deatil-content">
 	<td colspan="3">
 	  <div class="reply-content">
@@ -119,18 +123,26 @@
 	</td>
 	</tr>
 	<br>
+
+	<td>
+	  <div class="reply-time">
+	  	작성시간
+	  </div>
+	</td>
+	
+	
 	
   	<td style="color: gray;">
 	  <button class="update-reply-btn" id="reply-update" data-index="" >수정</button>
 	  <button class="delete-reply-btn" id="reply-delete" data-index="" >삭제</button>
 	</td>
 	
-	<div class="update-form-group" style="width: 80%;">
-	<label for="update-usr"></label>
+	<div class="update-form-group">
 	<input type="hidden" class="pk-number">
-	<input type="text" class="update-form-control" id="update-usr" placeholder="댓글을 남겨주세요 :) " style="height: 30px;">
+	<input type="text" class="update-form-control" id="update-usr" placeholder="수정 " style="height: 30px; width: 500px">
 	<button class="update-save-btn" id="update-save-btn">등록</button>
 	</div>
+	<hr>
 </div>
 
 
@@ -295,6 +307,10 @@ function update_click(event) {
 	  console.log(index);
 	  const updateFormGroups = document.querySelectorAll('.update-form-group');
 	  updateFormGroups[index].style.display = 'block';
+	  const updateFormControls = document.querySelectorAll('.update-form-control');
+	  const replyContents = document.querySelectorAll('.reply-content');
+	  updateFormControls[index].value = replyContents[index].innerText;
+		  
 	}
 	
 function update_save_click(event) {
@@ -432,7 +448,7 @@ function delete_click() {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <a href="schedule3" class="btn btn-primary">만들기</a>
+        <a href="hello" class="btn btn-primary">만들기</a>
         </form>
       </div>
     </div>
@@ -648,11 +664,11 @@ if (concept1) {
 } 
 
 if (concept2) {
-	c = c + ' # ' + concept2;
+	c = c + ' #' + concept2;
 } 
 
 if (concept3) {
-	c = c + ' # ' + concept3;
+	c = c + ' #' + concept3;
 } 
 
 
@@ -661,15 +677,15 @@ document.getElementById("title").innerText= companion.title;
 document.getElementById("content").innerText = companion.content;
 document.getElementById("nickname").innerText = companion.nickname;
 document.getElementById("date").innerText = companion.start + " ~ " + companion.end;
-document.getElementById("location").innerText = companion.location;
-document.getElementById("personnel").innerText = companion.personnel;
+document.getElementById("location").innerText = "지역 : " + companion.location;
+document.getElementById("personnel").innerText = "모집인원 : " + companion.personnel;
 document.getElementById("time").innerText = companion.time;
 
 
 const idCheck = <%= request.getAttribute("idCheck")%>
 
 if (idCheck === false) {
-	 $("#view_button").hide()
+	 $("#updateAndDelete").hide();
 
 }
 

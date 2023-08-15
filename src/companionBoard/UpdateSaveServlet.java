@@ -21,7 +21,7 @@ public class UpdateSaveServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
 	}
 
 	@Override
@@ -98,10 +98,11 @@ public class UpdateSaveServlet extends HttpServlet {
 					Companion cb = new Companion(start, end, location, image, title, content, personnel,
 							concept1, concept2, concept3);
 					dao.update(cb, no);
+					resp.sendRedirect("view?no=" + no);
 				} else {
 					Companion c = new Companion(start, end, location, title, content, personnel, concept1, concept2, concept3);
 					dao.updateExceptImg(c, no);
-					resp.sendRedirect("http://localhost:8080/TravelAndFindPartners/view?no=" + no);
+					resp.sendRedirect("view?no=" + no);
 				}
 			} else {
 				// 수정하기
