@@ -199,7 +199,7 @@ function saveSchedule() {
 
     console.log("Starting to save travel data...");
 
-    $.post('/saveSchedule', {
+    $.post('/TravelAndFindPartners/saveSchedule', {
         member_id: memberId,
         start_date: startDate,
         end_date: endDate,
@@ -265,12 +265,12 @@ function saveSchedule() {
 
             console.log("이제 locationData를 saveTravelLocation 서블릿으로 보냅니다...");
 
-            $.post('/saveTravelLocation', {locations: JSON.stringify(dataToSend)}, function(response) {
+            $.post('/TravelAndFindPartners/saveTravelLocation', {locations: JSON.stringify(dataToSend)}, function(response) {
                 console.log("saveTravelLocation 서블릿에서 응답을 받아왔습니다:", response);
 
                 if (response.success) {
                     console.log("Travel location data saved successfully.");
-                    window.location.href = '/';
+                    window.location.href = '/TravelAndFindPartners/hello';
                 } else {
                     console.error("Error while saving travel location data:", response.message);
                 }
@@ -547,7 +547,7 @@ window.onload = function() {
 }
 
 async function selectByTravelId(id) {
-    let response = await fetch("/scheduleDetailView?travelId=" + id, {
+    let response = await fetch("/TravelAndFindPartners/scheduleDetailView?travelId=" + id, {
         method: "get"
     });
 

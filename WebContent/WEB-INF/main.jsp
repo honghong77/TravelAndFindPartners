@@ -7,6 +7,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
+<%-- 일정 간략히 보기 버튼 클릭시 모달이 나타나도록 해주는 부트스트랩 외부 라이브러리입니다 --%>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,9 +182,9 @@
 
 	int recordsPerPage = 6;
 	int offset = (currentPage - 1) * recordsPerPage;
-	String sql = "SELECT * FROM travel LIMIT " + recordsPerPage + " OFFSET " + offset; // 테이블 이름과 컬럼 이름 수정
-	st = conn.createStatement();
-	rs = st.executeQuery(sql);
+	 String sql = "SELECT * FROM travel ORDER BY travel_id DESC LIMIT " + recordsPerPage + " OFFSET " + offset;
+	    st = conn.createStatement();
+	    rs = st.executeQuery(sql);
 
 	int totalRecords = 0;
 	Statement countSt = conn.createStatement();
@@ -333,3 +338,12 @@
     <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 </body>
 </html>
+
+
+<%-- 일정 상세 보기 클릭 시 schedule3.jsp로 이동하는 스크립트입니다 --%>
+<script>
+function travelIdAlert(travelId) {
+    // travelId를 파라미터로 추가하여 URL로 이동
+    window.location.href = "/TravelAndFindPartners/schedule3?travelId=" + travelId;
+}
+</script>

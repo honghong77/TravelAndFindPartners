@@ -117,9 +117,9 @@
 
 	int recordsPerPage = 9;
 	int offset = (currentPage - 1) * recordsPerPage;
-	String sql = "SELECT * FROM travel LIMIT " + recordsPerPage + " OFFSET " + offset; // 테이블 이름과 컬럼 이름 수정
-	st = conn.createStatement();
-	rs = st.executeQuery(sql);
+	 String sql = "SELECT * FROM travel ORDER BY travel_id DESC LIMIT " + recordsPerPage + " OFFSET " + offset;
+	    st = conn.createStatement();
+	    rs = st.executeQuery(sql);
 
 	int totalRecords = 0;
 	Statement countSt = conn.createStatement();
@@ -428,7 +428,7 @@ document.getElementById('applyDateFilter').addEventListener('click', function() 
 <script>
 function travelIdAlert(travelId) {
     // travelId를 파라미터로 추가하여 URL로 이동
-    window.location.href = "/schedule3?travelId=" + travelId;
+    window.location.href = "/TravelAndFindPartners/schedule3?travelId=" + travelId;
 }
 </script>
 
