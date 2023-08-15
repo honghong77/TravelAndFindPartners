@@ -93,6 +93,7 @@
         	<span style="float: right;"><a href="companion">동행 더보기</a></span>
 	    	<div class="row row-cols-1 row-cols-md-3 g-4">
 			  <div class="col">
+			  <a id="companion-no1" href="#">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image1">
 			      <div class="card-body">
@@ -100,8 +101,10 @@
 			        <p class="card-text" id="companion-content1">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 			      </div>
 			    </div>
+			   </a>
 			  </div>
 			  <div class="col">
+			  <a id="companion-no2" href="#">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image2">
 			      <div class="card-body">
@@ -109,8 +112,10 @@
 			        <p class="card-text" id="companion-content2">This is a short card.</p>
 			      </div>
 			    </div>
+			    </a>
 			  </div>
 			  <div class="col">
+			  <a id="companion-no3" href="#">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image3">
 			      <div class="card-body">
@@ -118,8 +123,10 @@
 			        <p class="card-text" id="companion-content3">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
 			      </div>
 			    </div>
+			    </a>
 			  </div>
 			  <div class="col">
+			  <a id="companion-no4" href="#">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image4">
 			      <div class="card-body">
@@ -127,8 +134,10 @@
 			        <p class="card-text" id="companion-content4">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 			      </div>
 			    </div>
+			    </a>
 			  </div>
 			  <div class="col">
+			  <a id="companion-no5" href="#">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image5">
 			      <div class="card-body">
@@ -136,8 +145,10 @@
 			        <p class="card-text" id="companion-content5">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 			      </div>
 			    </div>
+			    </a>
 			  </div>
 			  <div class="col">
+			  <a id="companion-no6" href="#">
 			    <div class="card h-100">
 			      <img src="..." class="card-img-top" alt="..." id="companion-image6">
 			      <div class="card-body">
@@ -145,6 +156,7 @@
 			        <p class="card-text" id="companion-content6">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 			      </div>
 			    </div>
+			    </a>
 			  </div>
 			</div>
 	    </session>
@@ -289,8 +301,10 @@
           	const title = document.getElementById("companion-title" + (i + 1));
           	const content = document.getElementById("companion-content" + (i + 1));
           	const image = document.getElementById("companion-image" + (i + 1));
+          	const no = document.getElementById("companion-no" + (i + 1));
           	title.innerText = companion.title;
           	content.innerText = companion.content;
+          	no.href = "view?no=" + companion.no;
           	
           	const base64Image = companion.image;
         	console.log(base64Image);

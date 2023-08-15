@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/view")
 public class ViewController extends HttpServlet{
 	private final static CompanionBoardDAO dao = new CompanionBoardDAO();
-	private final static ScheduleDAO schDao = new ScheduleDAO();
+	private final static TravelDAO travelDao = new TravelDAO();
 	
 	private final static Jackson jackson = new Jackson();
 	
@@ -48,19 +48,19 @@ public class ViewController extends HttpServlet{
 		String json = jackson.convertListToJson(list);
 		
 		
-		List<Schedule> schList = null;
+		List<Travel> travelList = null;
 		try {
-			schList = schDao.getList(sessionId);
+			travelList = travelDao.getList(sessionId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		String schJson = jackson.convertSchListToJson(schList);
+		String travelJson = jackson.convertSchListToJson(travelList);
 		
 		
 		req.setAttribute("json", json);
 		req.setAttribute("idCheck", idCheck);
-		req.setAttribute("schJson", schJson);
+		req.setAttribute("travelJson", travelJson);
 		
 		req.getRequestDispatcher("/WEB-INF/accompany/viewForm.jsp").forward(req, resp);
 	}

@@ -16,11 +16,12 @@ public class Companion2 {
 	private String time;
 	private String nickname;
 	private String profile;
+	private String travelId;
 	
 	// 다 있음
 	public Companion2(int no, String id, String start, String end, String location, String image, String title,
 			String content, int personnel, String concept1, String concept2, String concept3, String time,
-			String nickname, String profile) {
+			String nickname, String profile, String travelId) {
 		super();
 		this.no = no;
 		this.id = id;
@@ -37,6 +38,7 @@ public class Companion2 {
 		this.time = time;
 		this.nickname = nickname;
 		this.profile = profile;
+		this.travelId = travelId;
 	}
 
 	// 닉네임 있음
@@ -174,4 +176,13 @@ public class Companion2 {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+
+	public String getTravelId() {
+		return travelId;
+	}
+
+	public void setTravelId(String travelId) {
+		this.travelId = travelId;
+	}
+	
 }

@@ -96,7 +96,7 @@ public class CompanionBoardDAO {
 
 	public List<Companion2> getViewList(int number) throws SQLException {
 		String sql = "SELECT no, A.id, start, end, location, image, title, content, personnel,\r\n" + 
-				"concept1, concept2, concept3, time, nickname, profile\r\n" + 
+				"concept1, concept2, concept3, time, nickname, profile, travel_id\r\n" + 
 				"FROM companionboard as A JOIN member as B ON A.id = B.id WHERE no = ?";
 		List<Companion2> list = new ArrayList<Companion2>();
 		
@@ -124,7 +124,8 @@ public class CompanionBoardDAO {
 				String concept2 = rs.getString("concept2");
 				String concept3 = rs.getString("concept3");
 				String time = rs.getString("time");
-				String nickname = rs.getNString("nickname");
+				String nickname = rs.getString("nickname");
+				String travelId = rs.getString("travel_id");
 				
 				byte[] imageBytes = rs.getBytes("image");
 
@@ -134,7 +135,7 @@ public class CompanionBoardDAO {
 
 	            String profile = Base64.getEncoder().encodeToString(profileBytes);
 
-				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3, time, nickname, profile);
+				Companion2 c = new Companion2(no, id, start, end, location, image, title, content, personnel, concept1, concept2, concept3, time, nickname, profile, travelId);
 				list.add(c);
 			}
 		} catch (SQLException e) {

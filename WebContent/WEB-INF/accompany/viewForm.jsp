@@ -56,7 +56,7 @@
 	<div id="time">작성시간</div>
 	
 	<div id="addSchedule">
-		<button type="button" class="btn btn-success" id="add">여행 일정 추가하기</button>
+		<button type="button" class="btn btn-success" id="add">여행 일정 추가</button>
 	</div>
 	
 
@@ -409,12 +409,12 @@ function delete_click() {
         <h5 class="modal-title">여행 일정 추가</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" id="scheduleContainer">
+      <div class="modal-body" id="travelContainer">
         <p>여행 일정을 선택해주세요</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="submit" class="btn btn-primary" id="addBtn">추가</button>
+        <button type="button" class="btn btn-primary" id="addBtn">추가</button>
       </div>
     </div>
   </div>
@@ -427,13 +427,12 @@ function delete_click() {
         <h5 class="modal-title">여행 일정 추가</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" id="scheduleContainer">
+      <div class="modal-body">
         <p>여행 일정이 없습니다. 여행 일정을 만들어주세요!</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <form action="delete" method="POST">
-        <button type="submit" class="btn btn-primary">만들기</button>
+        <a href="schedule3" class="btn btn-primary">만들기</a>
         </form>
       </div>
     </div>
@@ -442,7 +441,23 @@ function delete_click() {
 
 <script>
 
-const scheduleList = <%= request.getAttribute("schJson") %>;
+const jsonList = <%= request.getAttribute("json") %>;
+const travelId = jsonList[0].travelId;
+console.log("트래벌 넘버" + travelId);
+
+const idChecks = <%= request.getAttribute("idCheck")%>
+const add = document.getElementById("add");
+
+if (travelId !== null && travelId !== "0") {
+	window.onload = makeLinkBtn(travelId);	
+} else {
+	if (idChecks === false) {
+		add.style.display = "none";
+	}
+}
+
+
+const travelList = <%= request.getAttribute("travelJson") %>;
 
 $(document).ready(function(){
     $("#delete").click(function(){
@@ -453,7 +468,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $("#add").click(function(){
-    	if (scheduleList.length !== 0) {
+    	if (travelList.length !== 0) {
         	$("#addModal").modal("show");
     	} else {
     		$("#noModal").modal("show");
@@ -464,35 +479,38 @@ $(document).ready(function(){
 
 
 
-	const scheduleContainer = document.getElementById("scheduleContainer");
-	scheduleContainer.innerHTML = "";
+const travelContainer = document.getElementById("travelContainer");
+travelContainer.innerHTML = "";
 
-	for (i = 0; i < scheduleList.length; i++) {
-		createRadioButton(scheduleList[i].no, scheduleList[i].title);
-	}
+for (i = 0; i < travelList.length; i++) {
+	createRadioButton(travelList[i].no, travelList[i].title, i === 0);
+	
+}
 
 
-function createRadioButton(value, label) {
+function createRadioButton(value, label, check) {
 	  const radioLabel = document.createElement('label');
 	  const radioInput = document.createElement('input');
 	  radioInput.type = 'radio';
-	  radioInput.name = 'scheduleType';
+	  radioInput.name = 'travelType';
 	  radioInput.value = value;
-	  radioInput.checked = false; // 여러 개의 라디오 버튼 중 하나만 선택되도록 초기값 설정
+	  radioInput.checked = check; 
 	  radioLabel.appendChild(radioInput);
 	  radioLabel.appendChild(document.createTextNode(label));
 	  radioLabel.style.display = "block";
 	  radioLabel.style.marginBottom = '20px';
-	  scheduleContainer.appendChild(radioLabel);
+	  travelContainer.appendChild(radioLabel);
 }
 
 
 const addBtn = document.getElementById("addBtn");
 
 addBtn.addEventListener("click", function(event) {
-	event.preventDefault();
+	$("#addModal").modal("hide");
+	
+
     console.log("추가");
-    const radioButtons = document.getElementsByName("scheduleType");
+    const radioButtons = document.getElementsByName("travelType");
 
     let selectedValue;
     for (const radioButton of radioButtons) {
@@ -502,24 +520,97 @@ addBtn.addEventListener("click", function(event) {
         }
     }
     console.log(selectedValue);
-});
+    
+	const boardNo = "<%= no%>";
+    
+    const travel = {
+	    boardNo: boardNo,
+    	travel_id: selectedValue
+	};
+
+	console.log(travel);
+
+	fetch("choicetravel", {
+		method: "post",
+		body: JSON.stringify(travel),
+		headers: {
+		"Content-Type": "application/json"
+		}
+	}).then(response => response.text())
+	.then(result => {
+		if (parseInt(result) !== 0) {
+			makeLinkBtn(selectedValue);
+		} else {
+			alert("일정 추가 실패하였습니다.")
+		}
+	 });
+	 
+}); 
 
 
+function makeLinkBtn(travelId) {
+    console.log("링크 " + travelId);
 
+    if (travelId !== null) {
+        var linkBtn = document.createElement("a");
 
+        linkBtn.href = "/schedule3?travelId=" + travelId;
+        linkBtn.className = "btn btn-warning";
+        linkBtn.textContent = "여행 일정 보기";
+
+        var deleteBtn = document.createElement("button");
+
+        deleteBtn.type = "button";
+        deleteBtn.className = "btn btn-light";
+        deleteBtn.textContent = "일정 삭제";
+
+        const add = document.getElementById("add");
+
+        add.style.display = "none";
+        add.parentNode.insertBefore(deleteBtn, add.nextSibling);
+        add.parentNode.insertBefore(linkBtn, add.nextSibling);
+        
+        const idCheck = <%= request.getAttribute("idCheck")%>
+
+        if (idCheck === false) {
+        	 deleteBtn.style.display= "none";
+        }
+
+        deleteBtn.addEventListener("click", function(event) {
+            
+        	const boardNo = "<%= no%>";
+
+            fetch("choicetravel?boardNo=" + boardNo, {
+                method: "get",
+                headers: {
+                    "Content-Type": "text/plain"
+                }
+            }).then(response => response.text())
+            .then(result => {
+                if (parseInt(result) !== 0) {
+                    add.style.display = "";
+                    linkBtn.style.display = "none";
+                    deleteBtn.style.display = "none";
+                    console.log("삭제");
+                } else {
+                    alert("일정 삭제 실패하였습니다.");
+                }
+            });
+        });
+    }
+}
 
 
 
 
 </script>
 
-</body>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+
+</body>
 
 <script>
 const companionList = <%= request.getAttribute("json") %>;
-
-console.log(companionList);
 
 const companion = companionList[0];
 const frame = document.getElementById("image");

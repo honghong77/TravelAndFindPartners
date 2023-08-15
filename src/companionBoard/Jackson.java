@@ -27,7 +27,7 @@ public class Jackson {
         }
     }
 	
-	public String convertSchListToJson(List<Schedule> list) {
+	public String convertSchListToJson(List<Travel> list) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
         	String json = objectMapper.writeValueAsString(list);

@@ -1,11 +1,11 @@
 package companionBoard;
 
-public class Schedule {
+public class Travel {
 	private int no;
 	private String id;
 	private String title;
 	
-	public Schedule(int no, String id, String title) {
+	public Travel(int no, String id, String title) {
 		super();
 		this.no = no;
 		this.id = id;
