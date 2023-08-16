@@ -90,7 +90,7 @@
     
       
     <%-- 내용 --%>
-    <div class="container" style="margin-left: 420px; margin-top: 30px">
+    <div class="container" style="margin-top: 30px">
 	    <session>
 	        <div class="accompany-text" style="display: flex; justify-content: space-between; align-items: center;">
 	        	<h2>동행</h2>

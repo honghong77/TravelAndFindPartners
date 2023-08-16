@@ -74,7 +74,7 @@ document.querySelectorAll(".dayItem").forEach(function(item) {
     	<div style="margin-bottom:20px">
 	    	<div class="row justify-content-center">
 				<div style="text-align: center; margin-bottom: 20px">
-		          <h4>??? 님의 여행일정</h4>
+		          <h4>여행일정</h4>
 		        </div>
 		        
 		        <div  id="startEndDateDiv" class="form-control mb-4" style="height: 50px; width: 400px;">
@@ -195,7 +195,6 @@ function saveSchedule() {
     var latitude = "${requestScope.latitude}";
     var longitude = "${requestScope.longitude}";
     var memoText = document.getElementById('savetextname').value;
-    alert(memoText);
 
     console.log("Starting to save travel data...");
 
@@ -209,7 +208,6 @@ function saveSchedule() {
         memo: memoText 
     }, function(response) {
         console.log("Received response from saveSchedule:", response);
-        alert(memo);
 
         if (response.success && response.travel_id) {
             console.log("Travel data saved successfully. Travel ID:", response.travel_id);
@@ -242,12 +240,8 @@ function saveSchedule() {
                 locations.forEach(function(location) {
                     var memoElement = dayElement.querySelector("#memopowerman" + dayCount);
                     var memoContent = memoElement ? memoElement.textContent : "";
-                    alert("dayCount: " + dayCount);
-                    alert("Locations count: " + locations.length);
                     if (memoElement) {
-                        alert("Memo content: " + memoElement.textContent);
                     } else {
-                        alert("Memo element not found for dayCount: " + dayCount);
                     }
 
 

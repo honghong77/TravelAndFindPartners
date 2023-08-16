@@ -570,7 +570,7 @@ function makeLinkBtn(travelId) {
     if (travelId !== null) {
         var linkBtn = document.createElement("a");
 
-        linkBtn.href = "/schedule3?travelId=" + travelId;
+        linkBtn.href = "schedule3?travelId=" + travelId;
         linkBtn.className = "btn btn-warning";
         linkBtn.textContent = "여행 일정 보기";
 

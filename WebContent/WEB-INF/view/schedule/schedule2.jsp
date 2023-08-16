@@ -86,7 +86,6 @@
 							placeContainer.innerHTML = contentToAdd; // 새 div에 내용 추가
 							selectedResultDiv.appendChild(placeContainer); // 새 div를 selectedResultDiv에 추
 					
-					alert("추가된 결과:\n장소명: " + placeName + "\n주소: " + address + "\n위도: " + markerLat + "\n경도: " + markerLng);
 
 				}
 			</script>
@@ -189,7 +188,6 @@
 							placeContainer.innerHTML = contentToAdd;
 							selectedResultDiv.appendChild(placeContainer);
 					
-					alert("추가된 결과:\n장소명: " + placeName + "\n위도: " + markerLat + "\n경도: " + markerLng);
 
 				}
 			</script>
@@ -596,7 +594,6 @@ function selectedItem(title, latitude, longitude) { // 위도와 경도 매개�
 	selectedDiv.append(titleDiv);
 
 	// Alert the information to verify
-	alert("장소 이름: " + title + "\n위도: " + latitude + "\n경도: " + longitude);
 }
 
 </script>
@@ -622,7 +619,6 @@ function saveSelectedResults(dayId) {
         };
 
         places.push(place);
-        alert("Name: " + placeName + ", Latitude: " + latitude + ", Longitude: " + longitude);
     }
 
     sessionStorage.setItem(dayId, JSON.stringify(places));

@@ -390,8 +390,6 @@ document.getElementById('applyDateFilter').addEventListener('click', function() 
     const startDateValue = document.getElementById('startDateValue').value;
     const endDateValue = document.getElementById('endDateValue').value;
 
-    alert("startDateValue: " + startDateValue);
-    alert("endDateValue: " + endDateValue);
 
     // 버튼의 텍스트를 변경합니다.
     document.getElementById('HongButton').textContent = startDateValue + " ~ " + endDateValue;

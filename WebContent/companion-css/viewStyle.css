@@ -34,6 +34,7 @@ div {
 }
 
 .profile-container {
+    margin-top: 50px;
     display: flex;
     align-items: center;
     margin-bottom: 20px;

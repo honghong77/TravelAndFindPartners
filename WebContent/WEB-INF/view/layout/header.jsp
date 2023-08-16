@@ -61,7 +61,7 @@
 				        <li class="nav-item login-signup"><a class="nav-link" href="sign/signUp.jsp">회원가입</a></li>
 				    <% } else { %>
 				        <!-- 사용자별 링크 및 로그아웃 옵션 -->
-				        <li class="nav-item"><a class="nav-link" href="myPage">마이페이지</a></li>
+				        <li class="nav-item"><a class="nav-link" href="accountSettings1.jsp">마이페이지</a></li>
 				        <li class="nav-item"><a class="nav-link" href="logout">로그아웃</a></li>
 				    <% } %>
 				    
