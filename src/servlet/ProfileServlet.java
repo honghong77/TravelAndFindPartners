@@ -27,7 +27,7 @@ public class ProfileServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-        String userId = (String) session.getAttribute("id");
+		String userId = (String) session.getAttribute("id");
 		if (userId != null) {
 			resp.sendRedirect("./profile/profile.jsp");
 			System.out.println("아이디 :" + userId);
@@ -67,5 +67,6 @@ public class ProfileServlet extends HttpServlet {
 	    byte[] img = os.toByteArray();
 
 	    ProfileDAO.updateProfileSelection(img, userId);
+	    resp.sendRedirect("home");
 	}
 }

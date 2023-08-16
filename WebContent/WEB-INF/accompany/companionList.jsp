@@ -176,7 +176,7 @@ for (let i = 0; i < numberOfCards && i < companionList.length; i++) {
 	  newCard.querySelector('.reg_date').innerText = companion.start + " ~ " + companion.end;
 	  newCard.querySelector('.card-header-is_closed').innerText = companion.location;
 	  
-	  newCard.querySelector('.link').href = 'http://localhost:8080/TravelAndFindPartners/view?no=' + companion.no;
+	  newCard.querySelector('.link').href = 'view?no=' + companion.no;
   
 	  // newCard.querySelector('.icon-view_count').innerText = companion.start;
 	  // newCard.querySelector('.icon-comments_count').innerText = companion.end;

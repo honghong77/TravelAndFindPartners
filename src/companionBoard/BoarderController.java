@@ -103,7 +103,7 @@ public class BoarderController extends HttpServlet {
 				dao.insertData(cb);
 				int no = dao.getNo(id);
 				System.out.println("pk넘버" + no);
-				resp.sendRedirect("http://localhost:8080/TravelAndFindPartners/view?no=" + no);
+				resp.sendRedirect("view?no=" + no);
 			} else {
 				req.getRequestDispatcher("/WEB-INF/accompany/companionBoardForm.jsp").forward(req, resp);
 			}

@@ -5,19 +5,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fileInput.addEventListener('change', function (event) {
         const file = event.target.files[0];
-		var imgsrc = document.querySelector('.imgsrc');
+      var imgsrc = document.querySelector('.imgsrc');
         if (file) {
             profileImage.src = URL.createObjectURL(file);
-			imgsrc.value = URL.createObjectURL(file);
+         imgsrc.value = URL.createObjectURL(file);
         }
     });
 
     defaultProfiles.forEach(function (defaultProfile) {
         defaultProfile.addEventListener('click', function () {
-			var imgsrc = document.querySelector('.imgsrc');
-			fileInput.value = null;
+         var imgsrc = document.querySelector('.imgsrc');
+         fileInput.value = null;
             profileImage.src = defaultProfile.src;
-			imgsrc.value = defaultProfile.src;
+         imgsrc.value = defaultProfile.src;
         });
     });
 
@@ -39,10 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('form').submit(); // 폼 전송
     });
 
-	function selectDefaultProfile(filename) {
+   function selectDefaultProfile(filename) {
     var encodedFilename = encodeURIComponent(filename);
-    var imagePath = "http://localhost:8080/TravelAndFindPartners/profile/" + encodedFilename;
+    var imagePath = "http://192.168.0.83:8080/TravelAndFindPartners/profile/" + encodedFilename;
     
     // imagePath를 서버로 전달하거나 다른 로직을 추가할 수 있습니다.
-	}
+   }
+      
 });
