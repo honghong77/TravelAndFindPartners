@@ -28,7 +28,7 @@ public class DBSaveTravelLocation extends HttpServlet {
 
         try {
         	Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/trip", "root", "root");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.0.83:3306/trip", "trip", "trip");
             String query = "INSERT INTO travel_location (travel_id, date, location_name, latitude, longitude, memo) VALUES (?, ?, ?, ?, ?, ?)";
 
             stmt = conn.prepareStatement(query);

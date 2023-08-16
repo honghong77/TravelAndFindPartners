@@ -31,7 +31,7 @@ public class DBSave extends HttpServlet {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/trip", "root", "root");
+            conn = DriverManager.getConnection("jdbc:mysql://192.168.0.83:3306/trip", "trip", "trip");
 
             // 데이터베이스 쿼리에 memo 컬럼 추가
             String query = "INSERT INTO travel (member_id, start_date, end_date, location, latitude, longitude, memo) VALUES (?, ?, ?, ?, ?, ?, ?)";

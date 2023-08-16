@@ -31,7 +31,6 @@ public class Main extends HttpServlet{
 		
 		req.setAttribute("json", json);
 		
-		
 		req.getRequestDispatcher("./WEB-INF/main.jsp").forward(req, resp);
 	}
 

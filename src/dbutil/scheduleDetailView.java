@@ -33,7 +33,7 @@ public class scheduleDetailView extends HttpServlet {
             try {
                 // 데이터베이스 연결 설정
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/trip", "root", "root");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.0.83:3306/trip", "trip", "trip");
                 PreparedStatement stmt = conn.prepareStatement("SELECT * FROM travel WHERE travel_id = ?");
                 stmt.setInt(1, Integer.parseInt(travelId));
 

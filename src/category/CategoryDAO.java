@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CategoryDAO {
-	private static String url = "jdbc:mysql://localhost:3306/trip";
-	private static String username = "root";
-	private static String pw = "root";
+	private static String url = "jdbc:mysql://192.168.0.83:3306/trip";
+	private static String username = "trip";
+	private static String pw = "trip";
 	
 	public void selectCt() {
 		Connection conn = null;

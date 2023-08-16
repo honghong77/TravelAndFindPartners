@@ -10,9 +10,9 @@ import java.sql.SQLException;
 
 
 public class SignDAO {
-	private static String url = "jdbc:mysql://localhost:3306/trip";
-	private static String username = "root";
-	private static String pw = "root";
+	private static String url = "jdbc:mysql://192.168.0.83:3306/trip";
+	private static String username = "trip";
+	private static String pw = "trip";
 	
 	public static boolean insert(String id, String password, String name, String nickname, String gender, String birth) {
 		Connection conn = null;
